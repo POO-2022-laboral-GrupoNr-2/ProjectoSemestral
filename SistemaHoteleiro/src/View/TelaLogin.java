@@ -56,13 +56,15 @@ public class TelaLogin extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 360, 310, -1));
-        getContentPane().add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 430, 310, 30));
+        getContentPane().add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 430, 310, -1));
 
         jButton1.setText("Entrar");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 500, -1, -1));
 
         jLabel4.setForeground(new java.awt.Color(0, 153, 255));
         jLabel4.setText("Esqueceu a palavra passe?");
+        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 460, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Ruf.jpg"))); // NOI18N
