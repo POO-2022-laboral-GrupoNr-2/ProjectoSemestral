@@ -1,19 +1,9 @@
-package Modelo;
+package model;
 
-import javax.annotation.processing.Generated;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity
-@Table(name = "funcionario")
+
 public class Funcionario extends Pessoa {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Codigo;
     private String nivelDeAcesso;
     private String senha;
@@ -22,8 +12,11 @@ public class Funcionario extends Pessoa {
   
     private String status = "Activo";
 
-    public Funcionario() {
+    public Funcionario(String nome, String apelido, String genero, String datadeNascimento, String email, String numeroDeBI, String contacto, String morada) {
+        super(nome, apelido, genero, datadeNascimento, email, numeroDeBI, contacto, morada);
     }
+
+    
 
     public String getNivelDeAcesso() {
         return nivelDeAcesso;

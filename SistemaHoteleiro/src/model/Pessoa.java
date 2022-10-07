@@ -1,8 +1,19 @@
-package Modelo;
+package model;
 
 public abstract class Pessoa {
 
-    protected String nome, apelido, genero, datadeNascimento, email, numeroDeBI, contacto, contactoSecundario, Nuit, morada;
+    protected String nome, apelido, genero, datadeNascimento, email, numeroDeBI, contacto, morada;
+
+    public Pessoa(String nome, String apelido, String genero, String datadeNascimento, String email, String numeroDeBI, String contacto, String morada) {
+        this.nome = nome;
+        this.apelido = apelido;
+        this.genero = genero;
+        this.datadeNascimento = datadeNascimento;
+        this.email = email;
+        this.numeroDeBI = numeroDeBI;
+        this.contacto = contacto;
+        this.morada = morada;
+    }
 
     public String getNome() {
         return nome;
@@ -60,20 +71,13 @@ public abstract class Pessoa {
         this.contacto = contacto;
     }
 
-    public String getContactoSecundario() {
-        return contactoSecundario;
+    public String getMorada() {
+        return morada;
     }
 
-    public void setContactoSecundario(String contactoSecundario) {
-        this.contactoSecundario = contactoSecundario;
+    public void setMorada(String morada) {
+        this.morada = morada;
     }
 
-    public String getNuit() {
-        return Nuit;
-    }
-
-    public void setNuit(String Nuit) {
-        this.Nuit = Nuit;
-    }
-
+    
 }

@@ -1,14 +1,28 @@
-package Modelo;
+package model;
+
+import dao.ClienteDao;
 
 public class Cliente extends Pessoa {
 
-    private String nacionalidade, status, dataCheckout, dataCheckin, tipoQuarto;
-    private double preco;
-    public double consumo = 0;
-    public double total = 0;
-    private int cliente_id, nrquarto;
+    private String nacionalidade, dataCheckout, dataCheckin, tipoQuarto;
+    private Double preco;
+    private Double consumo = 0.0;
+    private Double total = 0.0;
+    private Integer id;
+    private Integer nrQuarto;
 
-    public Cliente() {
+    public Cliente(String nome, String apelido, String genero, String nacionalidade, String datadeNascimento, String numeroDeBI, String contacto, String email, String morada, String tipoQuarto, Double preco, Integer nrQuarto, String dataCheckin, String dataCheckout) {
+        super(nome, apelido, genero, datadeNascimento, email, numeroDeBI, contacto, morada);
+        this.nacionalidade = nacionalidade;
+        this.dataCheckin = dataCheckin;
+        this.tipoQuarto = tipoQuarto;
+        this.preco = preco;
+        this.nrQuarto = nrQuarto;
+    }
+
+    public void cadastrarCliente(Cliente cliente) {
+        ClienteDao.gravarCliente(cliente);
+
     }
 
     public String getNacionalidade() {
@@ -19,13 +33,7 @@ public class Cliente extends Pessoa {
         this.nacionalidade = nacionalidade;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
+    
 
     public String getDataCheckout() {
         return dataCheckout;
@@ -76,19 +84,15 @@ public class Cliente extends Pessoa {
     }
 
     public int getCliente_id() {
-        return cliente_id;
-    }
-
-    public void setCliente_id(int cliente_id) {
-        this.cliente_id = cliente_id;
+        return id;
     }
 
     public int getNrquarto() {
-        return nrquarto;
+        return nrQuarto;
     }
 
     public void setNrquarto(int nrquarto) {
-        this.nrquarto = nrquarto;
+        this.nrQuarto = nrquarto;
     }
 
 }
