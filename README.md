@@ -1,3 +1,6 @@
 # ProjectoSemestral
 ## Sistema de Gestão de Hotel 
 Projecto inicialmente académico com o propósito de criação dum sistema que servirá como ferramenta para agentes que trabalham com serviços de hospedagem.
+
+## Bibliotecas usadas no projecto
+[Conector Mysql](https://www.mysql.com/products/connector/)
