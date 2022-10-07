@@ -20,6 +20,10 @@ public class Cliente extends Pessoa {
         this.nrQuarto = nrQuarto;
     }
 
+    public Cliente() {
+       
+    }
+
     public void cadastrarCliente(Cliente cliente) {
         ClienteDao.gravarCliente(cliente);
 
@@ -93,6 +97,14 @@ public class Cliente extends Pessoa {
 
     public void setNrquarto(int nrquarto) {
         this.nrQuarto = nrquarto;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
 }

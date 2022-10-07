@@ -4,6 +4,10 @@ public abstract class Pessoa {
 
     protected String nome, apelido, genero, datadeNascimento, email, numeroDeBI, contacto, morada;
 
+    public Pessoa() {
+    }
+
+    
     public Pessoa(String nome, String apelido, String genero, String datadeNascimento, String email, String numeroDeBI, String contacto, String morada) {
         this.nome = nome;
         this.apelido = apelido;
