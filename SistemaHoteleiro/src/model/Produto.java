@@ -2,9 +2,20 @@ package model;
 
 public class Produto {
 
-    private int id, quantidade;
-    private double preco, precoCusto;
-    private String Descricao, validade;
+    private Integer id, quantidade;
+    private Double preco, precoCusto;
+    private String descricao, validade;
+
+    public Produto(Integer id, Integer quantidade, Double preco, Double precoCusto, String descricao, String validade) {
+        this.id = id;
+        this.quantidade = quantidade;
+        this.preco = preco;
+        this.precoCusto = precoCusto;
+        this.descricao = descricao;
+        this.validade = validade;
+    }
+    
+    
 
     public Produto() {
     }
@@ -42,11 +53,11 @@ public class Produto {
     }
 
     public String getDescricao() {
-        return Descricao;
+        return descricao;
     }
 
-    public void setDescricao(String Descricao) {
-        this.Descricao = Descricao;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public String getValidade() {

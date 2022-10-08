@@ -25,9 +25,14 @@ public class Funcionario extends Pessoa {
     public Funcionario() {
     }
     
-    public void salvarFuncionario(Funcionario funcionario){
+    public void cadastrarFuncionario(Funcionario funcionario){
         FuncionarioDao.gravarFuncionario(funcionario);
     }
+    
+    public void actualizarFuncionario(Funcionario funcionario){
+        FuncionarioDao.actualizarFuncionario(funcionario);
+    }
+    
 
     public String getNivelDeAcesso() {
         return nivelDeAcesso;
@@ -53,11 +58,11 @@ public class Funcionario extends Pessoa {
         this.email = email;
     }
 
-    public String getUsuario() {
+    public String getNomeUsuario() {
         return nomeUsuario;
     }
 
-    public void setUsuario(String nomeUsuario) {
+    public void setNomeUsuario(String nomeUsuario) {
         this.nomeUsuario = nomeUsuario;
     }
 

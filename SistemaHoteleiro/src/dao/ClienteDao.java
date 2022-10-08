@@ -80,7 +80,7 @@ public class ClienteDao {
     }
     
     public static void actualizarCliente(Cliente cliente){
-        String sql = "UPDATE cliente SET nome=?, apelido=?, genero=?, nacionalidade=?, datadeNascimento=?, numeroDeBI=?, contacto=?, email=?, morada=?,  tipoQuarto=?, preco=?, nrQuarto=?, dataCheckin=?, dataCheckout=? WHERE Id=?";
+        String sql = "UPDATE cliente SET nome=?, apelido=?, genero=?, nacionalidade=?, datadeNascimento=?, numeroDeBI=?, contacto=?, email=?, morada=?,  tipoQuarto=?, preco=?, nrQuarto=?, dataCheckin=?, dataCheckout=? WHERE id=?";
         try{
             connection = Conexao.getConexao();
             ps = connection.prepareStatement(sql);

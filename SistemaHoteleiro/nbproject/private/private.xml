@@ -5,14 +5,13 @@
         <group>
             <file>file:/G:/CODING/Code%20Projects/POO%20Project/ProjectoSemestral/SistemaHoteleiro/src/controller/ClienteController.java</file>
             <file>file:/G:/CODING/Code%20Projects/POO%20Project/ProjectoSemestral/SistemaHoteleiro/src/model/Funcionario.java</file>
-            <file>file:/G:/CODING/Code%20Projects/POO%20Project/ProjectoSemestral/SistemaHoteleiro/src/dao/Conexao.java</file>
-            <file>file:/G:/CODING/Code%20Projects/POO%20Project/ProjectoSemestral/SistemaHoteleiro/src/teste/Teste.java</file>
+            <file>file:/G:/CODING/Code%20Projects/POO%20Project/ProjectoSemestral/SistemaHoteleiro/src/dao/ProdutoDao.java</file>
             <file>file:/G:/CODING/Code%20Projects/POO%20Project/ProjectoSemestral/SistemaHoteleiro/src/dao/FuncionarioDao.java</file>
+            <file>file:/G:/CODING/Code%20Projects/POO%20Project/ProjectoSemestral/SistemaHoteleiro/src/controller/ProdutoController.java</file>
             <file>file:/G:/CODING/Code%20Projects/POO%20Project/ProjectoSemestral/SistemaHoteleiro/src/model/Cliente.java</file>
-            <file>file:/G:/CODING/Code%20Projects/POO%20Project/ProjectoSemestral/SistemaHoteleiro/src/model/Reserva.java</file>
+            <file>file:/G:/CODING/Code%20Projects/POO%20Project/ProjectoSemestral/SistemaHoteleiro/src/model/Produto.java</file>
             <file>file:/G:/CODING/Code%20Projects/POO%20Project/ProjectoSemestral/SistemaHoteleiro/src/controller/FuncionarioController.java</file>
             <file>file:/G:/CODING/Code%20Projects/POO%20Project/ProjectoSemestral/SistemaHoteleiro/src/dao/ClienteDao.java</file>
-            <file>file:/G:/CODING/Code%20Projects/POO%20Project/ProjectoSemestral/SistemaHoteleiro/src/model/Pessoa.java</file>
         </group>
     </open-files>
 </project-private>
