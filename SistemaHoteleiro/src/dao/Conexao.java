@@ -9,7 +9,7 @@ public class Conexao {
     public static Connection getConexao() {
         String url = "jdbc:mysql://localhost:3306/rufrago";
         String user = "root";
-        String password = "@488688Guto";
+        String password = "";
 
         try {
 

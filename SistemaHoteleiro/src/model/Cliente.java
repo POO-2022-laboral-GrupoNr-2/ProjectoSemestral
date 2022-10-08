@@ -18,12 +18,16 @@ public class Cliente extends Pessoa {
         this.tipoQuarto = tipoQuarto;
         this.preco = preco;
         this.nrQuarto = nrQuarto;
+        this.dataCheckout = dataCheckout;
     }
 
     public Cliente() {
        
     }
-
+    
+    public void actualizarCliente(Cliente cliente){
+        ClienteDao.actualizarCliente(cliente);
+    }
     public void cadastrarCliente(Cliente cliente) {
         ClienteDao.gravarCliente(cliente);
 

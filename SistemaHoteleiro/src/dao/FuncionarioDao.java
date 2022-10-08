@@ -14,7 +14,7 @@ public class FuncionarioDao {
     public static ResultSet resultSet;
     
     public static void gravarFuncionario(Funcionario funcionario){
-        String sql = "INSERT INTO funcionario(nome, apelido, usuario, senha, genero, datadeNascimento, numeroDeBI, contacto, email, morada, nivelDeAcesso) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO funcionario(nome, apelido, usuario, senha, genero, datadeNascimento, numeroDeBI, contacto, email, morada, nivelDeAcesso, status) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
         try{
             connection = Conexao.getConexao();//Se o método getConexao na classe conexao nao fosse static, instanciariamos um objecto da classe Conexao usando "new"
             preparedStatement = connection.prepareStatement(sql);
@@ -29,6 +29,7 @@ public class FuncionarioDao {
             preparedStatement.setString(9, funcionario.getEmail());
             preparedStatement.setString(10, funcionario.getMorada());
             preparedStatement.setString(11, funcionario.getNivelDeAcesso());
+            preparedStatement.setString(12, funcionario.getStatus());
             preparedStatement.executeUpdate();
             connection.close();
         }catch(Exception e){
