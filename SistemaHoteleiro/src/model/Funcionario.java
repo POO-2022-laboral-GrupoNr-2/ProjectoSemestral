@@ -4,19 +4,24 @@ package model;
 
 public class Funcionario extends Pessoa {
 
-    private int Codigo;
+    private int Id;
     private String nivelDeAcesso;
     private String senha;
-    private String email;
-    private String usuario;
-  
+    private String nomeUsuario;
     private String status = "Activo";
 
-    public Funcionario(String nome, String apelido, String genero, String datadeNascimento, String email, String numeroDeBI, String contacto, String morada) {
+    public Funcionario(String nome, String apelido, String nomeUsuario, String senha, String genero, String datadeNascimento, String numeroDeBI, String contacto, String email, String morada, String nivelDeAcesso) {
         super(nome, apelido, genero, datadeNascimento, email, numeroDeBI, contacto, morada);
+        
+        this.nivelDeAcesso = nivelDeAcesso;
+        this.senha = senha;
+        this.email = email;
+        this.nomeUsuario = nomeUsuario;
     }
 
-    
+    public Funcionario() {
+    }
+
 
     public String getNivelDeAcesso() {
         return nivelDeAcesso;
@@ -43,11 +48,11 @@ public class Funcionario extends Pessoa {
     }
 
     public String getUsuario() {
-        return usuario;
+        return nomeUsuario;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
     }
 
     public String getStatus() {
@@ -58,12 +63,12 @@ public class Funcionario extends Pessoa {
         this.status = status;
     }
 
-    public int getCodigo() {
-        return Codigo;
+    public int getId() {
+        return Id;
     }
 
-    public void setCodigo(int Codigo) {
-        this.Codigo = Codigo;
+    public void setId(int Id) {
+        this.Id = Id;
     }
 
 }

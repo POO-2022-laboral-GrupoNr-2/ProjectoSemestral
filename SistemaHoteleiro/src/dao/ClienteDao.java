@@ -45,7 +45,7 @@ public class ClienteDao {
     public static ArrayList<Cliente> recuperarCliente() {
         connection = Conexao.getConexao();
         String sql = "select from * cliente";
-        ArrayList<Cliente> clientes = null;
+        ArrayList<Cliente> arrayCliente = null;
 
         try {
             ps = connection.prepareStatement(sql);
@@ -68,14 +68,14 @@ public class ClienteDao {
                 cliente.setNrquarto(rs.getInt(12));
                 cliente.setDataCheckin(rs.getString(13));
                 cliente.setDataCheckout(rs.getString(14));
-                clientes.add(cliente);
+                arrayCliente.add(cliente);
             }
 
         } catch (Exception e) {
 
         }
 
-        return clientes;
+        return arrayCliente;
 
     }
 
