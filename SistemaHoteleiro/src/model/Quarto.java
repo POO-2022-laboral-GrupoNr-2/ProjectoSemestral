@@ -6,7 +6,15 @@ public class Quarto {
     private int numero;
     private double preco;
 
-    public Quarto() {
+    public Quarto(String descricao, String tipo, String status, Integer numero, Double preco) {
+        this.descricao = descricao;
+        this.tipo = tipo;
+        this.status = status;
+        this.numero = numero;
+        this.preco = preco;
+    }
+    
+    public Quarto(){
     }
 
     public String getDescricao() {

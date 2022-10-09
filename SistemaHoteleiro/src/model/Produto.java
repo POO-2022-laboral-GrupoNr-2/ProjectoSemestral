@@ -1,13 +1,14 @@
 package model;
 
+import dao.ProdutoDao;
+
 public class Produto {
 
     private Integer id, quantidade;
     private Double preco, precoCusto;
     private String descricao, validade;
 
-    public Produto(Integer id, Integer quantidade, Double preco, Double precoCusto, String descricao, String validade) {
-        this.id = id;
+    public Produto(Integer quantidade, Double preco, Double precoCusto, String descricao, String validade) {
         this.quantidade = quantidade;
         this.preco = preco;
         this.precoCusto = precoCusto;
@@ -15,9 +16,14 @@ public class Produto {
         this.validade = validade;
     }
     
-    
-
     public Produto() {
+        
+    }
+    public void cadastrarProduto(Produto produto){
+        ProdutoDao.gravarProduto(produto);
+    }
+    public void actualizarProduto(Produto produto){
+        ProdutoDao.actualizarCliente(produto);
     }
 
     public int getId() {

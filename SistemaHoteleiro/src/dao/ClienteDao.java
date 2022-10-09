@@ -55,19 +55,19 @@ public class ClienteDao {
                 Cliente cliente = new Cliente();
                 cliente.setId(rs.getInt(1));
                 cliente.setNome(rs.getString(2));
-                cliente.setApelido(rs.getString(2));
-                cliente.setGenero(rs.getString(3));
-                cliente.setNacionalidade(rs.getString(4));
-                cliente.setDatadeNascimento(rs.getString(5));
-                cliente.setNumeroDeBI(rs.getString(6));
-                cliente.setContacto(rs.getString(7));
-                cliente.setEmail(rs.getString(8));
-                cliente.setMorada(rs.getString(9));
-                cliente.setTipoQuarto(rs.getString(10));
-                cliente.setPreco(rs.getDouble(11));
-                cliente.setNrquarto(rs.getInt(12));
-                cliente.setDataCheckin(rs.getString(13));
-                cliente.setDataCheckout(rs.getString(14));
+                cliente.setApelido(rs.getString(3));
+                cliente.setGenero(rs.getString(4));
+                cliente.setNacionalidade(rs.getString(5));
+                cliente.setDatadeNascimento(rs.getString(6));
+                cliente.setNumeroDeBI(rs.getString(7));
+                cliente.setContacto(rs.getString(8));
+                cliente.setEmail(rs.getString(9));
+                cliente.setMorada(rs.getString(10));
+                cliente.setTipoQuarto(rs.getString(11));
+                cliente.setPreco(rs.getDouble(12));
+                cliente.setNrquarto(rs.getInt(13));
+                cliente.setDataCheckin(rs.getString(14));
+                cliente.setDataCheckout(rs.getString(15));
                 arrayCliente.add(cliente);
             }
 
