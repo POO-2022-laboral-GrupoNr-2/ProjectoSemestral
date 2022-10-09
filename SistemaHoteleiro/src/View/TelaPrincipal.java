@@ -197,9 +197,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void menuItemCadHospedesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCadHospedesActionPerformed
         // TODO add your handling code here:
-        TelaCadastroCliente telaCad = new TelaCadastroCliente();
-        //desktopPaneMenuInicial.add(telaCad);
-        telaCad.setVisible(rootPaneCheckingEnabled);
+        new Telac().setVisible(true);
     }//GEN-LAST:event_menuItemCadHospedesActionPerformed
 
     private void btnConsumo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsumo1ActionPerformed
