@@ -1,19 +1,11 @@
 package Modelo;
 
 import javax.annotation.processing.Generated;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity
-@Table(name = "funcionario")
+
+
 public class Funcionario extends Pessoa {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Codigo;
     private String nivelDeAcesso;
     private String senha;
