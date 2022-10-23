@@ -4,6 +4,10 @@
  */
 package View;
 
+import controller.Login;
+import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Edilson Ricardo
@@ -65,6 +69,11 @@ public class TelaLogin extends javax.swing.JFrame {
                 btnEntrarActionPerformed(evt);
             }
         });
+        btnEntrar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnEntrarKeyPressed(evt);
+            }
+        });
         getContentPane().add(btnEntrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 500, -1, -1));
 
         lblEsqueceuPalavraPasse.setForeground(new java.awt.Color(0, 153, 255));
@@ -81,13 +90,37 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void txtNomeUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeUsuarioActionPerformed
         // TODO add your handling code here:
+
     }//GEN-LAST:event_txtNomeUsuarioActionPerformed
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        // TODO add your handling code here:
-        new TelaPrincipal().setVisible(rootPaneCheckingEnabled);
-        dispose();
+        String nome = txtNomeUsuario.getText();
+        String senha = txtPalavraPasse.getText();
+        if (Login.logar(nome, senha)) {
+            this.dispose();
+            TelaPrincipal tela = new TelaPrincipal();
+            tela.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Dados incorrectos! Por favor verifique e volte a tentar.");
+        }
+
     }//GEN-LAST:event_btnEntrarActionPerformed
+
+    private void btnEntrarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnEntrarKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String nome = txtNomeUsuario.getText();
+            String senha = txtPalavraPasse.getText();
+            if (Login.logar(nome, senha)) {
+                this.dispose();
+                TelaPrincipal tela = new TelaPrincipal();
+                tela.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Dados incorrectos! Por favor verifique e volte a tentar.");
+            }
+
+        }
+    }//GEN-LAST:event_btnEntrarKeyPressed
 
     /**
      * @param args the command line arguments

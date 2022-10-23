@@ -1,21 +1,36 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package teste;
 
+import connection.ConnectionFactory;
+import dao.FuncionarioJpaController;
+import java.time.LocalDate;
+import java.time.Month;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import model.Funcionario;
 
-/**
- *
- * @author Augusto Chissano
- */
 public class TesteRufrago {
 
     public static void main(String[] args) {
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("RufragoPU");
+        FuncionarioJpaController controller = new FuncionarioJpaController(ConnectionFactory.getEmf());
+        
+        Funcionario funcionario = new Funcionario();
+        funcionario.setAcesso("Administrador");
+        funcionario.setContacto("840191729");
+        funcionario.setEmail("augusto@gmail.com");
+        funcionario.setEstado("Activo");
+        funcionario.setGenero("Masculino");
+        funcionario.setMorada("Machava");
+        funcionario.setNascimento(LocalDate.of(2001, 07, 13));
+        funcionario.setNome("Augusto Chissano");
+        funcionario.setNrBi("10010567C");
+        funcionario.setSenha("4886");
+        
+        controller.create(funcionario);
+        
+        
+        
+        
     }
 
 }

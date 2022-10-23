@@ -4,6 +4,8 @@
  */
 package View;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Edilson Ricardo
@@ -173,6 +175,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         menuSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/door_out.png"))); // NOI18N
         menuSair.setText("Sair");
+        menuSair.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuSairMouseClicked(evt);
+            }
+        });
+        menuSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuSairActionPerformed(evt);
+            }
+        });
         menuBar.add(menuSair);
 
         setJMenuBar(menuBar);
@@ -203,6 +215,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void btnConsumo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsumo1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnConsumo1ActionPerformed
+
+    private void menuSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSairActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_menuSairActionPerformed
+
+    private void menuSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuSairMouseClicked
+        // TODO add your handling code here:
+        int resposta = JOptionPane.showConfirmDialog(rootPane, "Tens a certeza de que deseja sair?");
+        if (resposta == 0) {
+            this.dispose();
+        }
+    }//GEN-LAST:event_menuSairMouseClicked
 
     /**
      * @param args the command line arguments
