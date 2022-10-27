@@ -4,6 +4,8 @@
  */
 package View;
 
+import java.awt.event.KeyEvent;
+
 /**
  *
  * @author Edilson Ricardo
@@ -55,7 +57,18 @@ public class TelaLogin extends javax.swing.JFrame {
                 txtNomeUsuarioActionPerformed(evt);
             }
         });
+        txtNomeUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNomeUsuarioKeyPressed(evt);
+            }
+        });
         getContentPane().add(txtNomeUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 360, 310, -1));
+
+        txtPalavraPasse.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPalavraPasseKeyPressed(evt);
+            }
+        });
         getContentPane().add(txtPalavraPasse, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 430, 310, -1));
 
         btnEntrar.setText("Entrar");
@@ -88,6 +101,22 @@ public class TelaLogin extends javax.swing.JFrame {
         new TelaPrincipal().setVisible(rootPaneCheckingEnabled);
         dispose();
     }//GEN-LAST:event_btnEntrarActionPerformed
+
+    private void txtPalavraPasseKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPalavraPasseKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            new TelaPrincipal().setVisible(rootPaneCheckingEnabled);
+        dispose();
+        }
+    }//GEN-LAST:event_txtPalavraPasseKeyPressed
+
+    private void txtNomeUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeUsuarioKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            new TelaPrincipal().setVisible(rootPaneCheckingEnabled);
+        dispose();
+        }
+    }//GEN-LAST:event_txtNomeUsuarioKeyPressed
 
     /**
      * @param args the command line arguments
