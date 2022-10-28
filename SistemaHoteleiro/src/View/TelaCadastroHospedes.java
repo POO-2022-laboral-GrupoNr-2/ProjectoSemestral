@@ -12,6 +12,7 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.swing.JOptionPane;
+import validacoes.Validacao;
 
 /**
  *
@@ -286,10 +287,27 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
         String nacionalidade = txtNacionalidade.getText();
         Long quarto = Long.parseLong(txtNumerodeQuarto.getText());
         String nrBi = txtNumeroBi.getText();
-        if(ClienteController.cadastrarCliente(nome, celular, endereco, email, genero, checkIn, nacionalidade, quarto, nrBi)){
-            JOptionPane.showMessageDialog(null, "Hospede cadastrado com sucesso!");
+        
+        /**
+         * Temporario
+         * Apenas verificando o email, I will change it soon
+         */
+        if (Validacao.validarEmail(email)) {
+            if (ClienteController.cadastrarCliente(nome, celular, endereco, email, genero, checkIn, nacionalidade, quarto, nrBi)) {
+                JOptionPane.showMessageDialog(null, "Hospede cadastrado com sucesso!");
+                txtNome.setText("");
+                txtCelular.setText("");
+                txtEndereco.setText("");
+                txtEmail.setText("");
+                txtNacionalidade.setText("");
+                txtNumerodeQuarto.setText("");
+                txtNumeroBi.setText("");
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Ocorreu um erro ao cadastrar hospede.");
+            }
         }else{
-            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao cadastrar hospede.");
+            JOptionPane.showMessageDialog(null, "Email invalido");
         }
     }//GEN-LAST:event_btnCheckinMouseClicked
 
