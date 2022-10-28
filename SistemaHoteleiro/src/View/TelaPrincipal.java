@@ -197,7 +197,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void menuItemCadHospedesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCadHospedesActionPerformed
         // TODO add your handling code here:
-        new Telac().setVisible(true);
+        new TelaCadastroHospedes().setVisible(true);
     }//GEN-LAST:event_menuItemCadHospedesActionPerformed
 
     private void btnConsumo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsumo1ActionPerformed
