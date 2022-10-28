@@ -24,7 +24,9 @@ public class Cliente implements Serializable {
     private String celular;
     @Column(name = "NrBI")
     private String nrBi;
+    private String nacionalidade;
     private String email;
+    private String genero;
     @Column(name = "Endereço")
     private String endereco;
     private LocalDate checkIn;

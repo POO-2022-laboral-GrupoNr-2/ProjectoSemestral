@@ -13,7 +13,7 @@ public class TesteRufrago {
     public static void main(String[] args) {
 
         FuncionarioJpaController controller = new FuncionarioJpaController(ConnectionFactory.getEmf());
-        
+
         Funcionario funcionario = new Funcionario();
         funcionario.setAcesso("Administrador");
         funcionario.setContacto("840191729");
@@ -25,12 +25,9 @@ public class TesteRufrago {
         funcionario.setNome("Augusto Chissano");
         funcionario.setNrBi("10010567C");
         funcionario.setSenha("4886");
-        
+
         controller.create(funcionario);
-        
-        
-        
-        
+
     }
 
 }

@@ -101,6 +101,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         menuItemCadHospedes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/user_add.png"))); // NOI18N
         menuItemCadHospedes.setText("Cadastrar Hóspede");
+        menuItemCadHospedes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuItemCadHospedesMouseClicked(evt);
+            }
+        });
         menuItemCadHospedes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemCadHospedesActionPerformed(evt);
@@ -209,6 +214,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void menuItemCadHospedesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCadHospedesActionPerformed
         // TODO add your handling code here:
+        this.dispose();
         new TelaCadastroHospedes().setVisible(true);
     }//GEN-LAST:event_menuItemCadHospedesActionPerformed
 
@@ -228,6 +234,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_menuSairMouseClicked
+
+    private void menuItemCadHospedesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuItemCadHospedesMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        new TelaCadastroHospedes().setVisible(true);
+    }//GEN-LAST:event_menuItemCadHospedesMouseClicked
 
     /**
      * @param args the command line arguments
