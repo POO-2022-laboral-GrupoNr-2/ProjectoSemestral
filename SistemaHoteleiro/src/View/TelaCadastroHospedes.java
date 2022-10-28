@@ -139,14 +139,17 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
 
         lblTituloNoTopo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         lblTituloNoTopo.setForeground(new java.awt.Color(255, 255, 255));
-        lblTituloNoTopo.setText("CHECK-IN DE HOSPEDE");
+        lblTituloNoTopo.setText("CHECK-IN DE HÓSPEDES");
 
         javax.swing.GroupLayout panelCadastroClienteLayout = new javax.swing.GroupLayout(panelCadastroCliente);
         panelCadastroCliente.setLayout(panelCadastroClienteLayout);
         panelCadastroClienteLayout.setHorizontalGroup(
             panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCadastroClienteLayout.createSequentialGroup()
-                .addGap(68, 68, 68)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1030, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(panelCadastroClienteLayout.createSequentialGroup()
+                .addGap(49, 49, 49)
                 .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblDatadeNascimento)
                     .addComponent(lblNacionalidade)
@@ -158,8 +161,8 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
                     .addComponent(txtNacionalidade)
                     .addComponent(jcbSexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtApelido)
-                    .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
-                    .addComponent(jdcDatadeNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtNome)
+                    .addComponent(jdcDatadeNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelCadastroClienteLayout.createSequentialGroup()
                         .addGap(80, 80, 80)
@@ -180,21 +183,18 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
                         .addComponent(btnCheckin)
                         .addGap(18, 18, 18)
                         .addComponent(btnCancelar)
-                        .addGap(106, 106, 106))))
-            .addGroup(panelCadastroClienteLayout.createSequentialGroup()
-                .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1030, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelCadastroClienteLayout.createSequentialGroup()
-                        .addGap(306, 306, 306)
-                        .addComponent(lblTituloNoTopo)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(128, 128, 128))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCadastroClienteLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblTituloNoTopo)
+                .addGap(316, 316, 316))
         );
         panelCadastroClienteLayout.setVerticalGroup(
             panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCadastroClienteLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap(62, Short.MAX_VALUE)
                 .addComponent(lblTituloNoTopo, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
                 .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCadastroClienteLayout.createSequentialGroup()
                         .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -231,8 +231,9 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
                             .addComponent(btnCheckin)
                             .addComponent(btnCancelar)))
                     .addComponent(jdcDatadeNascimento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43))
         );
 
         getContentPane().add(panelCadastroCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1030, 650));
