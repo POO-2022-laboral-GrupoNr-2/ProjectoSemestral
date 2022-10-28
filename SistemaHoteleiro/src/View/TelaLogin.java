@@ -4,9 +4,7 @@
  */
 package View;
 
-import controller.Login;
 import java.awt.event.KeyEvent;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,6 +18,7 @@ public class TelaLogin extends javax.swing.JFrame {
     public TelaLogin() {
         initComponents();
         this.setExtendedState(6);
+        //Comentario
     }
 
     /**
@@ -59,7 +58,18 @@ public class TelaLogin extends javax.swing.JFrame {
                 txtNomeUsuarioActionPerformed(evt);
             }
         });
+        txtNomeUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNomeUsuarioKeyPressed(evt);
+            }
+        });
         getContentPane().add(txtNomeUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 360, 310, -1));
+
+        txtPalavraPasse.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPalavraPasseKeyPressed(evt);
+            }
+        });
         getContentPane().add(txtPalavraPasse, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 430, 310, -1));
 
         btnEntrar.setText("Entrar");
@@ -67,11 +77,6 @@ public class TelaLogin extends javax.swing.JFrame {
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEntrarActionPerformed(evt);
-            }
-        });
-        btnEntrar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                btnEntrarKeyPressed(evt);
             }
         });
         getContentPane().add(btnEntrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 500, -1, -1));
@@ -90,37 +95,29 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void txtNomeUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeUsuarioActionPerformed
         // TODO add your handling code here:
-
     }//GEN-LAST:event_txtNomeUsuarioActionPerformed
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        String nome = txtNomeUsuario.getText();
-        String senha = txtPalavraPasse.getText();
-        if (Login.logar(nome, senha)) {
-            this.dispose();
-            TelaPrincipal tela = new TelaPrincipal();
-            tela.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(null, "Dados incorrectos! Por favor verifique e volte a tentar.");
-        }
-
+        // TODO add your handling code here:
+        new TelaPrincipal().setVisible(rootPaneCheckingEnabled);
+        dispose();
     }//GEN-LAST:event_btnEntrarActionPerformed
 
-    private void btnEntrarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnEntrarKeyPressed
+    private void txtPalavraPasseKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPalavraPasseKeyPressed
         // TODO add your handling code here:
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            String nome = txtNomeUsuario.getText();
-            String senha = txtPalavraPasse.getText();
-            if (Login.logar(nome, senha)) {
-                this.dispose();
-                TelaPrincipal tela = new TelaPrincipal();
-                tela.setVisible(true);
-            } else {
-                JOptionPane.showMessageDialog(null, "Dados incorrectos! Por favor verifique e volte a tentar.");
-            }
-
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            new TelaPrincipal().setVisible(rootPaneCheckingEnabled);
+        dispose();
         }
-    }//GEN-LAST:event_btnEntrarKeyPressed
+    }//GEN-LAST:event_txtPalavraPasseKeyPressed
+
+    private void txtNomeUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeUsuarioKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            new TelaPrincipal().setVisible(rootPaneCheckingEnabled);
+        dispose();
+        }
+    }//GEN-LAST:event_txtNomeUsuarioKeyPressed
 
     /**
      * @param args the command line arguments
