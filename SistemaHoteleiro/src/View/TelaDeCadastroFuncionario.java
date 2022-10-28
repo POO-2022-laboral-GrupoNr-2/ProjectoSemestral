@@ -57,6 +57,7 @@ public class TelaDeCadastroFuncionario extends javax.swing.JFrame {
         jcbSexo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(0, 82, 114));
 
