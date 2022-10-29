@@ -104,6 +104,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 menuItemCadHospedesActionPerformed(evt);
             }
         });
+        menuItemCadHospedes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                menuItemCadHospedesKeyPressed(evt);
+            }
+        });
         menuCadastros.add(menuItemCadHospedes);
 
         menuItemCadFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/user_add.png"))); // NOI18N
@@ -198,11 +203,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void menuItemCadHospedesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCadHospedesActionPerformed
         // TODO add your handling code here:
         new TelaCadastroHospedes().setVisible(true);
+        
     }//GEN-LAST:event_menuItemCadHospedesActionPerformed
 
     private void btnConsumo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsumo1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnConsumo1ActionPerformed
+
+    private void menuItemCadHospedesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_menuItemCadHospedesKeyPressed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_menuItemCadHospedesKeyPressed
 
     /**
      * @param args the command line arguments

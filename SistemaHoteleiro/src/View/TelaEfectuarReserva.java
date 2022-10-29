@@ -4,24 +4,22 @@
  */
 package View;
 
-import java.awt.Dialog;
 import java.util.Locale;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import javax.swing.JFrame;
 
 /**
  *
  * @author Edilson Ricardo
  */
-public class TelaCadastroHospedes extends javax.swing.JFrame {
+public class TelaEfectuarReserva extends javax.swing.JFrame {
 
     /**
      * Creates new form TelaCadastroHospedes
      */
-    public TelaCadastroHospedes() {
+    public TelaEfectuarReserva() {
         initComponents();
-        this.setAlwaysOnTop(true);
+        
         
 
     }
@@ -59,6 +57,8 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         lblTituloNoTopo = new javax.swing.JLabel();
         jdcDatadeNascimento = new com.toedter.calendar.JDateChooser();
+        lblValorReserva = new javax.swing.JLabel();
+        txtValordeReserva = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Check-in");
@@ -123,8 +123,9 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
         lblNumeroQuarto.setForeground(new java.awt.Color(255, 255, 255));
         lblNumeroQuarto.setText("Número do Quarto:");
 
-        btnCheckin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/door_in.png"))); // NOI18N
-        btnCheckin.setText("Check-in");
+        btnCheckin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/calendar_view_day.png"))); // NOI18N
+        btnCheckin.setText("Efectuar Reserva");
+        btnCheckin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCheckin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCheckinActionPerformed(evt);
@@ -133,6 +134,7 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/cancel.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -141,62 +143,69 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
 
         lblTituloNoTopo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         lblTituloNoTopo.setForeground(new java.awt.Color(255, 255, 255));
-        lblTituloNoTopo.setText("CHECK-IN DE HÓSPEDES");
+        lblTituloNoTopo.setText("EFECTUAR RESERVA");
+
+        lblValorReserva.setForeground(new java.awt.Color(255, 255, 255));
+        lblValorReserva.setText("Valor Pago:");
+
+        txtValordeReserva.setEditable(false);
 
         javax.swing.GroupLayout panelCadastroClienteLayout = new javax.swing.GroupLayout(panelCadastroCliente);
         panelCadastroCliente.setLayout(panelCadastroClienteLayout);
         panelCadastroClienteLayout.setHorizontalGroup(
             panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCadastroClienteLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCadastroClienteLayout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1030, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(panelCadastroClienteLayout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblDatadeNascimento)
-                    .addComponent(lblNacionalidade)
-                    .addComponent(lblSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblApelido)
-                    .addComponent(lblNome))
-                .addGap(18, 18, 18)
-                .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtNacionalidade)
-                    .addComponent(jcbSexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtApelido)
-                    .addComponent(txtNome)
-                    .addComponent(jdcDatadeNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelCadastroClienteLayout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblDatadeNascimento)
+                            .addComponent(lblNacionalidade)
+                            .addComponent(lblSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblApelido)
+                            .addComponent(lblNome))
+                        .addGap(18, 18, 18)
+                        .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtNacionalidade)
+                            .addComponent(jcbSexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtApelido)
+                            .addComponent(txtNome)
+                            .addComponent(jdcDatadeNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(80, 80, 80)
                         .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblEmail)
                             .addComponent(lblDataCheckIn)
                             .addComponent(lblTelemovel)
-                            .addComponent(lblNumeroQuarto))
+                            .addComponent(lblNumeroQuarto)
+                            .addComponent(lblValorReserva))
                         .addGap(18, 18, 18)
                         .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtEmail)
                             .addComponent(jdcDatadeCheckIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtTelemovel)
-                            .addComponent(txtNumerodeQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCadastroClienteLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCheckin)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCancelar)
-                        .addGap(128, 128, 128))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCadastroClienteLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblTituloNoTopo)
-                .addGap(316, 316, 316))
+                            .addComponent(txtNumerodeQuarto, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                            .addComponent(txtValordeReserva)))
+                    .addGroup(panelCadastroClienteLayout.createSequentialGroup()
+                        .addGap(343, 343, 343)
+                        .addComponent(lblTituloNoTopo))
+                    .addGroup(panelCadastroClienteLayout.createSequentialGroup()
+                        .addGap(346, 346, 346)
+                        .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelCadastroClienteLayout.createSequentialGroup()
+                                .addGap(194, 194, 194)
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnCheckin))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelCadastroClienteLayout.setVerticalGroup(
             panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCadastroClienteLayout.createSequentialGroup()
-                .addContainerGap(49, Short.MAX_VALUE)
+                .addGap(41, 41, 41)
                 .addComponent(lblTituloNoTopo, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCadastroClienteLayout.createSequentialGroup()
                         .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -228,14 +237,19 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
                             .addComponent(lblNumeroQuarto)
                             .addComponent(txtNumerodeQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblDatadeNascimento)
-                            .addComponent(btnCheckin)
-                            .addComponent(btnCancelar)))
+                            .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblValorReserva)
+                                .addComponent(txtValordeReserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jdcDatadeNascimento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
+                .addGap(21, 21, 21)
+                .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCheckin)
+                    .addComponent(btnCancelar))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43))
+                .addGap(16, 16, 16))
         );
 
         getContentPane().add(panelCadastroCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1030, 650));
@@ -273,20 +287,21 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroHospedes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaEfectuarReserva.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroHospedes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaEfectuarReserva.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroHospedes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaEfectuarReserva.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroHospedes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaEfectuarReserva.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaCadastroHospedes().setVisible(true);
+                new TelaEfectuarReserva().setVisible(true);
             }
         });
     }
@@ -308,6 +323,7 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
     private javax.swing.JLabel lblSexo;
     private javax.swing.JLabel lblTelemovel;
     private javax.swing.JLabel lblTituloNoTopo;
+    private javax.swing.JLabel lblValorReserva;
     private javax.swing.JPanel panelCadastroCliente;
     private javax.swing.JTable tabelaQuartosCadastroHospedes;
     private javax.swing.JTextField txtApelido;
@@ -316,5 +332,6 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNumerodeQuarto;
     private javax.swing.JTextField txtTelemovel;
+    private javax.swing.JTextField txtValordeReserva;
     // End of variables declaration//GEN-END:variables
 }
