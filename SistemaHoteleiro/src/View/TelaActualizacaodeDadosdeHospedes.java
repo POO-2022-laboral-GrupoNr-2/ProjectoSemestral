@@ -4,24 +4,22 @@
  */
 package View;
 
-import java.awt.Dialog;
 import java.util.Locale;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import javax.swing.JFrame;
 
 /**
  *
  * @author Edilson Ricardo
  */
-public class TelaCadastroHospedes extends javax.swing.JFrame {
+public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
 
     /**
      * Creates new form TelaCadastroHospedes
      */
-    public TelaCadastroHospedes() {
+    public TelaActualizacaodeDadosdeHospedes() {
         initComponents();
-        this.setAlwaysOnTop(true);
+        
         
 
     }
@@ -124,7 +122,7 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
         lblNumeroQuarto.setText("Número do Quarto:");
 
         btnCheckin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/door_in.png"))); // NOI18N
-        btnCheckin.setText("Check-in");
+        btnCheckin.setText("Actualizar");
         btnCheckin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCheckinActionPerformed(evt);
@@ -141,7 +139,7 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
 
         lblTituloNoTopo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         lblTituloNoTopo.setForeground(new java.awt.Color(255, 255, 255));
-        lblTituloNoTopo.setText("CHECK-IN DE HÓSPEDES");
+        lblTituloNoTopo.setText("ACTUALIZAÇÃO DE DADOS DE HÓSPEDES");
 
         javax.swing.GroupLayout panelCadastroClienteLayout = new javax.swing.GroupLayout(panelCadastroCliente);
         panelCadastroCliente.setLayout(panelCadastroClienteLayout);
@@ -189,14 +187,14 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCadastroClienteLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblTituloNoTopo)
-                .addGap(316, 316, 316))
+                .addGap(129, 129, 129))
         );
         panelCadastroClienteLayout.setVerticalGroup(
             panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCadastroClienteLayout.createSequentialGroup()
-                .addContainerGap(49, Short.MAX_VALUE)
+                .addContainerGap(51, Short.MAX_VALUE)
                 .addComponent(lblTituloNoTopo, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
+                .addGap(40, 40, 40)
                 .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCadastroClienteLayout.createSequentialGroup()
                         .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -273,20 +271,23 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroHospedes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaActualizacaodeDadosdeHospedes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroHospedes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaActualizacaodeDadosdeHospedes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroHospedes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaActualizacaodeDadosdeHospedes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroHospedes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaActualizacaodeDadosdeHospedes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaCadastroHospedes().setVisible(true);
+                new TelaActualizacaodeDadosdeHospedes().setVisible(true);
             }
         });
     }

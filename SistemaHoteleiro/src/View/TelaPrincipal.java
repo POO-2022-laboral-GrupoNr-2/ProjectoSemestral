@@ -4,8 +4,6 @@
  */
 package View;
 
-import javax.swing.JOptionPane;
-
 /**
  *
  * @author Edilson Ricardo
@@ -111,6 +109,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 menuItemCadHospedesActionPerformed(evt);
             }
         });
+        menuItemCadHospedes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                menuItemCadHospedesKeyPressed(evt);
+            }
+        });
         menuCadastros.add(menuItemCadHospedes);
 
         menuItemCadFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/user_add.png"))); // NOI18N
@@ -155,6 +158,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jMenuItem8MousePressed(evt);
+            }
+        });
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
             }
         });
         menuConsultar.add(jMenuItem8);
@@ -231,49 +239,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void menuItemCadHospedesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCadHospedesActionPerformed
         // TODO add your handling code here:
         new TelaCadastroHospedes().setVisible(true);
+        
     }//GEN-LAST:event_menuItemCadHospedesActionPerformed
 
     private void btnConsumo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsumo1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnConsumo1ActionPerformed
 
-    private void menuSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSairActionPerformed
+    private void menuItemCadHospedesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_menuItemCadHospedesKeyPressed
         // TODO add your handling code here:
+        
+    }//GEN-LAST:event_menuItemCadHospedesKeyPressed
 
-    }//GEN-LAST:event_menuSairActionPerformed
-
-    private void menuSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuSairMouseClicked
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         // TODO add your handling code here:
-        int resposta = JOptionPane.showConfirmDialog(rootPane, "Tens a certeza de que deseja sair?");
-        if (resposta == 0) {
-            this.dispose();
-        }
-    }//GEN-LAST:event_menuSairMouseClicked
-
-    private void menuItemCadHospedesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuItemCadHospedesMouseClicked
-        // TODO add your handling code here:
-        new TelaCadastroHospedes().setVisible(true);
-    }//GEN-LAST:event_menuItemCadHospedesMouseClicked
-
-    private void menuItemCadFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuItemCadFuncionarioMouseClicked
-        // TODO add your handling code here:
-//        new TelaDeCadastroFuncionario().setVisible(true);
-    }//GEN-LAST:event_menuItemCadFuncionarioMouseClicked
-
-    private void menuItemCadFuncionarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuItemCadFuncionarioMousePressed
-        // TODO add your handling code here:
-        new TelaDeCadastroFuncionario().setVisible(true);
-    }//GEN-LAST:event_menuItemCadFuncionarioMousePressed
-
-    private void jMenuItem8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem8MouseClicked
-        // TODO add your handling code here:
-       
-    }//GEN-LAST:event_jMenuItem8MouseClicked
-
-    private void jMenuItem8MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem8MousePressed
-        // TODO add your handling code here:
-        new TelaConsultaDeFuncionarios().setVisible(true);
-    }//GEN-LAST:event_jMenuItem8MousePressed
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     /**
      * @param args the command line arguments
