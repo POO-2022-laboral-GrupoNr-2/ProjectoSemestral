@@ -8,9 +8,6 @@ import controller.ClienteController;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.Locale;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import javax.swing.JOptionPane;
 import validacoes.Validacao;
 
@@ -19,6 +16,17 @@ import validacoes.Validacao;
  * @author Edilson Ricardo
  */
 public class TelaCadastroHospedes extends javax.swing.JFrame {
+
+    private void limparCampos() {
+        txtNome.setText("");
+        txtCelular.setText("");
+        txtEndereco.setText("");
+        txtEmail.setText("");
+        txtNacionalidade.setText("");
+        txtNumerodeQuarto.setText("");
+        txtNumeroBi.setText("");
+
+    }
 
     /**
      * Creates new form TelaCadastroHospedes
@@ -266,13 +274,12 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new TelaPrincipal().setVisible(true);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
         // TODO add your handling code here:
+//        this.dispose();
         this.dispose();
-        new TelaPrincipal().setVisible(true);
     }//GEN-LAST:event_btnCancelarMouseClicked
 
     private void btnCheckinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCheckinMouseClicked
@@ -287,26 +294,19 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
         String nacionalidade = txtNacionalidade.getText();
         Long quarto = Long.parseLong(txtNumerodeQuarto.getText());
         String nrBi = txtNumeroBi.getText();
-        
+
         /**
-         * Temporario
-         * Apenas verificando o email, I will change it soon
+         * Temporario Apenas verificando o email, I will change it soon
          */
         if (Validacao.validarEmail(email)) {
             if (ClienteController.cadastrarCliente(nome, celular, endereco, email, genero, checkIn, nacionalidade, quarto, nrBi)) {
                 JOptionPane.showMessageDialog(null, "Hospede cadastrado com sucesso!");
-                txtNome.setText("");
-                txtCelular.setText("");
-                txtEndereco.setText("");
-                txtEmail.setText("");
-                txtNacionalidade.setText("");
-                txtNumerodeQuarto.setText("");
-                txtNumeroBi.setText("");
+                limparCampos();
 
             } else {
                 JOptionPane.showMessageDialog(null, "Ocorreu um erro ao cadastrar hospede.");
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Email invalido");
         }
     }//GEN-LAST:event_btnCheckinMouseClicked

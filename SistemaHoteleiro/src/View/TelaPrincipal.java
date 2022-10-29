@@ -115,6 +115,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         menuItemCadFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/user_add.png"))); // NOI18N
         menuItemCadFuncionario.setText("Cadastrar Funcionário");
+        menuItemCadFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuItemCadFuncionarioMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                menuItemCadFuncionarioMousePressed(evt);
+            }
+        });
         menuCadastros.add(menuItemCadFuncionario);
 
         menuItemCadAcomodacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/door_open.png"))); // NOI18N
@@ -141,6 +149,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuConsultar.add(jMenuItem7);
 
         jMenuItem8.setText("Consultar Funcionário");
+        jMenuItem8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuItem8MouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jMenuItem8MousePressed(evt);
+            }
+        });
         menuConsultar.add(jMenuItem8);
 
         jMenuItem9.setText("Consultar Acomodações");
@@ -214,7 +230,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void menuItemCadHospedesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCadHospedesActionPerformed
         // TODO add your handling code here:
-        this.dispose();
         new TelaCadastroHospedes().setVisible(true);
     }//GEN-LAST:event_menuItemCadHospedesActionPerformed
 
@@ -237,9 +252,28 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void menuItemCadHospedesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuItemCadHospedesMouseClicked
         // TODO add your handling code here:
-        this.dispose();
         new TelaCadastroHospedes().setVisible(true);
     }//GEN-LAST:event_menuItemCadHospedesMouseClicked
+
+    private void menuItemCadFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuItemCadFuncionarioMouseClicked
+        // TODO add your handling code here:
+//        new TelaDeCadastroFuncionario().setVisible(true);
+    }//GEN-LAST:event_menuItemCadFuncionarioMouseClicked
+
+    private void menuItemCadFuncionarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuItemCadFuncionarioMousePressed
+        // TODO add your handling code here:
+        new TelaDeCadastroFuncionario().setVisible(true);
+    }//GEN-LAST:event_menuItemCadFuncionarioMousePressed
+
+    private void jMenuItem8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem8MouseClicked
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_jMenuItem8MouseClicked
+
+    private void jMenuItem8MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem8MousePressed
+        // TODO add your handling code here:
+        new TelaConsultaDeFuncionarios().setVisible(true);
+    }//GEN-LAST:event_jMenuItem8MousePressed
 
     /**
      * @param args the command line arguments

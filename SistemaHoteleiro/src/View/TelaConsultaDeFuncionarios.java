@@ -4,17 +4,75 @@
  */
 package View;
 
+import connection.ConnectionFactory;
+import controller.FuncionarioController;
+import dao.FuncionarioJpaController;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Funcionario;
+
 /**
  *
  * @author Edilson Ricardo
  */
 public class TelaConsultaDeFuncionarios extends javax.swing.JFrame {
 
+    private FuncionarioJpaController controller;
+    private List<Funcionario> funcionarios;
+
+    //o metodo abaixo pega o id do registro selecionao na tabela
+    private Long pegarId() {
+        //pegando o numero da linha selecionada
+        int linhaSelecionada = tblFuncionarios.getSelectedRow();
+        //caso nenhuma linha seja selecionada
+        if (linhaSelecionada == -1) {
+            System.out.println("selecione um usuario");
+        } else {
+            //pegando o primeiro valor da linha seleciona que eh o ID do usuario
+            Long id = Long.parseLong(tblFuncionarios.getValueAt(linhaSelecionada, 0).toString());
+            return id;
+        }
+        return -1l;
+    }
+
+    private void preencherTabela() {
+        controller = new FuncionarioJpaController(ConnectionFactory.getEmf());
+        String nome = txtPesquisa.getText();
+        this.controller = new FuncionarioJpaController(ConnectionFactory.getEmf());
+        funcionarios = controller.getFuncionarioByLikeNome(nome);
+
+        //pegando o modelo da tabela para que seja possivel manipular
+        DefaultTableModel tabela = (DefaultTableModel) tblFuncionarios.getModel();
+        //zerando as linhas da tabela, para nao sobrepor os registros toda vez que o metodo for chamado
+        tabela.setNumRows(0);
+        for (Funcionario funcionario : funcionarios) {
+            Object[] obj = new Object[]{
+                funcionario.getId(),
+                funcionario.getNome(),
+                funcionario.getEndereco(),
+                funcionario.getGenero(),
+                funcionario.getNascimento(),
+                funcionario.getNrBi(),
+                funcionario.getNuit(),
+                funcionario.getEmail(),
+                funcionario.getContacto(),
+                funcionario.getContactoAlternativo(),
+                funcionario.getEstado()
+
+            };
+            tabela.addRow(obj);
+
+        }
+
+    }
+
     /**
      * Creates new form TelaConsultaDeFuncionarios
      */
     public TelaConsultaDeFuncionarios() {
         initComponents();
+        preencherTabela();
     }
 
     /**
@@ -28,7 +86,7 @@ public class TelaConsultaDeFuncionarios extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaDadosdeFuncionarios = new javax.swing.JTable();
+        tblFuncionarios = new javax.swing.JTable();
         lblPesquisar = new javax.swing.JLabel();
         txtPesquisa = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
@@ -43,12 +101,12 @@ public class TelaConsultaDeFuncionarios extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(0, 82, 114));
 
-        tabelaDadosdeFuncionarios.setModel(new javax.swing.table.DefaultTableModel(
+        tblFuncionarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Nome", "Apelido", "Sexo", "Data de Nascimento", "Nr. de BI", "NUIT", "Email", "Contacto", "Contacto 2", "Status"
+                "ID", "Nome", "Morada", "Sexo", "Data de Nascimento", "Nr. de BI", "NUIT", "Email", "Contacto", "Contacto 2", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -59,15 +117,21 @@ public class TelaConsultaDeFuncionarios extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tabelaDadosdeFuncionarios.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tabelaDadosdeFuncionarios);
-        if (tabelaDadosdeFuncionarios.getColumnModel().getColumnCount() > 0) {
-            tabelaDadosdeFuncionarios.getColumnModel().getColumn(0).setPreferredWidth(30);
-            tabelaDadosdeFuncionarios.getColumnModel().getColumn(4).setPreferredWidth(120);
+        tblFuncionarios.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tblFuncionarios);
+        if (tblFuncionarios.getColumnModel().getColumnCount() > 0) {
+            tblFuncionarios.getColumnModel().getColumn(0).setPreferredWidth(30);
+            tblFuncionarios.getColumnModel().getColumn(4).setPreferredWidth(120);
         }
 
         lblPesquisar.setForeground(new java.awt.Color(255, 255, 255));
         lblPesquisar.setText("Pesquisar:");
+
+        txtPesquisa.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtPesquisaCaretUpdate(evt);
+            }
+        });
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/magnifier.png"))); // NOI18N
         btnBuscar.setText("Buscar");
@@ -82,9 +146,19 @@ public class TelaConsultaDeFuncionarios extends javax.swing.JFrame {
 
         btnRemoverFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/delete.png"))); // NOI18N
         btnRemoverFuncionario.setText("Remover Funcionário");
+        btnRemoverFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnRemoverFuncionarioMousePressed(evt);
+            }
+        });
 
         btnReadmitirFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/arrow_refresh.png"))); // NOI18N
         btnReadmitirFuncionario.setText("Readmitir");
+        btnReadmitirFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnReadmitirFuncionarioMousePressed(evt);
+            }
+        });
 
         lblTextoNoTopo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         lblTextoNoTopo.setForeground(new java.awt.Color(255, 255, 255));
@@ -154,6 +228,28 @@ public class TelaConsultaDeFuncionarios extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    private void txtPesquisaCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtPesquisaCaretUpdate
+        // TODO add your handling code here:
+        preencherTabela();
+    }//GEN-LAST:event_txtPesquisaCaretUpdate
+
+    private void btnRemoverFuncionarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRemoverFuncionarioMousePressed
+        // TODO add your handling code here:
+        if (FuncionarioController.demitirFuncionario(pegarId())) {
+            JOptionPane.showMessageDialog(null, "Funcionario demitido!");
+            preencherTabela();
+        }
+
+    }//GEN-LAST:event_btnRemoverFuncionarioMousePressed
+
+    private void btnReadmitirFuncionarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReadmitirFuncionarioMousePressed
+        // TODO add your handling code here:
+        if (FuncionarioController.readmitirFuncionario(pegarId())) {
+            JOptionPane.showMessageDialog(null, "Funcionario readmitido!");
+            preencherTabela();
+        }
+    }//GEN-LAST:event_btnReadmitirFuncionarioMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -198,7 +294,7 @@ public class TelaConsultaDeFuncionarios extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblPesquisar;
     private javax.swing.JLabel lblTextoNoTopo;
-    private javax.swing.JTable tabelaDadosdeFuncionarios;
+    private javax.swing.JTable tblFuncionarios;
     private javax.swing.JTextField txtPesquisa;
     // End of variables declaration//GEN-END:variables
 }

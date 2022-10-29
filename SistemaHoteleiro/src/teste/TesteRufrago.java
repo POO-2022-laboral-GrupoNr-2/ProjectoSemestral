@@ -20,7 +20,7 @@ public class TesteRufrago {
         funcionario.setEmail("augusto@gmail.com");
         funcionario.setEstado("Activo");
         funcionario.setGenero("Masculino");
-        funcionario.setMorada("Machava");
+        funcionario.setEndereco("Machava");
         funcionario.setNascimento(LocalDate.of(2001, 07, 13));
         funcionario.setNome("Augusto Chissano");
         funcionario.setNrBi("10010567C");

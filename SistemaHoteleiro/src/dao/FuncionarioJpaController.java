@@ -134,4 +134,21 @@ public class FuncionarioJpaController implements Serializable {
         }
     }
     
+     public List<Funcionario> getFuncionarioByLikeNome(String nome){
+        EntityManager em = getEntityManager();
+        List<Funcionario> lista = null;
+        try {
+        lista =  em.createNamedQuery("Funcionario.findByLikeNome").
+                setParameter("nome", "%" + nome + "%").
+                getResultList();
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        finally{
+            em.close();
+        }
+        return lista;
+    }
+    
 }
