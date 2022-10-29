@@ -106,7 +106,7 @@ public class TelaDeActualizaçãoDeDadosDeFuncionarios extends javax.swing.JFram
         jcbNiveldeAcesso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione:", "Administrador", "Funcionário" }));
 
         btnCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/user_add.png"))); // NOI18N
-        btnCadastrar.setText("Cadastrar");
+        btnCadastrar.setText("Actualizar");
         btnCadastrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnLimparCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/delete.png"))); // NOI18N
