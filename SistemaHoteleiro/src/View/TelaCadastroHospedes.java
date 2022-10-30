@@ -4,17 +4,50 @@
  */
 package View;
 
+import connection.ConnectionFactory;
 import controller.ClienteController;
+import controller.QuartoController;
+import dao.QuartoJpaController;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Quarto;
 
 /**
  *
  * @author Edilson Ricardo
  */
 public class TelaCadastroHospedes extends javax.swing.JFrame {
+    private QuartoJpaController controller;
+    private List<Quarto> quartos;
+    private Quarto quarto;
+    
+     public void preencherTabela() {
+        controller = new QuartoJpaController(ConnectionFactory.getEmf());
+        quarto = new Quarto();
+        quartos = controller.findQuartoEntities();
+
+        DefaultTableModel tabela = (DefaultTableModel) tblQuartos.getModel();
+
+        tabela.setNumRows(0);
+        for (Quarto quarto : quartos) {
+            Object[] obj = new Object[]{
+                quarto.getId(),
+                quarto.getDescricao(),
+                quarto.getTipo(),
+                quarto.getPreco(),
+                quarto.getEstado()
+
+            };
+            tabela.addRow(obj);
+
+        }
+
+    }
+
 
     private void limparCampos() {
         txtNome.setText("");
@@ -32,6 +65,7 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
      */
     public TelaCadastroHospedes() {
         initComponents();
+        preencherTabela();
 
     }
 
@@ -46,7 +80,7 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
 
         panelCadastroCliente = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaQuartosCadastroHospedes = new javax.swing.JTable();
+        tblQuartos = new javax.swing.JTable();
         jcbSexo = new javax.swing.JComboBox<>();
         lblNome = new javax.swing.JLabel();
         lblApelido = new javax.swing.JLabel();
@@ -78,7 +112,7 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
         panelCadastroCliente.setBackground(new java.awt.Color(0, 82, 114));
         panelCadastroCliente.setForeground(new java.awt.Color(0, 51, 51));
 
-        tabelaQuartosCadastroHospedes.setModel(new javax.swing.table.DefaultTableModel(
+        tblQuartos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -94,10 +128,10 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tabelaQuartosCadastroHospedes.setColumnSelectionAllowed(true);
-        tabelaQuartosCadastroHospedes.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tabelaQuartosCadastroHospedes);
-        tabelaQuartosCadastroHospedes.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblQuartos.setColumnSelectionAllowed(true);
+        tblQuartos.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tblQuartos);
+        tblQuartos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         jcbSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione:", "Masculino", "Feminino" }));
         jcbSexo.addActionListener(new java.awt.event.ActionListener() {
@@ -357,7 +391,7 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
     private javax.swing.JLabel lblTelemovel;
     private javax.swing.JLabel lblTituloNoTopo;
     private javax.swing.JPanel panelCadastroCliente;
-    private javax.swing.JTable tabelaQuartosCadastroHospedes;
+    private javax.swing.JTable tblQuartos;
     private javax.swing.JTextField txtCelular;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEndereco;

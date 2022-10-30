@@ -4,17 +4,83 @@
  */
 package View;
 
+import connection.ConnectionFactory;
+import controller.QuartoController;
+import dao.QuartoJpaController;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Quarto;
+
 /**
  *
  * @author Edilson Ricardo
  */
 public class TelaCadastrodeAcomodacao extends javax.swing.JFrame {
 
+    private QuartoJpaController controller;
+    private List<Quarto> quartos;
+    private Quarto quarto;
+
+    public Long pegarId() {
+        //pegando o numero da linha selecionada
+        int linhaSelecionada = tblQuartos.getSelectedRow();
+        //caso nenhuma linha seja selecionada
+        if (linhaSelecionada == -1) {
+
+        } else {
+            //pegando o primeiro valor da linha seleciona que eh o ID do usuario
+            Long id = Long.parseLong(tblQuartos.getValueAt(linhaSelecionada, 0).toString());
+            return id;
+        }
+        return -1l;
+    }
+
+    public void preencherCampos(Long id) {
+        controller = new QuartoJpaController(ConnectionFactory.getEmf());
+        quarto = controller.findQuarto(id);
+
+        txtDescricao.setText(quarto.getDescricao());
+        txtPreco.setText(String.valueOf(quarto.getPreco()));
+        txtTipo.setText(quarto.getTipo());
+
+    }
+
+    public void preencherTabela() {
+        controller = new QuartoJpaController(ConnectionFactory.getEmf());
+        quarto = new Quarto();
+        quartos = controller.findQuartoEntities();
+
+        DefaultTableModel tabela = (DefaultTableModel) tblQuartos.getModel();
+
+        tabela.setNumRows(0);
+        for (Quarto quarto : quartos) {
+            Object[] obj = new Object[]{
+                quarto.getId(),
+                quarto.getDescricao(),
+                quarto.getTipo(),
+                quarto.getPreco(),
+                quarto.getEstado()
+
+            };
+            tabela.addRow(obj);
+
+        }
+
+    }
+
+    public void limparCampos() {
+        txtDescricao.setText("");
+        txtPreco.setText("");
+        txtTipo.setText("");
+    }
+
     /**
      * Creates new form TeladeCadastrodeAcomodacao
      */
     public TelaCadastrodeAcomodacao() {
         initComponents();
+        preencherTabela();
     }
 
     /**
@@ -28,13 +94,13 @@ public class TelaCadastrodeAcomodacao extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaCadastrodeQuartos = new javax.swing.JTable();
+        tblQuartos = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtPreco = new javax.swing.JTextField();
-        txtNomeDescricao = new javax.swing.JTextField();
+        txtDescricao = new javax.swing.JTextField();
         txtTipo = new javax.swing.JTextField();
         btnCadastrar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
@@ -46,7 +112,7 @@ public class TelaCadastrodeAcomodacao extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(0, 82, 114));
 
-        tabelaCadastrodeQuartos.setModel(new javax.swing.table.DefaultTableModel(
+        tblQuartos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -62,11 +128,16 @@ public class TelaCadastrodeAcomodacao extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tabelaCadastrodeQuartos.setColumnSelectionAllowed(true);
-        tabelaCadastrodeQuartos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        tabelaCadastrodeQuartos.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tabelaCadastrodeQuartos);
-        tabelaCadastrodeQuartos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        tblQuartos.setColumnSelectionAllowed(true);
+        tblQuartos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblQuartos.getTableHeader().setReorderingAllowed(false);
+        tblQuartos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblQuartosMousePressed(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblQuartos);
+        tblQuartos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -84,14 +155,29 @@ public class TelaCadastrodeAcomodacao extends javax.swing.JFrame {
         btnCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/add.png"))); // NOI18N
         btnCadastrar.setText("Cadastrar");
         btnCadastrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCadastrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnCadastrarMousePressed(evt);
+            }
+        });
 
         btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/arrow_refresh.png"))); // NOI18N
         btnActualizar.setText("Actualizar");
         btnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnActualizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnActualizarMousePressed(evt);
+            }
+        });
 
         btnRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/cancel.png"))); // NOI18N
         btnRemover.setText("Remover");
         btnRemover.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRemover.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnRemoverMousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -107,7 +193,7 @@ public class TelaCadastrodeAcomodacao extends javax.swing.JFrame {
                         .addGap(42, 42, 42)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(txtNomeDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(46, 46, 46)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -138,7 +224,7 @@ public class TelaCadastrodeAcomodacao extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNomeDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -165,6 +251,55 @@ public class TelaCadastrodeAcomodacao extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCadastrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadastrarMousePressed
+        // TODO add your handling code here:
+        String tipo = txtTipo.getText();
+        Double preco = Double.parseDouble(txtPreco.getText());
+        String descricao = txtDescricao.getText();
+
+        if (QuartoController.cadastrar(tipo, preco, descricao)) {
+            JOptionPane.showMessageDialog(null, "Quarto adicionado");
+            limparCampos();
+            preencherTabela();
+        } else {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao tentar cadastrar um quarto");
+        }
+
+    }//GEN-LAST:event_btnCadastrarMousePressed
+
+    private void tblQuartosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblQuartosMousePressed
+        // TODO add your handling code here:
+        preencherCampos(pegarId());
+    }//GEN-LAST:event_tblQuartosMousePressed
+
+    private void btnActualizarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarMousePressed
+        // TODO add your handling code here:
+        if (pegarId() == -1) {
+            JOptionPane.showMessageDialog(null, "Selecione um registro para actualizar");
+        } else {
+            String tipo = txtTipo.getText();
+            Double preco = Double.parseDouble(txtPreco.getText());
+            String descricao = txtDescricao.getText();
+            if (QuartoController.actualizar(pegarId(), tipo, preco, descricao)) {
+                JOptionPane.showMessageDialog(null, "Quarto actualizado");
+                limparCampos();
+                preencherTabela();
+            }
+        }
+    }//GEN-LAST:event_btnActualizarMousePressed
+
+    private void btnRemoverMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRemoverMousePressed
+        // TODO add your handling code here:
+        if(pegarId() == -1){
+             JOptionPane.showMessageDialog(null, "Selecione um registro!");
+        }else{
+            if(QuartoController.remover(pegarId())){
+                 JOptionPane.showMessageDialog(null, "Quarto removido");
+                 preencherTabela();
+            }
+        }
+    }//GEN-LAST:event_btnRemoverMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -182,13 +317,17 @@ public class TelaCadastrodeAcomodacao extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastrodeAcomodacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastrodeAcomodacao.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastrodeAcomodacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastrodeAcomodacao.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastrodeAcomodacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastrodeAcomodacao.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastrodeAcomodacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastrodeAcomodacao.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -211,8 +350,8 @@ public class TelaCadastrodeAcomodacao extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tabelaCadastrodeQuartos;
-    private javax.swing.JTextField txtNomeDescricao;
+    private javax.swing.JTable tblQuartos;
+    private javax.swing.JTextField txtDescricao;
     private javax.swing.JTextField txtPreco;
     private javax.swing.JTextField txtTipo;
     // End of variables declaration//GEN-END:variables

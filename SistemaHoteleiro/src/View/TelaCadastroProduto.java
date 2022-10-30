@@ -4,17 +4,90 @@
  */
 package View;
 
+import connection.ConnectionFactory;
+import controller.ProdutoController;
+import dao.ProdutoJpaController;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Produto;
+
 /**
  *
  * @author Edilson Ricardo
  */
 public class TelaCadastroProduto extends javax.swing.JFrame {
 
+    private Produto produto;
+    private ProdutoJpaController controller;
+    private List<Produto> produtos;
+
+    public Long pegarId() {
+        //pegando o numero da linha selecionada
+        int linhaSelecionada = tblProdutos.getSelectedRow();
+        //caso nenhuma linha seja selecionada
+        if (linhaSelecionada == -1) {
+
+        } else {
+            //pegando o primeiro valor da linha seleciona que eh o ID do usuario
+            Long id = Long.parseLong(tblProdutos.getValueAt(linhaSelecionada, 0).toString());
+            return id;
+        }
+        return -1l;
+    }
+
+    public void preencherCampos(Long id) {
+        produto = controller.findProduto(id);
+
+        txtNomeDescricao.setText(produto.getDescricao());
+        txtQuantidade.setText(String.valueOf(produto.getQuantidade()));
+        txtPrecoVenda.setText(String.valueOf(produto.getPreco()));
+        txtPrecoAquisicao.setText(String.valueOf(produto.getCusto()));
+
+    }
+
+    private void limparCampos() {
+        txtNomeDescricao.setText("");
+        txtQuantidade.setText("");
+        txtPrecoVenda.setText("");
+        txtPrecoAquisicao.setText("");
+
+    }
+
+    private void preencherTabela() {
+
+        controller = new ProdutoJpaController(ConnectionFactory.getEmf());
+        produtos = controller.findProdutoEntities();
+
+        //pegando o modelo da tabela para que seja possivel manipular
+        DefaultTableModel tabela = (DefaultTableModel) tblProdutos.getModel();
+        //zerando as linhas da tabela, para nao sobrepor os registros toda vez que o metodo for chamado
+        tabela.setNumRows(0);
+        for (Produto produto : produtos) {
+            Object[] obj = new Object[]{
+                produto.getId(),
+                produto.getDescricao(),
+                produto.getPreco(),
+                produto.getValidade(),
+                produto.getCusto(),
+                produto.getQuantidade()
+
+            };
+            tabela.addRow(obj);
+
+        }
+
+    }
+
     /**
      * Creates new form TelaCadastroProduto
      */
     public TelaCadastroProduto() {
         initComponents();
+        preencherTabela();
     }
 
     /**
@@ -29,7 +102,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lblTitulonoTopo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaCadProdutos = new javax.swing.JTable();
+        tblProdutos = new javax.swing.JTable();
         lblNomeDescricao = new javax.swing.JLabel();
         lblQuantidade = new javax.swing.JLabel();
         lblPrecoVenda = new javax.swing.JLabel();
@@ -54,7 +127,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         lblTitulonoTopo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulonoTopo.setText("CADASTRO DE PRODUTOS");
 
-        tabelaCadProdutos.setModel(new javax.swing.table.DefaultTableModel(
+        tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -70,8 +143,13 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tabelaCadProdutos.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tabelaCadProdutos);
+        tblProdutos.getTableHeader().setReorderingAllowed(false);
+        tblProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblProdutosMousePressed(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblProdutos);
 
         lblNomeDescricao.setForeground(new java.awt.Color(255, 255, 255));
         lblNomeDescricao.setText("Nome/Descrição:");
@@ -91,14 +169,29 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         btnCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/add.png"))); // NOI18N
         btnCadastrar.setText("Cadastrar");
         btnCadastrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCadastrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnCadastrarMousePressed(evt);
+            }
+        });
 
         btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/arrow_refresh.png"))); // NOI18N
         btnActualizar.setText("Actualizar");
         btnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnActualizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnActualizarMousePressed(evt);
+            }
+        });
 
         btnRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/cancel.png"))); // NOI18N
         btnRemover.setText("Remover");
         btnRemover.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRemover.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnRemoverMousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -192,6 +285,68 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCadastrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadastrarMousePressed
+        // TODO add your handling code here:
+
+        String descricao = txtNomeDescricao.getText();
+        Integer quantidade = Integer.parseInt(txtQuantidade.getText());
+        Double preco = Double.parseDouble(txtPrecoVenda.getText());
+        Double custo = Double.parseDouble(txtPrecoAquisicao.getText());
+        Date date = jdcValidade.getDate();
+        LocalDate validade = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        if (ProdutoController.cadastrar(descricao, quantidade, preco, custo, validade)) {
+            JOptionPane.showMessageDialog(null, "Produto adicionado");
+            limparCampos();
+            preencherTabela();
+        } else {
+            JOptionPane.showMessageDialog(null, "Erro ao adicionar produto");
+        }
+    }//GEN-LAST:event_btnCadastrarMousePressed
+
+    private void btnActualizarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarMousePressed
+        // TODO add your handling code here:
+
+        if (pegarId() == -1) {
+            JOptionPane.showMessageDialog(null, "Selecione um registro");
+        } else {
+            
+            String descricao = txtNomeDescricao.getText();
+            Integer quantidade = Integer.parseInt(txtQuantidade.getText());
+            Double preco = Double.parseDouble(txtPrecoVenda.getText());
+            Double custo = Double.parseDouble(txtPrecoAquisicao.getText());
+            Date date = jdcValidade.getDate();
+            LocalDate validade = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            
+            if (ProdutoController.actualizar(pegarId(), descricao, quantidade, preco, custo, validade)) {
+                JOptionPane.showMessageDialog(null, "Dados actualizados com sucesso!!");
+                limparCampos();
+                preencherTabela();
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro ao actualizar produto");
+            }
+
+        }
+    }//GEN-LAST:event_btnActualizarMousePressed
+
+    private void tblProdutosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProdutosMousePressed
+        // TODO add your handling code here:
+        preencherCampos(pegarId());
+    }//GEN-LAST:event_tblProdutosMousePressed
+
+    private void btnRemoverMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRemoverMousePressed
+        // TODO add your handling code here:
+        if(pegarId() == -1){
+            JOptionPane.showMessageDialog(null, "Selecione um registro"); 
+        }else{
+            if(ProdutoController.remover(pegarId())){
+             JOptionPane.showMessageDialog(null, "Produto removido");
+             limparCampos();
+             preencherTabela();
+            }
+        }
+    }//GEN-LAST:event_btnRemoverMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -209,13 +364,17 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroProduto.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroProduto.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroProduto.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroProduto.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -240,7 +399,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     private javax.swing.JLabel lblQuantidade;
     private javax.swing.JLabel lblTitulonoTopo;
     private javax.swing.JLabel lblValidade;
-    private javax.swing.JTable tabelaCadProdutos;
+    private javax.swing.JTable tblProdutos;
     private javax.swing.JTextField txtNomeDescricao;
     private javax.swing.JTextField txtPrecoAquisicao;
     private javax.swing.JTextField txtPrecoVenda;

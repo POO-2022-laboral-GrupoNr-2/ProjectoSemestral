@@ -56,7 +56,7 @@
                           <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtNomeDescricao" min="-2" pref="270" max="-2" attributes="0"/>
+                              <Component id="txtDescricao" min="-2" pref="270" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -96,7 +96,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txtPreco" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtNomeDescricao" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtDescricao" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtTipo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="26" max="32767" attributes="0"/>
@@ -120,7 +120,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="tabelaCadastrodeQuartos">
+            <Component class="javax.swing.JTable" name="tblQuartos">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="5" rowCount="0">
@@ -168,6 +168,9 @@
                   <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblQuartosMousePressed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -208,7 +211,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtPreco">
         </Component>
-        <Component class="javax.swing.JTextField" name="txtNomeDescricao">
+        <Component class="javax.swing.JTextField" name="txtDescricao">
         </Component>
         <Component class="javax.swing.JTextField" name="txtTipo">
         </Component>
@@ -222,6 +225,9 @@
               <Color id="Hand Cursor"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCadastrarMousePressed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnActualizar">
           <Properties>
@@ -233,6 +239,9 @@
               <Color id="Hand Cursor"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnActualizarMousePressed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnRemover">
           <Properties>
@@ -244,6 +253,9 @@
               <Color id="Hand Cursor"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnRemoverMousePressed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

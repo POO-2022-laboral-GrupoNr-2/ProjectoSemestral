@@ -7,8 +7,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import lombok.Data;
+
+@NamedQueries(
+        {
+    @NamedQuery(
+            name = "Produto.findByLikeDescricao",
+            query = "SELECT p FROM Produto p WHERE p.descricao LIKE :descricao")
+}
+)
+
 
 @Entity
 @Table(name = "Produtos")
@@ -28,6 +39,8 @@ public class Produto implements Serializable {
     private Double preco;
     private Double custo;
     private LocalDate validade;
+    
+    
     
 
 }

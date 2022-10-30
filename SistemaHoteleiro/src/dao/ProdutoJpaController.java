@@ -134,4 +134,21 @@ public class ProdutoJpaController implements Serializable {
         }
     }
     
+     public List<Produto> getProdutoByLikeDescricao(String descricao){
+        EntityManager em = getEntityManager();
+        List<Produto> lista = null;
+        try {
+        lista =  em.createNamedQuery("Produto.findByLikeDescricao").
+                setParameter("descricao", "%" + descricao + "%").
+                getResultList();
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        finally{
+            em.close();
+        }
+        return lista;
+    }
+    
 }

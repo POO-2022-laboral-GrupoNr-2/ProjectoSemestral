@@ -352,7 +352,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void menuItemCadAcomodacaoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuItemCadAcomodacaoMousePressed
         // TODO add your handling code here:
-        new TeladeCadastrodeAcomodacao().setVisible(true);
+        new TelaCadastrodeAcomodacao().setVisible(true);
     }//GEN-LAST:event_menuItemCadAcomodacaoMousePressed
 
     private void btnEfectuarReservaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEfectuarReservaMousePressed

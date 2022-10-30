@@ -4,17 +4,53 @@
  */
 package View;
 
+import connection.ConnectionFactory;
+import dao.ProdutoJpaController;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import model.Produto;
+
 /**
  *
  * @author Edilson Ricardo
  */
 public class TelaConsultaProdutos extends javax.swing.JFrame {
 
+    private ProdutoJpaController controller;
+    private List<Produto> produtos;
+
+    private void preencherTabela() {
+
+        controller = new ProdutoJpaController(ConnectionFactory.getEmf());
+        String descricao = txtDescricao.getText();
+        produtos = controller.getProdutoByLikeDescricao(descricao);
+
+        //pegando o modelo da tabela para que seja possivel manipular
+        DefaultTableModel tabela = (DefaultTableModel) tblProdutos.getModel();
+        //zerando as linhas da tabela, para nao sobrepor os registros toda vez que o metodo for chamado
+        tabela.setNumRows(0);
+        for (Produto produto : produtos) {
+            Object[] obj = new Object[]{
+                produto.getId(),
+                produto.getDescricao(),
+                produto.getPreco(),
+                produto.getValidade(),
+                produto.getCusto(),
+                produto.getQuantidade()
+
+            };
+            tabela.addRow(obj);
+
+        }
+
+    }
+
     /**
      * Creates new form TelaCadastroProduto
      */
     public TelaConsultaProdutos() {
         initComponents();
+        this.preencherTabela();
     }
 
     /**
@@ -28,18 +64,18 @@ public class TelaConsultaProdutos extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaCadProdutos = new javax.swing.JTable();
+        tblProdutos = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtDescricao = new javax.swing.JTextField();
+        btnPesquisar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(0, 82, 114));
 
-        tabelaCadProdutos.setModel(new javax.swing.table.DefaultTableModel(
+        tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -55,8 +91,8 @@ public class TelaConsultaProdutos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tabelaCadProdutos.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tabelaCadProdutos);
+        tblProdutos.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tblProdutos);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -65,8 +101,14 @@ public class TelaConsultaProdutos extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Nome/Descrição:");
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/magnifier.png"))); // NOI18N
-        jButton1.setText("Buscar");
+        txtDescricao.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtDescricaoCaretUpdate(evt);
+            }
+        });
+
+        btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/magnifier.png"))); // NOI18N
+        btnPesquisar.setText("Buscar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -79,13 +121,13 @@ public class TelaConsultaProdutos extends javax.swing.JFrame {
                         .addGap(185, 185, 185)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField1)
+                        .addComponent(txtDescricao)
                         .addGap(23, 23, 23))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(279, Short.MAX_VALUE)
                         .addComponent(jLabel1)))
                 .addGap(4, 4, 4)
-                .addComponent(jButton1)
+                .addComponent(btnPesquisar)
                 .addGap(181, 181, 181))
         );
         jPanel1Layout.setVerticalGroup(
@@ -96,8 +138,8 @@ public class TelaConsultaProdutos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPesquisar))
                 .addGap(33, 33, 33)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -117,6 +159,11 @@ public class TelaConsultaProdutos extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtDescricaoCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtDescricaoCaretUpdate
+        // TODO add your handling code here:
+        preencherTabela();
+    }//GEN-LAST:event_txtDescricaoCaretUpdate
 
     /**
      * @param args the command line arguments
@@ -161,12 +208,12 @@ public class TelaConsultaProdutos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnPesquisar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTable tabelaCadProdutos;
+    private javax.swing.JTable tblProdutos;
+    private javax.swing.JTextField txtDescricao;
     // End of variables declaration//GEN-END:variables
 }

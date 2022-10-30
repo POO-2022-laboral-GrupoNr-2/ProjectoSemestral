@@ -4,17 +4,52 @@
  */
 package View;
 
+import connection.ConnectionFactory;
+import dao.ProdutoJpaController;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import model.Produto;
+
 /**
  *
  * @author Edilson Ricardo
  */
 public class TelaConsumo extends javax.swing.JFrame {
+     private ProdutoJpaController controller;
+     private List<Produto> produtos;
+    
+     private void preencherTabela() {
+
+        controller = new ProdutoJpaController(ConnectionFactory.getEmf());
+        produtos = controller.findProdutoEntities();
+
+        //pegando o modelo da tabela para que seja possivel manipular
+        DefaultTableModel tabela = (DefaultTableModel) tblProdutos.getModel();
+        //zerando as linhas da tabela, para nao sobrepor os registros toda vez que o metodo for chamado
+        tabela.setNumRows(0);
+        for (Produto produto : produtos) {
+            Object[] obj = new Object[]{
+                produto.getId(),
+                produto.getDescricao(),
+                produto.getPreco(),
+                produto.getValidade(),
+                produto.getCusto(),
+                produto.getQuantidade()
+
+            };
+            tabela.addRow(obj);
+
+        }
+
+    }
+
 
     /**
      * Creates new form TelaCadastroProduto
      */
     public TelaConsumo() {
         initComponents();
+        preencherTabela();
     }
 
     /**
@@ -36,7 +71,7 @@ public class TelaConsumo extends javax.swing.JFrame {
         txtIDProduto = new javax.swing.JTextField();
         txtQuantidade = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaProdutos = new javax.swing.JTable();
+        tblProdutos = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Adição de Consumo");
@@ -65,7 +100,7 @@ public class TelaConsumo extends javax.swing.JFrame {
             }
         });
 
-        tabelaProdutos.setModel(new javax.swing.table.DefaultTableModel(
+        tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -81,12 +116,12 @@ public class TelaConsumo extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tabelaProdutos);
-        if (tabelaProdutos.getColumnModel().getColumnCount() > 0) {
-            tabelaProdutos.getColumnModel().getColumn(0).setMinWidth(7);
-            tabelaProdutos.getColumnModel().getColumn(0).setPreferredWidth(7);
-            tabelaProdutos.getColumnModel().getColumn(2).setPreferredWidth(30);
-            tabelaProdutos.getColumnModel().getColumn(3).setPreferredWidth(50);
+        jScrollPane1.setViewportView(tblProdutos);
+        if (tblProdutos.getColumnModel().getColumnCount() > 0) {
+            tblProdutos.getColumnModel().getColumn(0).setMinWidth(7);
+            tblProdutos.getColumnModel().getColumn(0).setPreferredWidth(7);
+            tblProdutos.getColumnModel().getColumn(2).setPreferredWidth(30);
+            tblProdutos.getColumnModel().getColumn(3).setPreferredWidth(50);
         }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -203,7 +238,7 @@ public class TelaConsumo extends javax.swing.JFrame {
     private javax.swing.JLabel lblNumeroQuarto;
     private javax.swing.JLabel lblQuantidade;
     private javax.swing.JLabel lblTextoNoTopo;
-    private javax.swing.JTable tabelaProdutos;
+    private javax.swing.JTable tblProdutos;
     private javax.swing.JTextField txtIDProduto;
     private javax.swing.JTextField txtNumeroQuarto;
     private javax.swing.JTextField txtQuantidade;
