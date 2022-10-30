@@ -4,16 +4,58 @@
  */
 package View;
 
+import connection.ConnectionFactory;
+import controller.FuncionarioController;
+import dao.FuncionarioJpaController;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import model.Funcionario;
+
 /**
  *
  * @author Edilson Ricardo
  */
-public class TelaDeActualizaçãoDeDadosDeFuncionarios extends javax.swing.JFrame {
+public class TelaDeActualizacaoDeDadosDeFuncionarios extends javax.swing.JFrame {
+
+    private FuncionarioJpaController controller;
+    private Funcionario funcionario;
+
+    public void preencherCampos(Long id) {
+        controller = new FuncionarioJpaController(ConnectionFactory.getEmf());
+        funcionario = controller.findFuncionario(id);
+
+        txtID.setText(String.valueOf(funcionario.getId()));
+        txtNome.setText(funcionario.getNome());
+        txtNomedeUsuario.setText(funcionario.getNomeDeUsuario());
+        txtEmail.setText(funcionario.getEmail());
+        txtEndereco.setText(funcionario.getEndereco());
+        txtSenha.setText(funcionario.getSenha());
+        txtNrDeBI.setText(funcionario.getNrBi());
+        txtContacto.setText(funcionario.getContacto());
+        txtContactoAllternativo.setText(funcionario.getContactoAlternativo());
+        txtNuit.setText(String.valueOf(funcionario.getNuit()));
+
+    }
+
+    private void limparCampos() {
+        txtID.setText("");
+        txtNome.setText("");
+        txtNomedeUsuario.setText("");
+        txtEmail.setText("");
+        txtEndereco.setText("");
+        txtSenha.setText("");
+        txtNrDeBI.setText("");
+        txtContacto.setText("");
+        txtContactoAllternativo.setText("");
+        txtNuit.setText("");
+    }
 
     /**
      * Creates new form TelaDeCadastroFuncionario
      */
-    public TelaDeActualizaçãoDeDadosDeFuncionarios() {
+    public TelaDeActualizacaoDeDadosDeFuncionarios() {
         initComponents();
     }
 
@@ -34,7 +76,7 @@ public class TelaDeActualizaçãoDeDadosDeFuncionarios extends javax.swing.JFram
         lblNumerodeBI = new javax.swing.JLabel();
         lblNuit = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
-        txtApelido = new javax.swing.JTextField();
+        txtEndereco = new javax.swing.JTextField();
         txtNrDeBI = new javax.swing.JTextField();
         txtNuit = new javax.swing.JTextField();
         jdcDatadeNascimento = new com.toedter.calendar.JDateChooser();
@@ -108,14 +150,29 @@ public class TelaDeActualizaçãoDeDadosDeFuncionarios extends javax.swing.JFram
         btnCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/user_add.png"))); // NOI18N
         btnCadastrar.setText("Actualizar");
         btnCadastrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCadastrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnCadastrarMousePressed(evt);
+            }
+        });
 
         btnLimparCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/delete.png"))); // NOI18N
         btnLimparCampos.setText("Limpar Campos");
         btnLimparCampos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLimparCampos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnLimparCamposMousePressed(evt);
+            }
+        });
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/cancel.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnCancelarMousePressed(evt);
+            }
+        });
 
         jcbSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione:", "Masculino", "Feminino" }));
 
@@ -147,7 +204,7 @@ public class TelaDeActualizaçãoDeDadosDeFuncionarios extends javax.swing.JFram
                                 .addGap(32, 32, 32)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtNome)
-                                    .addComponent(txtApelido)
+                                    .addComponent(txtEndereco)
                                     .addComponent(txtNuit)
                                     .addComponent(txtNrDeBI)
                                     .addComponent(jdcDatadeNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -192,7 +249,7 @@ public class TelaDeActualizaçãoDeDadosDeFuncionarios extends javax.swing.JFram
                     .addComponent(txtNomedeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtApelido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblApelido)
                     .addComponent(lblSenha)
                     .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -244,6 +301,43 @@ public class TelaDeActualizaçãoDeDadosDeFuncionarios extends javax.swing.JFram
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCancelarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMousePressed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarMousePressed
+
+    private void btnLimparCamposMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimparCamposMousePressed
+        // TODO add your handling code here:
+        this.limparCampos();
+    }//GEN-LAST:event_btnLimparCamposMousePressed
+
+    private void btnCadastrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadastrarMousePressed
+        // TODO add your handling code here:
+        Long id = Long.parseLong(txtID.getText());
+        String nome = txtNome.getText();
+        String nomeDeUsuario = txtNomedeUsuario.getText();
+        String email = txtEmail.getText();
+        String endereco = txtEndereco.getText();
+        String senha = txtSenha.getText();
+        String genero = jcbSexo.getSelectedItem().toString();
+        String acesso = jcbNiveldeAcesso.getSelectedItem().toString();
+        Date date = jdcDatadeNascimento.getDate();
+        LocalDate nascimento = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        String nrBi = txtNrDeBI.getText();
+        String contacto = txtContacto.getText();
+        Integer nuit = Integer.parseInt(txtNuit.getText());
+        String contactoAlternativo = txtContactoAllternativo.getText();
+
+        if (FuncionarioController.actualizarFuncionario(id, nome, nomeDeUsuario, email, endereco, senha, genero, acesso, nascimento, nrBi, contacto, nuit, contactoAlternativo)) {
+            JOptionPane.showMessageDialog(null, "Dados do funcionario actualizados com sucesso!");
+            this.dispose();
+            new TelaConsultaDeFuncionarios().setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao tentar actualizar dados do funcionario!");
+        }
+
+    }//GEN-LAST:event_btnCadastrarMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -261,21 +355,23 @@ public class TelaDeActualizaçãoDeDadosDeFuncionarios extends javax.swing.JFram
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaDeActualizaçãoDeDadosDeFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaDeActualizacaoDeDadosDeFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaDeActualizaçãoDeDadosDeFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaDeActualizacaoDeDadosDeFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaDeActualizaçãoDeDadosDeFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaDeActualizacaoDeDadosDeFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaDeActualizaçãoDeDadosDeFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaDeActualizacaoDeDadosDeFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaDeActualizaçãoDeDadosDeFuncionarios().setVisible(true);
+                new TelaDeActualizacaoDeDadosDeFuncionarios().setVisible(true);
             }
         });
     }
@@ -302,11 +398,11 @@ public class TelaDeActualizaçãoDeDadosDeFuncionarios extends javax.swing.JFram
     private javax.swing.JLabel lblSenha;
     private javax.swing.JLabel lblSexo;
     private javax.swing.JLabel lblTitulonoTopo;
-    private javax.swing.JTextField txtApelido;
     private javax.swing.JTextField txtContacto;
     private javax.swing.JTextField txtContactoAllternativo;
     private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtID;
+    private javax.swing.JTextField txtEndereco;
+    public javax.swing.JTextField txtID;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNomedeUsuario;
     private javax.swing.JTextField txtNrDeBI;

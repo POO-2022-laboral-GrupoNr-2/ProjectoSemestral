@@ -4,11 +4,29 @@
  */
 package View;
 
+import controller.FuncionarioController;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Edilson Ricardo
  */
 public class TelaDeCadastroFuncionario extends javax.swing.JFrame {
+
+    private void limparCampos() {
+        txtNome.setText("");
+        txtNomedeUsuario.setText("");
+        txtEmail.setText("");
+        txtEndereco.setText("");
+        txtSenha.setText("");
+        txtNrDeBI.setText("");
+        txtContacto.setText("");
+        txtContactoAllternativo.setText("");
+        txtNuit.setText("");
+    }
 
     /**
      * Creates new form TelaDeCadastroFuncionario
@@ -254,16 +272,41 @@ public class TelaDeCadastroFuncionario extends javax.swing.JFrame {
     private void btnCancelarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnCancelarKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelarKeyPressed
-    private void btnCancelarMousePressed(java.awt.event.MouseEvent evt) {                                           
+    private void btnCancelarMousePressed(java.awt.event.MouseEvent evt) {
         // TODO add your handling code here:
         this.dispose();
-    } 
-    private void btnLimparCamposMousePressed(java.awt.event.MouseEvent evt) {                                           
+    }
+
+    private void btnLimparCamposMousePressed(java.awt.event.MouseEvent evt) {
         // TODO add your handling code here:
-    } 
-    private void btnCadastrarMousePressed(java.awt.event.MouseEvent evt) {                                           
+        this.limparCampos();
+    }
+
+    private void btnCadastrarMousePressed(java.awt.event.MouseEvent evt) {
         // TODO add your handling code here:
-    } 
+        String nome = txtNome.getText();
+        String nomeDeUsuario = txtNomedeUsuario.getText();
+        String email = txtEmail.getText();
+        String endereco = txtEndereco.getText();
+        String senha = txtSenha.getText();
+        String genero = jcbSexo.getSelectedItem().toString();
+        String acesso = jcbNiveldeAcesso.getSelectedItem().toString();
+        Date date = jdcDatadeNascimento.getDate();
+        LocalDate nascimento = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        String nrBi = txtNrDeBI.getText();
+        String contacto = txtContacto.getText();
+        Integer nuit = Integer.parseInt(txtNuit.getText());
+        String contactoAlternativo = txtContactoAllternativo.getText();
+
+        if (FuncionarioController.cadastrarFuncionario(nome, nomeDeUsuario, email, endereco, senha, genero, acesso, nascimento, nrBi, contacto, nuit, contactoAlternativo)) {
+            JOptionPane.showMessageDialog(null, "Funcionario cadastrado com sucesso!");
+            limparCampos();
+        } else {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao cadastrar funcionario!");
+        }
+
+    }
+
     /**
      * @param args the command line arguments
      */

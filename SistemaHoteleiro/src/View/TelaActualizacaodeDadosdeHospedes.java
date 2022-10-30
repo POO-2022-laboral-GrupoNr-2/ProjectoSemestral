@@ -13,13 +13,13 @@ import java.util.stream.Stream;
  * @author Edilson Ricardo
  */
 public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
+    
 
     /**
      * Creates new form TelaCadastroHospedes
      */
     public TelaActualizacaodeDadosdeHospedes() {
         initComponents();
-        
         
 
     }

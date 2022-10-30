@@ -17,17 +17,18 @@ import model.Funcionario;
  * @author Edilson Ricardo
  */
 public class TelaConsultaDeFuncionarios extends javax.swing.JFrame {
-
+    public TelaDeActualizacaoDeDadosDeFuncionarios coringa = new TelaDeActualizacaoDeDadosDeFuncionarios();
+    public Funcionario funcionario;
     private FuncionarioJpaController controller;
     private List<Funcionario> funcionarios;
 
     //o metodo abaixo pega o id do registro selecionao na tabela
-    private Long pegarId() {
+    public Long pegarId() {
         //pegando o numero da linha selecionada
         int linhaSelecionada = tblFuncionarios.getSelectedRow();
         //caso nenhuma linha seja selecionada
         if (linhaSelecionada == -1) {
-            System.out.println("selecione um usuario");
+
         } else {
             //pegando o primeiro valor da linha seleciona que eh o ID do usuario
             Long id = Long.parseLong(tblFuncionarios.getValueAt(linhaSelecionada, 0).toString());
@@ -143,6 +144,11 @@ public class TelaConsultaDeFuncionarios extends javax.swing.JFrame {
 
         btnActualizarDadosFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/user_edit.png"))); // NOI18N
         btnActualizarDadosFuncionario.setText("Actualizar Dados");
+        btnActualizarDadosFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnActualizarDadosFuncionarioMousePressed(evt);
+            }
+        });
 
         btnRemoverFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/delete.png"))); // NOI18N
         btnRemoverFuncionario.setText("Remover Funcionário");
@@ -249,6 +255,19 @@ public class TelaConsultaDeFuncionarios extends javax.swing.JFrame {
             preencherTabela();
         }
     }//GEN-LAST:event_btnReadmitirFuncionarioMousePressed
+
+    private void btnActualizarDadosFuncionarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarDadosFuncionarioMousePressed
+        // TODO add your handling code here:
+        if (this.pegarId() == -1) {
+            JOptionPane.showMessageDialog(null, "Por favor selecione o funcionario para actualizar os dados!");
+        } else {
+            this.dispose();
+            coringa.preencherCampos(this.pegarId());
+            coringa.setVisible(true);
+            
+        }
+
+    }//GEN-LAST:event_btnActualizarDadosFuncionarioMousePressed
 
     /**
      * @param args the command line arguments
