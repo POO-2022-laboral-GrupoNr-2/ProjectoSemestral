@@ -8,12 +8,12 @@ package View;
  *
  * @author Edilson Ricardo
  */
-public class TelaConsultaDeHospedes extends javax.swing.JFrame {
+public class TelaConsultaDeReservas extends javax.swing.JFrame {
 
     /**
      * Creates new form TelaConsultaDeFuncionarios
      */
-    public TelaConsultaDeHospedes() {
+    public TelaConsultaDeReservas() {
         initComponents();
     }
 
@@ -30,13 +30,13 @@ public class TelaConsultaDeHospedes extends javax.swing.JFrame {
         lblPesquisar = new javax.swing.JLabel();
         txtPesquisa = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
-        btnActualizarDadosCliente = new javax.swing.JButton();
+        btnActualizarDadosReserva = new javax.swing.JButton();
         lblTextoNoTopo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaConsultaHospedes = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Consulta de Dados Hóspedes");
+        setTitle("Consulta de Reservas Efectuadas");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(0, 82, 114));
@@ -52,23 +52,24 @@ public class TelaConsultaDeHospedes extends javax.swing.JFrame {
             }
         });
 
-        btnActualizarDadosCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/user_edit.png"))); // NOI18N
-        btnActualizarDadosCliente.setText("Actualizar Dados");
+        btnActualizarDadosReserva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/user_edit.png"))); // NOI18N
+        btnActualizarDadosReserva.setText("Actualizar Dados");
+        btnActualizarDadosReserva.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         lblTextoNoTopo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         lblTextoNoTopo.setForeground(new java.awt.Color(255, 255, 255));
-        lblTextoNoTopo.setText("CONSULTA DE DADOS DE HÓSPEDES");
+        lblTextoNoTopo.setText("CONSULTA DE RESERVAS EFECTUADAS");
 
         tabelaConsultaHospedes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Nome", "Sexo", "Data de Nascimento", "Nacionalidade", "Telefone", "Número do Quarto", "Tipo de Quarto", "Preço do Quarto", "Data de Check-in"
+                "ID", "Nome", "Sexo", "Data de Nascimento", "Nacionalidade", "Telefone", "Número do Quarto", "Tipo de Quarto", "Valor Pago", "Preço do Quarto", "Data de Check-in"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, false, false, false, false, true
+                false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -80,7 +81,8 @@ public class TelaConsultaDeHospedes extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tabelaConsultaHospedes);
         tabelaConsultaHospedes.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         if (tabelaConsultaHospedes.getColumnModel().getColumnCount() > 0) {
-            tabelaConsultaHospedes.getColumnModel().getColumn(0).setPreferredWidth(30);
+            tabelaConsultaHospedes.getColumnModel().getColumn(0).setPreferredWidth(20);
+            tabelaConsultaHospedes.getColumnModel().getColumn(2).setPreferredWidth(30);
         }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -89,7 +91,7 @@ public class TelaConsultaDeHospedes extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(508, 508, 508)
-                .addComponent(btnActualizarDadosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnActualizarDadosReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(237, 237, 237)
                 .addComponent(lblPesquisar)
@@ -115,7 +117,7 @@ public class TelaConsultaDeHospedes extends javax.swing.JFrame {
                 .addGap(52, 52, 52)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnActualizarDadosCliente)
+                .addComponent(btnActualizarDadosReserva)
                 .addGap(55, 55, 55))
         );
 
@@ -155,27 +157,29 @@ public class TelaConsultaDeHospedes extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaConsultaDeHospedes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaConsultaDeReservas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaConsultaDeHospedes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaConsultaDeReservas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaConsultaDeHospedes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaConsultaDeReservas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaConsultaDeHospedes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaConsultaDeReservas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaConsultaDeHospedes().setVisible(true);
+                new TelaConsultaDeReservas().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnActualizarDadosCliente;
+    private javax.swing.JButton btnActualizarDadosReserva;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
