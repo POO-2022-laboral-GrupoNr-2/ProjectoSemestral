@@ -8,12 +8,12 @@ package View;
  *
  * @author Edilson Ricardo
  */
-public class TelaConsultaDeFuncionarios extends javax.swing.JFrame {
+public class TelaConsultaDeHospedes extends javax.swing.JFrame {
 
     /**
      * Creates new form TelaConsultaDeFuncionarios
      */
-    public TelaConsultaDeFuncionarios() {
+    public TelaConsultaDeHospedes() {
         initComponents();
     }
 
@@ -27,44 +27,19 @@ public class TelaConsultaDeFuncionarios extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaDadosdeFuncionarios = new javax.swing.JTable();
         lblPesquisar = new javax.swing.JLabel();
         txtPesquisa = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
-        btnActualizarDadosFuncionario = new javax.swing.JButton();
-        btnRemoverFuncionario = new javax.swing.JButton();
-        btnReadmitirFuncionario = new javax.swing.JButton();
+        btnActualizarDadosCliente = new javax.swing.JButton();
         lblTextoNoTopo = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelaConsultaHospedes = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Consulta de Dados de Funcionários");
+        setTitle("Consulta de Dados Hóspedes");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(0, 82, 114));
-
-        tabelaDadosdeFuncionarios.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID", "Nome", "Apelido", "Sexo", "Data de Nascimento", "Nr. de BI", "NUIT", "Email", "Contacto", "Contacto 2", "Status"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tabelaDadosdeFuncionarios.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tabelaDadosdeFuncionarios);
-        if (tabelaDadosdeFuncionarios.getColumnModel().getColumnCount() > 0) {
-            tabelaDadosdeFuncionarios.getColumnModel().getColumn(0).setPreferredWidth(30);
-            tabelaDadosdeFuncionarios.getColumnModel().getColumn(4).setPreferredWidth(120);
-        }
 
         lblPesquisar.setForeground(new java.awt.Color(255, 255, 255));
         lblPesquisar.setText("Nome:");
@@ -77,69 +52,83 @@ public class TelaConsultaDeFuncionarios extends javax.swing.JFrame {
             }
         });
 
-        btnActualizarDadosFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/user_edit.png"))); // NOI18N
-        btnActualizarDadosFuncionario.setText("Actualizar Dados");
-
-        btnRemoverFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/delete.png"))); // NOI18N
-        btnRemoverFuncionario.setText("Remover Funcionário");
-
-        btnReadmitirFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/arrow_refresh.png"))); // NOI18N
-        btnReadmitirFuncionario.setText("Readmitir");
+        btnActualizarDadosCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/user_edit.png"))); // NOI18N
+        btnActualizarDadosCliente.setText("Actualizar Dados");
 
         lblTextoNoTopo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         lblTextoNoTopo.setForeground(new java.awt.Color(255, 255, 255));
-        lblTextoNoTopo.setText("CONSULTA DE DADOS DE FUNCIONÁRIOS");
+        lblTextoNoTopo.setText("CONSULTA DE DADOS DE HÓSPEDES");
+
+        tabelaConsultaHospedes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Nome", "Sexo", "Data de Nascimento", "Nacionalidade", "Telefone", "Número do Quarto", "Tipo de Quarto", "Preço do Quarto", "Data de Check-in"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true, false, false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelaConsultaHospedes.setColumnSelectionAllowed(true);
+        tabelaConsultaHospedes.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tabelaConsultaHospedes);
+        tabelaConsultaHospedes.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        if (tabelaConsultaHospedes.getColumnModel().getColumnCount() > 0) {
+            tabelaConsultaHospedes.getColumnModel().getColumn(0).setPreferredWidth(30);
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 161, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblTextoNoTopo)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(508, 508, 508)
+                        .addComponent(btnActualizarDadosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(237, 237, 237)
                         .addComponent(lblPesquisar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscar)))
-                .addGap(146, 146, 146))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(244, 244, 244)
-                .addComponent(btnActualizarDadosFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnReadmitirFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnRemoverFuncionario)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnBuscar))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(274, 274, 274)
+                        .addComponent(lblTextoNoTopo)))
+                .addContainerGap(255, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(77, Short.MAX_VALUE)
+                .addContainerGap(75, Short.MAX_VALUE)
                 .addComponent(lblTextoNoTopo)
-                .addGap(62, 62, 62)
+                .addGap(61, 61, 61)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPesquisar)
                     .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
+                .addGap(52, 52, 52)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRemoverFuncionario)
-                    .addComponent(btnActualizarDadosFuncionario)
-                    .addComponent(btnReadmitirFuncionario))
-                .addGap(47, 47, 47))
+                .addComponent(btnActualizarDadosCliente)
+                .addGap(55, 55, 55))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,34 +160,33 @@ public class TelaConsultaDeFuncionarios extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaConsultaDeFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaConsultaDeHospedes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaConsultaDeFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaConsultaDeHospedes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaConsultaDeFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaConsultaDeHospedes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaConsultaDeFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaConsultaDeHospedes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaConsultaDeFuncionarios().setVisible(true);
+                new TelaConsultaDeHospedes().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnActualizarDadosFuncionario;
+    private javax.swing.JButton btnActualizarDadosCliente;
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnReadmitirFuncionario;
-    private javax.swing.JButton btnRemoverFuncionario;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblPesquisar;
     private javax.swing.JLabel lblTextoNoTopo;
-    private javax.swing.JTable tabelaDadosdeFuncionarios;
+    private javax.swing.JTable tabelaConsultaHospedes;
     private javax.swing.JTextField txtPesquisa;
     // End of variables declaration//GEN-END:variables
 }
