@@ -126,7 +126,7 @@ public class TelaConsultaDeFuncionarios extends javax.swing.JFrame {
         }
 
         lblPesquisar.setForeground(new java.awt.Color(255, 255, 255));
-        lblPesquisar.setText("Pesquisar:");
+        lblPesquisar.setText("Nome:");
 
         txtPesquisa.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
@@ -182,7 +182,7 @@ public class TelaConsultaDeFuncionarios extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblPesquisar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnBuscar)))
                 .addGap(146, 146, 146))

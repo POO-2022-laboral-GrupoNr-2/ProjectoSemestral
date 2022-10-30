@@ -12,12 +12,12 @@ import java.util.stream.Stream;
  *
  * @author Edilson Ricardo
  */
-public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
+public class TelaActualizarDadosReserva extends javax.swing.JFrame {
 
     /**
      * Creates new form TelaCadastroHospedes
      */
-    public TelaActualizacaodeDadosdeHospedes() {
+    public TelaActualizarDadosReserva() {
         initComponents();
         
         
@@ -34,8 +34,6 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
     private void initComponents() {
 
         panelCadastroCliente = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaQuartosCadastroHospedes = new javax.swing.JTable();
         jcbSexo = new javax.swing.JComboBox<>();
         lblNome = new javax.swing.JLabel();
         lblApelido = new javax.swing.JLabel();
@@ -57,6 +55,8 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         lblTituloNoTopo = new javax.swing.JLabel();
         jdcDatadeNascimento = new com.toedter.calendar.JDateChooser();
+        lblValorReserva = new javax.swing.JLabel();
+        txtValordeReserva = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Check-in");
@@ -65,27 +65,6 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
 
         panelCadastroCliente.setBackground(new java.awt.Color(0, 82, 114));
         panelCadastroCliente.setForeground(new java.awt.Color(0, 51, 51));
-
-        tabelaQuartosCadastroHospedes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Número do Quarto", "Descrição do Quarto", "Tipo de Quarto", "Preço do Quarto", "Status"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tabelaQuartosCadastroHospedes.setColumnSelectionAllowed(true);
-        tabelaQuartosCadastroHospedes.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tabelaQuartosCadastroHospedes);
-        tabelaQuartosCadastroHospedes.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         jcbSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione:", "Masculino", "Feminino" }));
         jcbSexo.addActionListener(new java.awt.event.ActionListener() {
@@ -121,8 +100,9 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
         lblNumeroQuarto.setForeground(new java.awt.Color(255, 255, 255));
         lblNumeroQuarto.setText("Número do Quarto:");
 
-        btnCheckin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/door_in.png"))); // NOI18N
+        btnCheckin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/arrow_refresh.png"))); // NOI18N
         btnCheckin.setText("Actualizar");
+        btnCheckin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCheckin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCheckinActionPerformed(evt);
@@ -131,6 +111,7 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/cancel.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -139,17 +120,19 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
 
         lblTituloNoTopo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         lblTituloNoTopo.setForeground(new java.awt.Color(255, 255, 255));
-        lblTituloNoTopo.setText("ACTUALIZAÇÃO DE DADOS DE HÓSPEDES");
+        lblTituloNoTopo.setText("ACTUALIZAÇÃO DE DADOS DE RESERVAS");
+
+        lblValorReserva.setForeground(new java.awt.Color(255, 255, 255));
+        lblValorReserva.setText("Valor Pago:");
+
+        txtValordeReserva.setEditable(false);
 
         javax.swing.GroupLayout panelCadastroClienteLayout = new javax.swing.GroupLayout(panelCadastroCliente);
         panelCadastroCliente.setLayout(panelCadastroClienteLayout);
         panelCadastroClienteLayout.setHorizontalGroup(
             panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCadastroClienteLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1030, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(panelCadastroClienteLayout.createSequentialGroup()
-                .addGap(49, 49, 49)
+                .addGap(63, 63, 63)
                 .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblDatadeNascimento)
                     .addComponent(lblNacionalidade)
@@ -157,44 +140,43 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
                     .addComponent(lblApelido)
                     .addComponent(lblNome))
                 .addGap(18, 18, 18)
-                .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtNacionalidade)
-                    .addComponent(jcbSexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtApelido)
-                    .addComponent(txtNome)
-                    .addComponent(jdcDatadeNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTituloNoTopo)
                     .addGroup(panelCadastroClienteLayout.createSequentialGroup()
-                        .addGap(80, 80, 80)
+                        .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtNacionalidade)
+                            .addComponent(jcbSexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtApelido)
+                            .addComponent(txtNome)
+                            .addComponent(jdcDatadeNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(57, 57, 57)
                         .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblEmail)
                             .addComponent(lblDataCheckIn)
                             .addComponent(lblTelemovel)
-                            .addComponent(lblNumeroQuarto))
+                            .addComponent(lblNumeroQuarto)
+                            .addComponent(lblValorReserva))
                         .addGap(18, 18, 18)
                         .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtEmail)
                             .addComponent(jdcDatadeCheckIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtTelemovel)
-                            .addComponent(txtNumerodeQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCadastroClienteLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCheckin)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCancelar)
-                        .addGap(128, 128, 128))))
+                            .addComponent(txtNumerodeQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtValordeReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(110, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCadastroClienteLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblTituloNoTopo)
-                .addGap(129, 129, 129))
+                .addComponent(btnCheckin, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(334, 334, 334))
         );
         panelCadastroClienteLayout.setVerticalGroup(
             panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCadastroClienteLayout.createSequentialGroup()
-                .addContainerGap(51, Short.MAX_VALUE)
+                .addGap(56, 56, 56)
                 .addComponent(lblTituloNoTopo, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
+                .addGap(69, 69, 69)
                 .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCadastroClienteLayout.createSequentialGroup()
                         .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -226,17 +208,20 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
                             .addComponent(lblNumeroQuarto)
                             .addComponent(txtNumerodeQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblDatadeNascimento)
-                            .addComponent(btnCheckin)
-                            .addComponent(btnCancelar)))
+                            .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblValorReserva)
+                                .addComponent(txtValordeReserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jdcDatadeNascimento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43))
+                .addGap(62, 62, 62)
+                .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCheckin)
+                    .addComponent(btnCancelar))
+                .addContainerGap(138, Short.MAX_VALUE))
         );
 
-        getContentPane().add(panelCadastroCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1030, 650));
+        getContentPane().add(panelCadastroCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1030, 590));
 
         pack();
         setLocationRelativeTo(null);
@@ -271,13 +256,13 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaActualizacaodeDadosdeHospedes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaActualizarDadosReserva.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaActualizacaodeDadosdeHospedes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaActualizarDadosReserva.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaActualizacaodeDadosdeHospedes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaActualizarDadosReserva.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaActualizacaodeDadosdeHospedes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaActualizarDadosReserva.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -287,7 +272,7 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaActualizacaodeDadosdeHospedes().setVisible(true);
+                new TelaActualizarDadosReserva().setVisible(true);
             }
         });
     }
@@ -295,7 +280,6 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnCheckin;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> jcbSexo;
     private com.toedter.calendar.JDateChooser jdcDatadeCheckIn;
     private com.toedter.calendar.JDateChooser jdcDatadeNascimento;
@@ -309,13 +293,14 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
     private javax.swing.JLabel lblSexo;
     private javax.swing.JLabel lblTelemovel;
     private javax.swing.JLabel lblTituloNoTopo;
+    private javax.swing.JLabel lblValorReserva;
     private javax.swing.JPanel panelCadastroCliente;
-    private javax.swing.JTable tabelaQuartosCadastroHospedes;
     private javax.swing.JTextField txtApelido;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtNacionalidade;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNumerodeQuarto;
     private javax.swing.JTextField txtTelemovel;
+    private javax.swing.JTextField txtValordeReserva;
     // End of variables declaration//GEN-END:variables
 }
