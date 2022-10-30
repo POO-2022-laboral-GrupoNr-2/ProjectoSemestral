@@ -21,7 +21,6 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
      */
     public TelaCadastroHospedes() {
         initComponents();
-        this.setAlwaysOnTop(true);
         
 
     }
