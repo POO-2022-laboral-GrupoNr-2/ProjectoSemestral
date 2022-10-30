@@ -4,7 +4,9 @@
  */
 package View;
 
+import controller.Login;
 import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -75,9 +77,19 @@ public class TelaLogin extends javax.swing.JFrame {
 
         btnEntrar.setText("Entrar");
         btnEntrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEntrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnEntrarMousePressed(evt);
+            }
+        });
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEntrarActionPerformed(evt);
+            }
+        });
+        btnEntrar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnEntrarKeyPressed(evt);
             }
         });
         getContentPane().add(btnEntrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 500, -1, -1));
@@ -98,27 +110,55 @@ public class TelaLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomeUsuarioActionPerformed
 
+    private void btnEntrarKeyPressed(java.awt.event.KeyEvent evt) {
+        // TODO add your handling code here:
+        String nomeDeUsuario = txtNomeUsuario.getText();
+        String senha = txtPalavraPasse.getText();
+
+        if (Login.logar(nomeDeUsuario, senha)) {
+            new TelaPrincipal().setVisible(rootPaneCheckingEnabled);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Dados incorrectos, por favor verifique e volte a tentar!");
+        }
+
+    }
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         // TODO add your handling code here:
-        new TelaPrincipal().setVisible(rootPaneCheckingEnabled);
-        dispose();
+        String nomeDeUsuario = txtNomeUsuario.getText();
+        String senha = txtPalavraPasse.getText();
+
+        if (Login.logar(nomeDeUsuario, senha)) {
+            new TelaPrincipal().setVisible(rootPaneCheckingEnabled);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Dados incorrectos, por favor verifique e volte a tentar!");
+        }
+
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     private void txtPalavraPasseKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPalavraPasseKeyPressed
         // TODO add your handling code here:
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-            new TelaPrincipal().setVisible(rootPaneCheckingEnabled);
-        dispose();
+        String nomeDeUsuario = txtNomeUsuario.getText();
+        String senha = txtPalavraPasse.getText();
+        
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (Login.logar(nomeDeUsuario, senha)) {
+                new TelaPrincipal().setVisible(rootPaneCheckingEnabled);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Dados incorrectos, por favor verifique e volte a tentar!");
+            }
         }
     }//GEN-LAST:event_txtPalavraPasseKeyPressed
 
     private void txtNomeUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeUsuarioKeyPressed
         // TODO add your handling code here:
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-            new TelaPrincipal().setVisible(rootPaneCheckingEnabled);
-        dispose();
-        }
     }//GEN-LAST:event_txtNomeUsuarioKeyPressed
+
+    private void btnEntrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEntrarMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEntrarMousePressed
 
     /**
      * @param args the command line arguments

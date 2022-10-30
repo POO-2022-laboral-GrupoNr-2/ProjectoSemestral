@@ -34,7 +34,7 @@ public class TelaDeCadastroFuncionario extends javax.swing.JFrame {
         lblNumerodeBI = new javax.swing.JLabel();
         lblNuit = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
-        txtApelido = new javax.swing.JTextField();
+        txtEndereco = new javax.swing.JTextField();
         txtNrDeBI = new javax.swing.JTextField();
         txtNuit = new javax.swing.JTextField();
         jdcDatadeNascimento = new com.toedter.calendar.JDateChooser();
@@ -65,7 +65,7 @@ public class TelaDeCadastroFuncionario extends javax.swing.JFrame {
         lblNome.setText("Nome:");
 
         lblApelido.setForeground(new java.awt.Color(255, 255, 255));
-        lblApelido.setText("Apelido:");
+        lblApelido.setText("Endereco");
 
         lblSexo.setForeground(new java.awt.Color(255, 255, 255));
         lblSexo.setText("Sexo:");
@@ -106,14 +106,34 @@ public class TelaDeCadastroFuncionario extends javax.swing.JFrame {
         btnCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/user_add.png"))); // NOI18N
         btnCadastrar.setText("Cadastrar");
         btnCadastrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCadastrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnCadastrarMousePressed(evt);
+            }
+        });
 
         btnLimparCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/delete.png"))); // NOI18N
         btnLimparCampos.setText("Limpar Campos");
         btnLimparCampos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLimparCampos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnLimparCamposMousePressed(evt);
+            }
+        });
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/cancel.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnCancelarMousePressed(evt);
+            }
+        });
+        btnCancelar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnCancelarKeyPressed(evt);
+            }
+        });
 
         jcbSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione:", "Masculino", "Feminino" }));
 
@@ -140,7 +160,7 @@ public class TelaDeCadastroFuncionario extends javax.swing.JFrame {
                         .addGap(32, 32, 32)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtNome)
-                            .addComponent(txtApelido)
+                            .addComponent(txtEndereco)
                             .addComponent(txtNuit)
                             .addComponent(txtNrDeBI)
                             .addComponent(jdcDatadeNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -179,7 +199,7 @@ public class TelaDeCadastroFuncionario extends javax.swing.JFrame {
                     .addComponent(txtNomedeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtApelido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblApelido)
                     .addComponent(lblSenha)
                     .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -231,6 +251,19 @@ public class TelaDeCadastroFuncionario extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCancelarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnCancelarKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCancelarKeyPressed
+    private void btnCancelarMousePressed(java.awt.event.MouseEvent evt) {                                           
+        // TODO add your handling code here:
+        this.dispose();
+    } 
+    private void btnLimparCamposMousePressed(java.awt.event.MouseEvent evt) {                                           
+        // TODO add your handling code here:
+    } 
+    private void btnCadastrarMousePressed(java.awt.event.MouseEvent evt) {                                           
+        // TODO add your handling code here:
+    } 
     /**
      * @param args the command line arguments
      */
@@ -287,10 +320,10 @@ public class TelaDeCadastroFuncionario extends javax.swing.JFrame {
     private javax.swing.JLabel lblSenha;
     private javax.swing.JLabel lblSexo;
     private javax.swing.JLabel lblTitulonoTopo;
-    private javax.swing.JTextField txtApelido;
     private javax.swing.JTextField txtContacto;
     private javax.swing.JTextField txtContactoAllternativo;
     private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtEndereco;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNomedeUsuario;
     private javax.swing.JTextField txtNrDeBI;
