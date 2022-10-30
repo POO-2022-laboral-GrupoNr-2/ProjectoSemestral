@@ -125,6 +125,11 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
 
         btnCheckin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/door_in.png"))); // NOI18N
         btnCheckin.setText("Check-in");
+        btnCheckin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnCheckinMousePressed(evt);
+            }
+        });
         btnCheckin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCheckinActionPerformed(evt);
@@ -265,6 +270,10 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnCancelarMousePressed
+
+    private void btnCheckinMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCheckinMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCheckinMousePressed
 
     /**
      * @param args the command line arguments
