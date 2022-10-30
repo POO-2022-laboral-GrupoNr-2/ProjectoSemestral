@@ -33,7 +33,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         int resposta = JOptionPane.showConfirmDialog(rootPane, "Tens a certeza de que deseja sair?");
         if (resposta == 0) {
-            this.dispose();
+            System.exit(0);
         }
     }
 
@@ -61,7 +61,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         panelTelaPrincipal = new javax.swing.JPanel();
         btnEfectuarReserva = new javax.swing.JButton();
-        btnConsumo = new javax.swing.JButton();
+        btnCheckOut = new javax.swing.JButton();
         btnConsumo1 = new javax.swing.JButton();
         btnCadCliente = new javax.swing.JButton();
         lblImagemTelaPrincipal = new javax.swing.JLabel();
@@ -101,14 +101,24 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         panelTelaPrincipal.add(btnEfectuarReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(759, 320, -1, -1));
 
-        btnConsumo.setText("Check-Out");
-        btnConsumo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnConsumo.setFocusPainted(false);
-        panelTelaPrincipal.add(btnConsumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 530, 100, -1));
+        btnCheckOut.setText("Check-Out");
+        btnCheckOut.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCheckOut.setFocusPainted(false);
+        btnCheckOut.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnCheckOutMousePressed(evt);
+            }
+        });
+        panelTelaPrincipal.add(btnCheckOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 530, 100, -1));
 
         btnConsumo1.setText("Consumo");
         btnConsumo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnConsumo1.setFocusPainted(false);
+        btnConsumo1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnConsumo1MousePressed(evt);
+            }
+        });
         btnConsumo1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConsumo1ActionPerformed(evt);
@@ -137,6 +147,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         menuItemCadProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/basket_add.png"))); // NOI18N
         menuItemCadProduto.setText("Cadastrar Produto");
+        menuItemCadProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                menuItemCadProdutoMousePressed(evt);
+            }
+        });
         menuCadastros.add(menuItemCadProduto);
 
         menuItemCadHospedes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/user_add.png"))); // NOI18N
@@ -185,12 +200,27 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuConsultar.setText("Consultar   |");
 
         jMenuItem5.setText("Consultar Reserva");
+        jMenuItem5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jMenuItem5MousePressed(evt);
+            }
+        });
         menuConsultar.add(jMenuItem5);
 
         jMenuItem6.setText("Consultar Produto");
+        jMenuItem6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jMenuItem6MousePressed(evt);
+            }
+        });
         menuConsultar.add(jMenuItem6);
 
         jMenuItem7.setText("Consultar Hóspede");
+        jMenuItem7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jMenuItem7MousePressed(evt);
+            }
+        });
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem7ActionPerformed(evt);
@@ -215,6 +245,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuConsultar.add(jMenuItem8);
 
         jMenuItem9.setText("Consultar Acomodações");
+        jMenuItem9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jMenuItem9MousePressed(evt);
+            }
+        });
         menuConsultar.add(jMenuItem9);
 
         menuBar.add(menuConsultar);
@@ -320,6 +355,43 @@ public class TelaPrincipal extends javax.swing.JFrame {
         new TelaEfectuarReserva().setVisible(true);
     }//GEN-LAST:event_btnEfectuarReservaMousePressed
 
+    private void btnCheckOutMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCheckOutMousePressed
+        // TODO add your handling code here:
+        new TelaCheckOut().setVisible(true);
+        
+    }//GEN-LAST:event_btnCheckOutMousePressed
+
+    private void btnConsumo1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConsumo1MousePressed
+        // TODO add your handling code here:
+        new TelaConsumo().setVisible(true);
+    }//GEN-LAST:event_btnConsumo1MousePressed
+
+    private void menuItemCadProdutoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuItemCadProdutoMousePressed
+        // TODO add your handling code here:
+        new TelaCadastroProduto().setVisible(true);
+    }//GEN-LAST:event_menuItemCadProdutoMousePressed
+
+    private void jMenuItem5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem5MousePressed
+        // TODO add your handling code here:
+        new TelaConsultaDeReservas().setVisible(true);
+        
+    }//GEN-LAST:event_jMenuItem5MousePressed
+
+    private void jMenuItem6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem6MousePressed
+        // TODO add your handling code here:
+        new TelaConsultaProdutos().setVisible(true);
+    }//GEN-LAST:event_jMenuItem6MousePressed
+
+    private void jMenuItem7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem7MousePressed
+        // TODO add your handling code here:
+        new TelaConsultaDeHospedes().setVisible(true);
+    }//GEN-LAST:event_jMenuItem7MousePressed
+
+    private void jMenuItem9MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem9MousePressed
+        // TODO add your handling code here:
+        new TelaConsultadeAcomodacao().setVisible(true);
+    }//GEN-LAST:event_jMenuItem9MousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -357,7 +429,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadCliente;
-    private javax.swing.JButton btnConsumo;
+    private javax.swing.JButton btnCheckOut;
     private javax.swing.JButton btnConsumo1;
     private javax.swing.JButton btnEfectuarReserva;
     private javax.swing.JMenuItem jMenuItem10;
