@@ -4,17 +4,68 @@
  */
 package View;
 
+import connection.ConnectionFactory;
+import dao.ClienteJpaController;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Cliente;
+
 /**
  *
  * @author Edilson Ricardo
  */
 public class TelaConsultaDeHospedes extends javax.swing.JFrame {
+    private TelaActualizacaodeDadosdeHospedes coringa = new TelaActualizacaodeDadosdeHospedes();
+    private ClienteJpaController controller;
+    private List<Cliente> clientes;
+    
+    public Long pegarId() {
+        //pegando o numero da linha selecionada
+        int linhaSelecionada = tblClientes.getSelectedRow();
+        //caso nenhuma linha seja selecionada
+        if (linhaSelecionada == -1) {
+
+        } else {
+            //pegando o primeiro valor da linha seleciona que eh o ID do usuario
+            Long id = Long.parseLong(tblClientes.getValueAt(linhaSelecionada, 0).toString());
+            return id;
+        }
+        return -1l;
+    }
+    
+    private void preencherTabela(){
+        
+        String nome = txtNome.getText();
+        controller = new ClienteJpaController(ConnectionFactory.getEmf());
+        clientes = controller.getClienteByLikeNome(nome);
+        
+        DefaultTableModel tabela = (DefaultTableModel) tblClientes.getModel();
+        tabela.setNumRows(0);
+        
+        for (Cliente cliente : clientes) {
+            Object[] obj = new Object[]{
+               cliente.getId(),
+               cliente.getNome(),
+               cliente.getGenero(),
+               cliente.getNrBi(),
+               cliente.getNacionalidade(),
+               cliente.getCelular(),
+               cliente.getQuarto(),
+               cliente.getCheckIn()
+
+            };
+            tabela.addRow(obj);
+
+        }
+    }
 
     /**
      * Creates new form TelaConsultaDeFuncionarios
      */
     public TelaConsultaDeHospedes() {
         initComponents();
+        preencherTabela();
     }
 
     /**
@@ -28,12 +79,12 @@ public class TelaConsultaDeHospedes extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         lblPesquisar = new javax.swing.JLabel();
-        txtPesquisa = new javax.swing.JTextField();
+        txtNome = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         btnActualizarDadosCliente = new javax.swing.JButton();
         lblTextoNoTopo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaConsultaHospedes = new javax.swing.JTable();
+        tblClientes = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consulta de Dados Hóspedes");
@@ -43,6 +94,12 @@ public class TelaConsultaDeHospedes extends javax.swing.JFrame {
 
         lblPesquisar.setForeground(new java.awt.Color(255, 255, 255));
         lblPesquisar.setText("Nome:");
+
+        txtNome.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtNomeCaretUpdate(evt);
+            }
+        });
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/magnifier.png"))); // NOI18N
         btnBuscar.setText("Buscar");
@@ -54,33 +111,43 @@ public class TelaConsultaDeHospedes extends javax.swing.JFrame {
 
         btnActualizarDadosCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/user_edit.png"))); // NOI18N
         btnActualizarDadosCliente.setText("Actualizar Dados");
+        btnActualizarDadosCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnActualizarDadosClienteMousePressed(evt);
+            }
+        });
 
         lblTextoNoTopo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         lblTextoNoTopo.setForeground(new java.awt.Color(255, 255, 255));
         lblTextoNoTopo.setText("CONSULTA DE DADOS DE HÓSPEDES");
 
-        tabelaConsultaHospedes.setModel(new javax.swing.table.DefaultTableModel(
+        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Nome", "Sexo", "Data de Nascimento", "Nacionalidade", "Telefone", "Número do Quarto", "Tipo de Quarto", "Preço do Quarto", "Data de Check-in"
+                "ID", "Nome", "Sexo", "Nr BI", "Nacionalidade", "Telefone", "Número do Quarto", "Data de Check-in"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, false, false, false, false, true
+                false, false, false, false, true, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tabelaConsultaHospedes.setColumnSelectionAllowed(true);
-        tabelaConsultaHospedes.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tabelaConsultaHospedes);
-        tabelaConsultaHospedes.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        if (tabelaConsultaHospedes.getColumnModel().getColumnCount() > 0) {
-            tabelaConsultaHospedes.getColumnModel().getColumn(0).setPreferredWidth(30);
+        tblClientes.setColumnSelectionAllowed(true);
+        tblClientes.getTableHeader().setReorderingAllowed(false);
+        tblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblClientesMousePressed(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblClientes);
+        tblClientes.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        if (tblClientes.getColumnModel().getColumnCount() > 0) {
+            tblClientes.getColumnModel().getColumn(0).setPreferredWidth(30);
         }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -94,7 +161,7 @@ public class TelaConsultaDeHospedes extends javax.swing.JFrame {
                 .addGap(237, 237, 237)
                 .addComponent(lblPesquisar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBuscar))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -110,7 +177,7 @@ public class TelaConsultaDeHospedes extends javax.swing.JFrame {
                 .addGap(61, 61, 61)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPesquisar)
-                    .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
                 .addGap(52, 52, 52)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -137,6 +204,27 @@ public class TelaConsultaDeHospedes extends javax.swing.JFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void txtNomeCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtNomeCaretUpdate
+        // TODO add your handling code here:
+        preencherTabela();
+    }//GEN-LAST:event_txtNomeCaretUpdate
+
+    private void btnActualizarDadosClienteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarDadosClienteMousePressed
+        // TODO add your handling code here:
+        if(pegarId() == -1){
+            JOptionPane.showMessageDialog(null, "Selecione um registro!");
+        }else{
+            coringa.preencherCampos(pegarId());
+            this.dispose();
+            coringa.setVisible(true);
+        }
+    }//GEN-LAST:event_btnActualizarDadosClienteMousePressed
+
+    private void tblClientesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMousePressed
+        // TODO add your handling code here:
+        pegarId();
+    }//GEN-LAST:event_tblClientesMousePressed
 
     /**
      * @param args the command line arguments
@@ -181,7 +269,7 @@ public class TelaConsultaDeHospedes extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblPesquisar;
     private javax.swing.JLabel lblTextoNoTopo;
-    private javax.swing.JTable tabelaConsultaHospedes;
-    private javax.swing.JTextField txtPesquisa;
+    private javax.swing.JTable tblClientes;
+    private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
 }

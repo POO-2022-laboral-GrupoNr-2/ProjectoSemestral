@@ -4,9 +4,21 @@
  */
 package View;
 
+import connection.ConnectionFactory;
+import controller.ClienteController;
+import dao.ClienteJpaController;
+import dao.QuartoJpaController;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Cliente;
+import model.Quarto;
 
 /**
  *
@@ -14,13 +26,53 @@ import java.util.stream.Stream;
  */
 public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
 
+    private QuartoJpaController controller;
+    private List<Quarto> quartos;
+    private ClienteJpaController controller1;
+    private Cliente cliente;
+
+    public void preencherCampos(Long id) {
+        controller1 = new ClienteJpaController(ConnectionFactory.getEmf());
+        cliente = controller1.findCliente(id);
+        lblId.setText(String.valueOf(id));
+        txtNome.setText(cliente.getNome());
+        txtCelular.setText(cliente.getCelular());
+        txtEndereco.setText(cliente.getEndereco());
+        txtEmail.setText(cliente.getEmail());
+        txtNacionalidade.setText(cliente.getNacionalidade());
+        txtNumerodeQuarto.setText(String.valueOf(cliente.getQuarto()));
+        txtNrBi.setText(cliente.getNrBi());
+
+    }
+
+    public void preencherTabela() {
+        controller = new QuartoJpaController(ConnectionFactory.getEmf());
+        quartos = controller.findQuartoEntities();
+
+        DefaultTableModel tabela = (DefaultTableModel) tblQuartos.getModel();
+
+        tabela.setNumRows(0);
+        for (Quarto quarto : quartos) {
+            Object[] obj = new Object[]{
+                quarto.getId(),
+                quarto.getDescricao(),
+                quarto.getTipo(),
+                quarto.getPreco(),
+                quarto.getEstado()
+
+            };
+            tabela.addRow(obj);
+
+        }
+
+    }
+
     /**
      * Creates new form TelaCadastroHospedes
      */
     public TelaActualizacaodeDadosdeHospedes() {
         initComponents();
-        
-        
+        preencherTabela();
 
     }
 
@@ -35,13 +87,13 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
 
         panelCadastroCliente = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaQuartosCadastroHospedes = new javax.swing.JTable();
+        tblQuartos = new javax.swing.JTable();
         jcbSexo = new javax.swing.JComboBox<>();
         lblNome = new javax.swing.JLabel();
         lblApelido = new javax.swing.JLabel();
         lblSexo = new javax.swing.JLabel();
         lblNacionalidade = new javax.swing.JLabel();
-        txtApelido = new javax.swing.JTextField();
+        txtEndereco = new javax.swing.JTextField();
         txtNome = new javax.swing.JTextField();
         txtNacionalidade = new javax.swing.JTextField();
         lblEmail = new javax.swing.JLabel();
@@ -50,13 +102,16 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
         lblDataCheckIn = new javax.swing.JLabel();
         jdcDatadeCheckIn = new com.toedter.calendar.JDateChooser();
         lblDatadeNascimento = new javax.swing.JLabel();
-        txtTelemovel = new javax.swing.JTextField();
+        txtCelular = new javax.swing.JTextField();
         lblNumeroQuarto = new javax.swing.JLabel();
         txtNumerodeQuarto = new javax.swing.JTextField();
         btnCheckin = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         lblTituloNoTopo = new javax.swing.JLabel();
         jdcDatadeNascimento = new com.toedter.calendar.JDateChooser();
+        txtNrBi = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        lblId = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Check-in");
@@ -66,7 +121,7 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
         panelCadastroCliente.setBackground(new java.awt.Color(0, 82, 114));
         panelCadastroCliente.setForeground(new java.awt.Color(0, 51, 51));
 
-        tabelaQuartosCadastroHospedes.setModel(new javax.swing.table.DefaultTableModel(
+        tblQuartos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -82,10 +137,10 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tabelaQuartosCadastroHospedes.setColumnSelectionAllowed(true);
-        tabelaQuartosCadastroHospedes.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tabelaQuartosCadastroHospedes);
-        tabelaQuartosCadastroHospedes.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblQuartos.setColumnSelectionAllowed(true);
+        tblQuartos.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tblQuartos);
+        tblQuartos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         jcbSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione:", "Masculino", "Feminino" }));
         jcbSexo.addActionListener(new java.awt.event.ActionListener() {
@@ -116,13 +171,18 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
         lblDataCheckIn.setText("Data de Check-in:");
 
         lblDatadeNascimento.setForeground(new java.awt.Color(255, 255, 255));
-        lblDatadeNascimento.setText("Data de nascimento:");
+        lblDatadeNascimento.setText("Numero de BI:");
 
         lblNumeroQuarto.setForeground(new java.awt.Color(255, 255, 255));
         lblNumeroQuarto.setText("Número do Quarto:");
 
         btnCheckin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/door_in.png"))); // NOI18N
         btnCheckin.setText("Actualizar");
+        btnCheckin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnCheckinMousePressed(evt);
+            }
+        });
         btnCheckin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCheckinActionPerformed(evt);
@@ -131,6 +191,11 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/cancel.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnCancelarMousePressed(evt);
+            }
+        });
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -141,6 +206,10 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
         lblTituloNoTopo.setForeground(new java.awt.Color(255, 255, 255));
         lblTituloNoTopo.setText("ACTUALIZAÇÃO DE DADOS DE HÓSPEDES");
 
+        jLabel1.setText("ID:");
+
+        lblId.setText("jLabel2");
+
         javax.swing.GroupLayout panelCadastroClienteLayout = new javax.swing.GroupLayout(panelCadastroCliente);
         panelCadastroCliente.setLayout(panelCadastroClienteLayout);
         panelCadastroClienteLayout.setHorizontalGroup(
@@ -148,90 +217,101 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
             .addGroup(panelCadastroClienteLayout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1030, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCadastroClienteLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblTituloNoTopo)
+                .addGap(129, 129, 129))
             .addGroup(panelCadastroClienteLayout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
                     .addComponent(lblDatadeNascimento)
                     .addComponent(lblNacionalidade)
                     .addComponent(lblSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblApelido)
                     .addComponent(lblNome))
                 .addGap(18, 18, 18)
-                .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtNacionalidade)
-                    .addComponent(jcbSexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtApelido)
-                    .addComponent(txtNome)
-                    .addComponent(jdcDatadeNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelCadastroClienteLayout.createSequentialGroup()
-                        .addGap(80, 80, 80)
-                        .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblEmail)
-                            .addComponent(lblDataCheckIn)
-                            .addComponent(lblTelemovel)
-                            .addComponent(lblNumeroQuarto))
-                        .addGap(18, 18, 18)
                         .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtEmail)
-                            .addComponent(jdcDatadeCheckIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtTelemovel)
-                            .addComponent(txtNumerodeQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCadastroClienteLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCheckin)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCancelar)
-                        .addGap(128, 128, 128))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCadastroClienteLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblTituloNoTopo)
-                .addGap(129, 129, 129))
+                            .addComponent(txtNacionalidade)
+                            .addComponent(jcbSexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtEndereco)
+                            .addComponent(txtNome)
+                            .addComponent(jdcDatadeNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNrBi))
+                        .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelCadastroClienteLayout.createSequentialGroup()
+                                .addGap(80, 80, 80)
+                                .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblEmail)
+                                    .addComponent(lblDataCheckIn)
+                                    .addComponent(lblTelemovel)
+                                    .addComponent(lblNumeroQuarto))
+                                .addGap(18, 18, 18)
+                                .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtEmail)
+                                    .addComponent(jdcDatadeCheckIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtCelular)
+                                    .addComponent(txtNumerodeQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCadastroClienteLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnCheckin)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnCancelar)
+                                .addGap(147, 147, 147))))
+                    .addGroup(panelCadastroClienteLayout.createSequentialGroup()
+                        .addComponent(lblId)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         panelCadastroClienteLayout.setVerticalGroup(
             panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCadastroClienteLayout.createSequentialGroup()
-                .addContainerGap(51, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblTituloNoTopo, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(lblId))
+                .addGap(18, 18, 18)
+                .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNome)
+                    .addComponent(lblTelemovel)
+                    .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
                 .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCadastroClienteLayout.createSequentialGroup()
+                    .addGroup(panelCadastroClienteLayout.createSequentialGroup()
                         .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblNome)
-                            .addComponent(lblTelemovel)
-                            .addComponent(txtTelemovel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblApelido))
                         .addGap(20, 20, 20)
-                        .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelCadastroClienteLayout.createSequentialGroup()
-                                .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtApelido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblApelido))
-                                .addGap(20, 20, 20)
-                                .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jcbSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblDataCheckIn)
-                                    .addComponent(lblSexo)))
-                            .addGroup(panelCadastroClienteLayout.createSequentialGroup()
-                                .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lblEmail)
-                                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(20, 20, 20)
-                                .addComponent(jdcDatadeCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
                         .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtNacionalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblNacionalidade)
-                            .addComponent(lblNumeroQuarto)
-                            .addComponent(txtNumerodeQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                            .addComponent(jcbSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDataCheckIn)
+                            .addComponent(lblSexo)))
+                    .addGroup(panelCadastroClienteLayout.createSequentialGroup()
                         .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblDatadeNascimento)
-                            .addComponent(btnCheckin)
-                            .addComponent(btnCancelar)))
-                    .addComponent(jdcDatadeNascimento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
+                            .addComponent(lblEmail)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
+                        .addComponent(jdcDatadeCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNacionalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNacionalidade)
+                    .addComponent(lblNumeroQuarto)
+                    .addComponent(txtNumerodeQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNrBi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblDatadeNascimento)
+                    .addComponent(btnCheckin)
+                    .addComponent(btnCancelar))
+                .addGap(18, 18, 18)
+                .addComponent(jdcDatadeNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(65, 65, 65)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43))
         );
@@ -253,6 +333,35 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnCancelarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMousePressed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarMousePressed
+
+    private void btnCheckinMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCheckinMousePressed
+        // TODO add your handling code here:
+        Long id = Long.parseLong(lblId.getText());
+        String nome = txtNome.getText();
+        String celular = txtCelular.getText();
+        String endereco = txtEndereco.getText();
+        String email = txtEmail.getText();
+        String genero = jcbSexo.getSelectedItem().toString();
+        Date date = jdcDatadeCheckIn.getDate();
+        LocalDate checkIn = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        String nacionalidade = txtNacionalidade.getText();
+        Long quarto = Long.parseLong(txtNumerodeQuarto.getText());
+        String nrBi = txtNrBi.getText();
+
+        if (ClienteController.actualizar(id, nome, celular, endereco, email, genero, checkIn, nacionalidade, quarto, nrBi)) {
+            JOptionPane.showMessageDialog(null, "Dados actualizados com sucesso!");
+            this.dispose();
+            new TelaConsultaDeHospedes().setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao tentar actualizar dados do hospede");
+        }
+
+    }//GEN-LAST:event_btnCheckinMousePressed
 
     /**
      * @param args the command line arguments
@@ -295,6 +404,7 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnCheckin;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> jcbSexo;
     private com.toedter.calendar.JDateChooser jdcDatadeCheckIn;
@@ -303,6 +413,7 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
     private javax.swing.JLabel lblDataCheckIn;
     private javax.swing.JLabel lblDatadeNascimento;
     private javax.swing.JLabel lblEmail;
+    private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblNacionalidade;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblNumeroQuarto;
@@ -310,12 +421,13 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
     private javax.swing.JLabel lblTelemovel;
     private javax.swing.JLabel lblTituloNoTopo;
     private javax.swing.JPanel panelCadastroCliente;
-    private javax.swing.JTable tabelaQuartosCadastroHospedes;
-    private javax.swing.JTextField txtApelido;
+    private javax.swing.JTable tblQuartos;
+    private javax.swing.JTextField txtCelular;
     private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtEndereco;
     private javax.swing.JTextField txtNacionalidade;
     private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtNrBi;
     private javax.swing.JTextField txtNumerodeQuarto;
-    private javax.swing.JTextField txtTelemovel;
     // End of variables declaration//GEN-END:variables
 }

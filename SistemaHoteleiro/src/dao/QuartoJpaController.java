@@ -134,4 +134,21 @@ public class QuartoJpaController implements Serializable {
         }
     }
     
+     public List<Quarto> getQuartoByLikeDescricao(String descricao){
+        EntityManager em = getEntityManager();
+        List<Quarto> lista = null;
+        try {
+        lista =  em.createNamedQuery("Quarto.findByLikeDescricao").
+                setParameter("descricao", "%" + descricao + "%").
+                getResultList();
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        finally{
+            em.close();
+        }
+        return lista;
+    }
+    
 }

@@ -21,11 +21,12 @@ import model.Quarto;
  * @author Edilson Ricardo
  */
 public class TelaCadastroHospedes extends javax.swing.JFrame {
+
     private QuartoJpaController controller;
     private List<Quarto> quartos;
     private Quarto quarto;
-    
-     public void preencherTabela() {
+
+    public void preencherTabela() {
         controller = new QuartoJpaController(ConnectionFactory.getEmf());
         quarto = new Quarto();
         quartos = controller.findQuartoEntities();
@@ -47,7 +48,6 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
         }
 
     }
-
 
     private void limparCampos() {
         txtNome.setText("");

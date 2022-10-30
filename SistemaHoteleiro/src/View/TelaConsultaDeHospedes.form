@@ -53,7 +53,7 @@
                   <EmptySpace min="-2" pref="237" max="-2" attributes="0"/>
                   <Component id="lblPesquisar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="txtPesquisa" min="-2" pref="584" max="-2" attributes="0"/>
+                  <Component id="txtNome" min="-2" pref="584" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnBuscar" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -72,7 +72,7 @@
                   <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblPesquisar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtPesquisa" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtNome" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
@@ -93,7 +93,10 @@
             <Property name="text" type="java.lang.String" value="Nome:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtPesquisa">
+        <Component class="javax.swing.JTextField" name="txtNome">
+          <Events>
+            <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="txtNomeCaretUpdate"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnBuscar">
           <Properties>
@@ -113,6 +116,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Actualizar Dados"/>
           </Properties>
+          <Events>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnActualizarDadosClienteMousePressed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblTextoNoTopo">
           <Properties>
@@ -132,19 +138,17 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="tabelaConsultaHospedes">
+            <Component class="javax.swing.JTable" name="tblClientes">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="10" rowCount="0">
+                  <Table columnCount="8" rowCount="0">
                     <Column editable="false" title="ID" type="java.lang.Object"/>
                     <Column editable="false" title="Nome" type="java.lang.Object"/>
                     <Column editable="false" title="Sexo" type="java.lang.Object"/>
-                    <Column editable="false" title="Data de Nascimento" type="java.lang.Object"/>
+                    <Column editable="false" title="Nr BI" type="java.lang.Object"/>
                     <Column editable="true" title="Nacionalidade" type="java.lang.Object"/>
                     <Column editable="false" title="Telefone" type="java.lang.Object"/>
                     <Column editable="false" title="N&#xfa;mero do Quarto" type="java.lang.Object"/>
-                    <Column editable="false" title="Tipo de Quarto" type="java.lang.Object"/>
-                    <Column editable="false" title="Pre&#xe7;o do Quarto" type="java.lang.Object"/>
                     <Column editable="true" title="Data de Check-in" type="java.lang.Object"/>
                   </Table>
                 </Property>
@@ -207,6 +211,9 @@
                   <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblClientesMousePressed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

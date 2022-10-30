@@ -5,11 +5,16 @@
 package View;
 
 import connection.ConnectionFactory;
+import controller.ReservaController;
 import dao.QuartoJpaController;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Quarto;
 
@@ -21,6 +26,19 @@ public class TelaEfectuarReserva extends javax.swing.JFrame {
     private QuartoJpaController controller;
     private List<Quarto> quartos;
     private Quarto quarto;
+    
+     private void limparCampos() {
+        txtNome.setText("");
+        txtCelular.setText("");
+        txtEndereco.setText("");
+        txtEmail.setText("");
+        txtNacionalidade.setText("");
+        txtNumerodeQuarto.setText("");
+        txtNrBi.setText("");
+        txtValor.setText("");
+
+    }
+
     
     public void preencherTabela() {
         controller = new QuartoJpaController(ConnectionFactory.getEmf());
@@ -72,7 +90,7 @@ public class TelaEfectuarReserva extends javax.swing.JFrame {
         lblApelido = new javax.swing.JLabel();
         lblSexo = new javax.swing.JLabel();
         lblNacionalidade = new javax.swing.JLabel();
-        txtApelido = new javax.swing.JTextField();
+        txtEndereco = new javax.swing.JTextField();
         txtNome = new javax.swing.JTextField();
         txtNacionalidade = new javax.swing.JTextField();
         lblEmail = new javax.swing.JLabel();
@@ -81,7 +99,7 @@ public class TelaEfectuarReserva extends javax.swing.JFrame {
         lblDataCheckIn = new javax.swing.JLabel();
         jdcDatadeCheckIn = new com.toedter.calendar.JDateChooser();
         lblDatadeNascimento = new javax.swing.JLabel();
-        txtTelemovel = new javax.swing.JTextField();
+        txtCelular = new javax.swing.JTextField();
         lblNumeroQuarto = new javax.swing.JLabel();
         txtNumerodeQuarto = new javax.swing.JTextField();
         btnCheckin = new javax.swing.JButton();
@@ -89,7 +107,8 @@ public class TelaEfectuarReserva extends javax.swing.JFrame {
         lblTituloNoTopo = new javax.swing.JLabel();
         jdcDatadeNascimento = new com.toedter.calendar.JDateChooser();
         lblValorReserva = new javax.swing.JLabel();
-        txtValordeReserva = new javax.swing.JTextField();
+        txtValor = new javax.swing.JTextField();
+        txtNrBi = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Check-in");
@@ -149,7 +168,7 @@ public class TelaEfectuarReserva extends javax.swing.JFrame {
         lblDataCheckIn.setText("Data de Check-in:");
 
         lblDatadeNascimento.setForeground(new java.awt.Color(255, 255, 255));
-        lblDatadeNascimento.setText("Data de nascimento:");
+        lblDatadeNascimento.setText("Numero de BI:");
 
         lblNumeroQuarto.setForeground(new java.awt.Color(255, 255, 255));
         lblNumeroQuarto.setText("Número do Quarto:");
@@ -157,6 +176,11 @@ public class TelaEfectuarReserva extends javax.swing.JFrame {
         btnCheckin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/calendar_view_day.png"))); // NOI18N
         btnCheckin.setText("Efectuar Reserva");
         btnCheckin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCheckin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnCheckinMousePressed(evt);
+            }
+        });
         btnCheckin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCheckinActionPerformed(evt);
@@ -166,6 +190,11 @@ public class TelaEfectuarReserva extends javax.swing.JFrame {
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/cancel.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnCancelarMousePressed(evt);
+            }
+        });
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -179,7 +208,7 @@ public class TelaEfectuarReserva extends javax.swing.JFrame {
         lblValorReserva.setForeground(new java.awt.Color(255, 255, 255));
         lblValorReserva.setText("Valor Pago:");
 
-        txtValordeReserva.setEditable(false);
+        txtValor.setEditable(false);
 
         javax.swing.GroupLayout panelCadastroClienteLayout = new javax.swing.GroupLayout(panelCadastroCliente);
         panelCadastroCliente.setLayout(panelCadastroClienteLayout);
@@ -202,9 +231,10 @@ public class TelaEfectuarReserva extends javax.swing.JFrame {
                         .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtNacionalidade)
                             .addComponent(jcbSexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtApelido)
+                            .addComponent(txtEndereco)
                             .addComponent(txtNome)
-                            .addComponent(jdcDatadeNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jdcDatadeNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNrBi))
                         .addGap(80, 80, 80)
                         .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblEmail)
@@ -216,9 +246,9 @@ public class TelaEfectuarReserva extends javax.swing.JFrame {
                         .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtEmail)
                             .addComponent(jdcDatadeCheckIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtTelemovel)
+                            .addComponent(txtCelular)
                             .addComponent(txtNumerodeQuarto, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
-                            .addComponent(txtValordeReserva)))
+                            .addComponent(txtValor)))
                     .addGroup(panelCadastroClienteLayout.createSequentialGroup()
                         .addGap(343, 343, 343)
                         .addComponent(lblTituloNoTopo))
@@ -236,45 +266,46 @@ public class TelaEfectuarReserva extends javax.swing.JFrame {
             .addGroup(panelCadastroClienteLayout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addComponent(lblTituloNoTopo, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNome)
+                    .addComponent(lblTelemovel)
+                    .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
                 .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCadastroClienteLayout.createSequentialGroup()
+                    .addGroup(panelCadastroClienteLayout.createSequentialGroup()
                         .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblNome)
-                            .addComponent(lblTelemovel)
-                            .addComponent(txtTelemovel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblApelido))
                         .addGap(20, 20, 20)
-                        .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelCadastroClienteLayout.createSequentialGroup()
-                                .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtApelido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblApelido))
-                                .addGap(20, 20, 20)
-                                .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jcbSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblDataCheckIn)
-                                    .addComponent(lblSexo)))
-                            .addGroup(panelCadastroClienteLayout.createSequentialGroup()
-                                .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lblEmail)
-                                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(20, 20, 20)
-                                .addComponent(jdcDatadeCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
                         .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtNacionalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblNacionalidade)
-                            .addComponent(lblNumeroQuarto)
-                            .addComponent(txtNumerodeQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblDatadeNascimento)
-                            .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(lblValorReserva)
-                                .addComponent(txtValordeReserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jdcDatadeNascimento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
+                            .addComponent(jcbSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDataCheckIn)
+                            .addComponent(lblSexo)))
+                    .addGroup(panelCadastroClienteLayout.createSequentialGroup()
+                        .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblEmail)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
+                        .addComponent(jdcDatadeCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNacionalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNacionalidade)
+                    .addComponent(lblNumeroQuarto)
+                    .addComponent(txtNumerodeQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblValorReserva)
+                        .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtNrBi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblDatadeNascimento)))
+                .addGap(18, 18, 18)
+                .addComponent(jdcDatadeNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
                 .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCheckin)
                     .addComponent(btnCancelar))
@@ -300,6 +331,34 @@ public class TelaEfectuarReserva extends javax.swing.JFrame {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnCancelarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMousePressed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarMousePressed
+
+    private void btnCheckinMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCheckinMousePressed
+        // TODO add your handling code here:
+        String nome = txtNome.getText();
+        String celular = txtCelular.getText();
+        String endereco = txtEndereco.getText();
+        String email = txtEmail.getText();
+        String genero = jcbSexo.getSelectedItem().toString();
+        Date date = jdcDatadeCheckIn.getDate();
+        LocalDate checkIn = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        String nacionalidade = txtNacionalidade.getText();
+        Long quarto = Long.parseLong(txtNumerodeQuarto.getText());
+        String nrBi = txtNrBi.getText();
+        //Valor deve ser passado ao selecionar ou insirir o numero do quarto
+//        Double valor = Double.parseDouble(txtValor.getText());
+
+        if (ReservaController.cadastrar(nome, celular, endereco, email, genero, checkIn, nacionalidade, quarto, nrBi, 1200.0)) {
+            JOptionPane.showMessageDialog(null, "Reserva efectuada com sucesso!!");
+            this.limparCampos();
+        } else {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao tentar efectuar reserva!!");
+        }
+    }//GEN-LAST:event_btnCheckinMousePressed
 
     /**
      * @param args the command line arguments
@@ -357,12 +416,13 @@ public class TelaEfectuarReserva extends javax.swing.JFrame {
     private javax.swing.JLabel lblValorReserva;
     private javax.swing.JPanel panelCadastroCliente;
     private javax.swing.JTable tblQuartos;
-    private javax.swing.JTextField txtApelido;
+    private javax.swing.JTextField txtCelular;
     private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtEndereco;
     private javax.swing.JTextField txtNacionalidade;
     private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtNrBi;
     private javax.swing.JTextField txtNumerodeQuarto;
-    private javax.swing.JTextField txtTelemovel;
-    private javax.swing.JTextField txtValordeReserva;
+    private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,17 +4,69 @@
  */
 package View;
 
+import connection.ConnectionFactory;
+import dao.ReservaJpaController;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Reserva;
+
 /**
  *
  * @author Edilson Ricardo
  */
 public class TelaConsultaDeReservas extends javax.swing.JFrame {
+    private TelaActualizarDadosReserva coringa = new TelaActualizarDadosReserva();
+    private ReservaJpaController controller;
+    private List<Reserva> reservas;
+    
+    public Long pegarId() {
+        //pegando o numero da linha selecionada
+        int linhaSelecionada = tblReservas.getSelectedRow();
+        //caso nenhuma linha seja selecionada
+        if (linhaSelecionada == -1) {
+
+        } else {
+            //pegando o primeiro valor da linha seleciona que eh o ID do usuario
+            Long id = Long.parseLong(tblReservas.getValueAt(linhaSelecionada, 0).toString());
+            return id;
+        }
+        return -1l;
+    }
+    private void preencherTabela(){
+        
+        String nome = txtNome.getText();
+        controller = new ReservaJpaController(ConnectionFactory.getEmf());
+        reservas = controller.getReservaByLikeNome(nome);
+        
+        DefaultTableModel tabela = (DefaultTableModel) tblReservas.getModel();
+        tabela.setNumRows(0);
+        
+        for (Reserva reserva : reservas) {
+            Object[] obj = new Object[]{
+               reserva.getId(),
+               reserva.getNome(),
+               reserva.getGenero(),
+               reserva.getNrBi(),
+               reserva.getNacionalidade(),
+               reserva.getCelular(),
+               reserva.getQuarto(),
+               reserva.getValor(),
+               reserva.getCheckIn()
+
+            };
+            tabela.addRow(obj);
+
+        }
+    }
+
 
     /**
      * Creates new form TelaConsultaDeFuncionarios
      */
     public TelaConsultaDeReservas() {
         initComponents();
+        preencherTabela();
     }
 
     /**
@@ -28,12 +80,12 @@ public class TelaConsultaDeReservas extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         lblPesquisar = new javax.swing.JLabel();
-        txtPesquisa = new javax.swing.JTextField();
+        txtNome = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         btnActualizarDadosReserva = new javax.swing.JButton();
         lblTextoNoTopo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaConsultaHospedes = new javax.swing.JTable();
+        tblReservas = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consulta de Reservas Efectuadas");
@@ -43,6 +95,12 @@ public class TelaConsultaDeReservas extends javax.swing.JFrame {
 
         lblPesquisar.setForeground(new java.awt.Color(255, 255, 255));
         lblPesquisar.setText("Nome:");
+
+        txtNome.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtNomeCaretUpdate(evt);
+            }
+        });
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/magnifier.png"))); // NOI18N
         btnBuscar.setText("Buscar");
@@ -55,34 +113,44 @@ public class TelaConsultaDeReservas extends javax.swing.JFrame {
         btnActualizarDadosReserva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/user_edit.png"))); // NOI18N
         btnActualizarDadosReserva.setText("Actualizar Dados");
         btnActualizarDadosReserva.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnActualizarDadosReserva.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnActualizarDadosReservaMousePressed(evt);
+            }
+        });
 
         lblTextoNoTopo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         lblTextoNoTopo.setForeground(new java.awt.Color(255, 255, 255));
         lblTextoNoTopo.setText("CONSULTA DE RESERVAS EFECTUADAS");
 
-        tabelaConsultaHospedes.setModel(new javax.swing.table.DefaultTableModel(
+        tblReservas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Nome", "Sexo", "Data de Nascimento", "Nacionalidade", "Telefone", "Número do Quarto", "Tipo de Quarto", "Valor Pago", "Preço do Quarto", "Data de Check-in"
+                "ID", "Nome", "Sexo", "Numero de BI", "Nacionalidade", "Telefone", "Número do Quarto", "Valor Pago", "Data de Check-in"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tabelaConsultaHospedes.setColumnSelectionAllowed(true);
-        tabelaConsultaHospedes.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tabelaConsultaHospedes);
-        tabelaConsultaHospedes.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        if (tabelaConsultaHospedes.getColumnModel().getColumnCount() > 0) {
-            tabelaConsultaHospedes.getColumnModel().getColumn(0).setPreferredWidth(20);
-            tabelaConsultaHospedes.getColumnModel().getColumn(2).setPreferredWidth(30);
+        tblReservas.setColumnSelectionAllowed(true);
+        tblReservas.getTableHeader().setReorderingAllowed(false);
+        tblReservas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblReservasMousePressed(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblReservas);
+        tblReservas.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        if (tblReservas.getColumnModel().getColumnCount() > 0) {
+            tblReservas.getColumnModel().getColumn(0).setPreferredWidth(20);
+            tblReservas.getColumnModel().getColumn(2).setPreferredWidth(30);
         }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -96,7 +164,7 @@ public class TelaConsultaDeReservas extends javax.swing.JFrame {
                 .addGap(237, 237, 237)
                 .addComponent(lblPesquisar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBuscar))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -112,7 +180,7 @@ public class TelaConsultaDeReservas extends javax.swing.JFrame {
                 .addGap(61, 61, 61)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPesquisar)
-                    .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
                 .addGap(52, 52, 52)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -139,6 +207,27 @@ public class TelaConsultaDeReservas extends javax.swing.JFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnActualizarDadosReservaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarDadosReservaMousePressed
+        // TODO add your handling code here:
+         if(pegarId() == -1){
+            JOptionPane.showMessageDialog(null, "Selecione um registro!");
+        }else{
+            coringa.preencherCampos(pegarId());
+            this.dispose();
+            coringa.setVisible(true);
+        }
+    }//GEN-LAST:event_btnActualizarDadosReservaMousePressed
+
+    private void tblReservasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblReservasMousePressed
+        // TODO add your handling code here:
+        pegarId();
+    }//GEN-LAST:event_tblReservasMousePressed
+
+    private void txtNomeCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtNomeCaretUpdate
+        // TODO add your handling code here:
+        preencherTabela();
+    }//GEN-LAST:event_txtNomeCaretUpdate
 
     /**
      * @param args the command line arguments
@@ -185,7 +274,7 @@ public class TelaConsultaDeReservas extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblPesquisar;
     private javax.swing.JLabel lblTextoNoTopo;
-    private javax.swing.JTable tabelaConsultaHospedes;
-    private javax.swing.JTextField txtPesquisa;
+    private javax.swing.JTable tblReservas;
+    private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
 }

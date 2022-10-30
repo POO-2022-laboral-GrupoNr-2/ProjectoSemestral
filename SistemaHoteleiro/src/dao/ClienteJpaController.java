@@ -134,4 +134,21 @@ public class ClienteJpaController implements Serializable {
         }
     }
     
+    public List<Cliente> getClienteByLikeNome(String nome){
+        EntityManager em = getEntityManager();
+        List<Cliente> lista = null;
+        try {
+        lista =  em.createNamedQuery("Cliente.findByLikeNome").
+                setParameter("nome", "%" + nome + "%").
+                getResultList();
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        finally{
+            em.close();
+        }
+        return lista;
+    }
+    
 }

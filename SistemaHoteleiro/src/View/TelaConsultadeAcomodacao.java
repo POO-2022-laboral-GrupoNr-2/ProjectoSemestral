@@ -4,17 +4,52 @@
  */
 package View;
 
+import connection.ConnectionFactory;
+import dao.QuartoJpaController;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import model.Quarto;
+
 /**
  *
  * @author Edilson Ricardo
  */
 public class TelaConsultadeAcomodacao extends javax.swing.JFrame {
+    private QuartoJpaController controller;
+    private List<Quarto> quartos;
+    
+    private void preencherTabela() {
+
+        controller = new QuartoJpaController(ConnectionFactory.getEmf());
+        String descricao = txtDescricao.getText();
+        quartos = controller.getQuartoByLikeDescricao(descricao);
+
+        //pegando o modelo da tabela para que seja possivel manipular
+        DefaultTableModel tabela = (DefaultTableModel) tblQuartos.getModel();
+        //zerando as linhas da tabela, para nao sobrepor os registros toda vez que o metodo for chamado
+        tabela.setNumRows(0);
+         for (Quarto quarto : quartos) {
+            Object[] obj = new Object[]{
+                quarto.getId(),
+                quarto.getDescricao(),
+                quarto.getTipo(),
+                quarto.getPreco(),
+                quarto.getEstado()
+
+            };
+            tabela.addRow(obj);
+
+        }
+
+    }
+
 
     /**
      * Creates new form TeladeCadastrodeAcomodacao
      */
     public TelaConsultadeAcomodacao() {
         initComponents();
+        preencherTabela();
     }
 
     /**
@@ -28,10 +63,10 @@ public class TelaConsultadeAcomodacao extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaCadastrodeQuartos = new javax.swing.JTable();
+        tblQuartos = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtNomeDescricao = new javax.swing.JTextField();
+        txtDescricao = new javax.swing.JTextField();
         btnCadastrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -40,7 +75,7 @@ public class TelaConsultadeAcomodacao extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(0, 82, 114));
 
-        tabelaCadastrodeQuartos.setModel(new javax.swing.table.DefaultTableModel(
+        tblQuartos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -56,11 +91,11 @@ public class TelaConsultadeAcomodacao extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tabelaCadastrodeQuartos.setColumnSelectionAllowed(true);
-        tabelaCadastrodeQuartos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        tabelaCadastrodeQuartos.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tabelaCadastrodeQuartos);
-        tabelaCadastrodeQuartos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        tblQuartos.setColumnSelectionAllowed(true);
+        tblQuartos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblQuartos.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tblQuartos);
+        tblQuartos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -68,6 +103,12 @@ public class TelaConsultadeAcomodacao extends javax.swing.JFrame {
 
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Nome/Descrição:");
+
+        txtDescricao.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtDescricaoCaretUpdate(evt);
+            }
+        });
 
         btnCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/magnifier.png"))); // NOI18N
         btnCadastrar.setText("Buscar");
@@ -84,7 +125,7 @@ public class TelaConsultadeAcomodacao extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(27, 27, 27)
-                        .addComponent(txtNomeDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)
                         .addComponent(btnCadastrar)
                         .addGap(267, 267, 267))
@@ -100,7 +141,7 @@ public class TelaConsultadeAcomodacao extends javax.swing.JFrame {
                 .addGap(54, 54, 54)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrar)
-                    .addComponent(txtNomeDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -121,6 +162,11 @@ public class TelaConsultadeAcomodacao extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtDescricaoCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtDescricaoCaretUpdate
+        // TODO add your handling code here:
+        preencherTabela();
+    }//GEN-LAST:event_txtDescricaoCaretUpdate
 
     /**
      * @param args the command line arguments
@@ -166,7 +212,7 @@ public class TelaConsultadeAcomodacao extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tabelaCadastrodeQuartos;
-    private javax.swing.JTextField txtNomeDescricao;
+    private javax.swing.JTable tblQuartos;
+    private javax.swing.JTextField txtDescricao;
     // End of variables declaration//GEN-END:variables
 }

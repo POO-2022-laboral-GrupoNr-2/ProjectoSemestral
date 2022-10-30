@@ -41,4 +41,30 @@ public class ClienteController {
 
     }
 
+    public static boolean actualizar(Long id, String nome, String celular, String endereco, String email, String genero, LocalDate checkIn, String nacionalidade, Long quarto, String nrBi) {
+        
+        controller = new ClienteJpaController(ConnectionFactory.getEmf());
+        cliente = controller.findCliente(id);
+        
+        cliente.setNome(nome);
+        cliente.setCelular(celular);
+        cliente.setEndereco(endereco);
+        cliente.setEmail(email);
+        cliente.setGenero(genero);
+        cliente.setCheckIn(checkIn);
+        cliente.setNacionalidade(nacionalidade);
+        cliente.setQuarto(quarto);
+        cliente.setNrBi(nrBi);
+        
+        try {
+            controller.edit(cliente);
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+        
+
+    }
+
 }
