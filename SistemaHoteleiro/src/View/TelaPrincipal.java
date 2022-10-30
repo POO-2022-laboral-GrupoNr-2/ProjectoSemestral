@@ -276,6 +276,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuItem13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/lock_edit.png"))); // NOI18N
         jMenuItem13.setText("Alterar Palavra-Passe");
+        jMenuItem13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jMenuItem13MousePressed(evt);
+            }
+        });
         menuConfiguracoes.add(jMenuItem13);
 
         jMenuItem14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/images.png"))); // NOI18N
@@ -391,6 +396,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         new TelaConsultadeAcomodacao().setVisible(true);
     }//GEN-LAST:event_jMenuItem9MousePressed
+
+    private void jMenuItem13MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem13MousePressed
+        // TODO add your handling code here:
+        new TelaAlteracaoSenha().setVisible(true);
+    }//GEN-LAST:event_jMenuItem13MousePressed
 
     /**
      * @param args the command line arguments
