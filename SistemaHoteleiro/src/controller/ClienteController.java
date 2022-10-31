@@ -66,5 +66,23 @@ public class ClienteController {
         
 
     }
+    
+    public static boolean adicionarConsumo(Long id, Double consumo){
+        controller = new ClienteJpaController(ConnectionFactory.getEmf());
+        cliente = controller.findCliente(id);
+        
+//        Double adicionar = cliente.getConsumo() + consumo;
+        Double adicionar = cliente.getConsumo() + consumo;
+        cliente.setConsumo(adicionar);
+         
+        try {
+            controller.edit(cliente);
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+       
+    }
 
 }

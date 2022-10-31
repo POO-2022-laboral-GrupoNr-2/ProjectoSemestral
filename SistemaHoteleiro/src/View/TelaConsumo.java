@@ -5,8 +5,11 @@
 package View;
 
 import connection.ConnectionFactory;
+import controller.ClienteController;
+import controller.ProdutoController;
 import dao.ProdutoJpaController;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Produto;
 
@@ -15,10 +18,11 @@ import model.Produto;
  * @author Edilson Ricardo
  */
 public class TelaConsumo extends javax.swing.JFrame {
-     private ProdutoJpaController controller;
-     private List<Produto> produtos;
-    
-     private void preencherTabela() {
+
+    private ProdutoJpaController controller;
+    private List<Produto> produtos;
+
+    private void preencherTabela() {
 
         controller = new ProdutoJpaController(ConnectionFactory.getEmf());
         produtos = controller.findProdutoEntities();
@@ -31,10 +35,8 @@ public class TelaConsumo extends javax.swing.JFrame {
             Object[] obj = new Object[]{
                 produto.getId(),
                 produto.getDescricao(),
-                produto.getPreco(),
-                produto.getValidade(),
-                produto.getCusto(),
-                produto.getQuantidade()
+                produto.getQuantidade(),
+                produto.getPreco()
 
             };
             tabela.addRow(obj);
@@ -42,7 +44,12 @@ public class TelaConsumo extends javax.swing.JFrame {
         }
 
     }
-
+    
+    private void limparCampos(){
+        txtIDProduto.setText("");
+        txtIdCliente.setText("");
+        txtQuantidade.setText("");
+    }
 
     /**
      * Creates new form TelaCadastroProduto
@@ -67,7 +74,7 @@ public class TelaConsumo extends javax.swing.JFrame {
         lblIDProduto = new javax.swing.JLabel();
         lblQuantidade = new javax.swing.JLabel();
         btnAdicionar = new javax.swing.JButton();
-        txtNumeroQuarto = new javax.swing.JTextField();
+        txtIdCliente = new javax.swing.JTextField();
         txtIDProduto = new javax.swing.JTextField();
         txtQuantidade = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -84,7 +91,7 @@ public class TelaConsumo extends javax.swing.JFrame {
         lblTextoNoTopo.setText("ADIÇÃO DE CONSUMO");
 
         lblNumeroQuarto.setForeground(new java.awt.Color(255, 255, 255));
-        lblNumeroQuarto.setText("Número do Quarto:");
+        lblNumeroQuarto.setText("ID do Cliente");
 
         lblIDProduto.setForeground(new java.awt.Color(255, 255, 255));
         lblIDProduto.setText("ID do Produto:");
@@ -94,6 +101,11 @@ public class TelaConsumo extends javax.swing.JFrame {
 
         btnAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/add.png"))); // NOI18N
         btnAdicionar.setText("Adicionar");
+        btnAdicionar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnAdicionarMousePressed(evt);
+            }
+        });
         btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAdicionarActionPerformed(evt);
@@ -133,11 +145,11 @@ public class TelaConsumo extends javax.swing.JFrame {
                 .addGap(11, 11, 11)
                 .addComponent(lblNumeroQuarto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtNumeroQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblIDProduto)
                 .addGap(7, 7, 7)
-                .addComponent(txtIDProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                .addComponent(txtIDProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(lblQuantidade)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -160,7 +172,7 @@ public class TelaConsumo extends javax.swing.JFrame {
                 .addComponent(lblTextoNoTopo)
                 .addGap(59, 59, 59)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNumeroQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblIDProduto)
                     .addComponent(txtIDProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblQuantidade)
@@ -191,6 +203,19 @@ public class TelaConsumo extends javax.swing.JFrame {
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAdicionarActionPerformed
+
+    private void btnAdicionarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdicionarMousePressed
+        // TODO add your handling code here:
+
+        Long id = Long.parseLong(txtIdCliente.getText());
+        if (ClienteController.adicionarConsumo(id, ProdutoController.calcularPreco(Long.parseLong(txtIDProduto.getText()), Integer.parseInt(txtQuantidade.getText())))) {
+            JOptionPane.showMessageDialog(null, "Consumo adicionado");
+            limparCampos();
+            preencherTabela();
+        }else{
+           JOptionPane.showMessageDialog(null, "Ocorreu um erro ao tentar adicionar consumo");  
+        }
+    }//GEN-LAST:event_btnAdicionarMousePressed
 
     /**
      * @param args the command line arguments
@@ -240,7 +265,7 @@ public class TelaConsumo extends javax.swing.JFrame {
     private javax.swing.JLabel lblTextoNoTopo;
     private javax.swing.JTable tblProdutos;
     private javax.swing.JTextField txtIDProduto;
-    private javax.swing.JTextField txtNumeroQuarto;
+    private javax.swing.JTextField txtIdCliente;
     private javax.swing.JTextField txtQuantidade;
     // End of variables declaration//GEN-END:variables
 }

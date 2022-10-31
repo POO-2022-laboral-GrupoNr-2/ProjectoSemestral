@@ -2,6 +2,7 @@ package controller;
 
 import connection.ConnectionFactory;
 import dao.ProdutoJpaController;
+import java.awt.Dimension;
 import java.time.LocalDate;
 import model.Produto;
 
@@ -61,5 +62,27 @@ public class ProdutoController {
             return false;
         }
 
+    }
+    
+    public static void diminuirQuantidade(Long id, Integer quantidade){
+        controller = new ProdutoJpaController(ConnectionFactory.getEmf());
+        produto = controller.findProduto(id);
+        
+        Integer sacar = produto.getQuantidade() - quantidade;
+        produto.setQuantidade(sacar);
+        try {
+            controller.edit(produto);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+          
+    }
+
+    public static Double calcularPreco(Long id, Integer quantidade) {
+        controller = new ProdutoJpaController(ConnectionFactory.getEmf());
+        produto = controller.findProduto(id);
+        diminuirQuantidade(id, quantidade);
+
+        return produto.getPreco() * quantidade;
     }
 }

@@ -4,17 +4,88 @@
  */
 package View;
 
+import connection.ConnectionFactory;
+import dao.ClienteJpaController;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.Period;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Cliente;
+
 /**
  *
  * @author Edilson Ricardo
  */
 public class TelaCheckOut extends javax.swing.JFrame {
 
+    private ClienteJpaController controller;
+    private List<Cliente> clientes;
+    private Cliente cliente;
+
+    private void preencherTabela() {
+
+        controller = new ClienteJpaController(ConnectionFactory.getEmf());
+        clientes = controller.findClienteEntities();
+
+        DefaultTableModel tabela = (DefaultTableModel) tblClientes.getModel();
+        tabela.setNumRows(0);
+
+        for (Cliente cliente : clientes) {
+            Object[] obj = new Object[]{
+                cliente.getId(),
+                cliente.getNome(),
+                cliente.getGenero(),
+                cliente.getNrBi(),
+                cliente.getNacionalidade(),
+                cliente.getCelular(),
+                cliente.getQuarto(),
+                cliente.getCheckIn(),
+                cliente.getValor()
+
+            };
+            tabela.addRow(obj);
+
+        }
+    }
+
+    private void preencherCampos(Long id) {
+
+        controller = new ClienteJpaController(ConnectionFactory.getEmf());
+        cliente = controller.findCliente(id);
+
+        Period dias = Period.between(cliente.getCheckIn(), LocalDate.now());
+      
+        txtCheckIn.setText(cliente.getCheckIn().toString());
+        txtCheckOut.setText(LocalDate.now().toString());
+        txtDias.setText(String.valueOf(dias.getDays()));
+        txtConsumo.setText(String.valueOf(cliente.getConsumo()));
+        txtValor.setText(String.valueOf(cliente.getValor()));
+        txtNumeroQuarto.setText(String.valueOf(cliente.getQuarto()));
+
+    }
+
+    public Long pegarId() {
+        //pegando o numero da linha selecionada
+        int linhaSelecionada = tblClientes.getSelectedRow();
+        //caso nenhuma linha seja selecionada
+        if (linhaSelecionada == -1) {
+
+        } else {
+            //pegando o primeiro valor da linha seleciona que eh o ID do usuario
+            Long id = Long.parseLong(tblClientes.getValueAt(linhaSelecionada, 0).toString());
+            return id;
+        }
+        return -1l;
+    }
+
     /**
      * Creates new form TelaCheckOut
      */
     public TelaCheckOut() {
         initComponents();
+        preencherTabela();
     }
 
     /**
@@ -29,19 +100,19 @@ public class TelaCheckOut extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lblTextoNoTopo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaConsultaHospedes = new javax.swing.JTable();
+        tblClientes = new javax.swing.JTable();
         lblCheckIn = new javax.swing.JLabel();
         lblConsumoTotal = new javax.swing.JLabel();
         lblCheckOut = new javax.swing.JLabel();
         lblPrecoQuarto = new javax.swing.JLabel();
         lblEstadia = new javax.swing.JLabel();
         lblValorTotal = new javax.swing.JLabel();
-        txtDataCheckin = new javax.swing.JTextField();
-        txtDiasEstadia = new javax.swing.JTextField();
-        txtDataCheckOut = new javax.swing.JTextField();
-        txtConsumoTotal = new javax.swing.JTextField();
-        txtPrecoQuarto = new javax.swing.JTextField();
-        txtValorTotal = new javax.swing.JTextField();
+        txtCheckIn = new javax.swing.JTextField();
+        txtDias = new javax.swing.JTextField();
+        txtCheckOut = new javax.swing.JTextField();
+        txtConsumo = new javax.swing.JTextField();
+        txtPrecoDoQuarto = new javax.swing.JTextField();
+        txtValor = new javax.swing.JTextField();
         btnCheckOut = new javax.swing.JButton();
         lblNumeroQuarto = new javax.swing.JLabel();
         txtNumeroQuarto = new javax.swing.JTextField();
@@ -56,26 +127,31 @@ public class TelaCheckOut extends javax.swing.JFrame {
         lblTextoNoTopo.setForeground(new java.awt.Color(255, 255, 255));
         lblTextoNoTopo.setText("CHECK-OUT DE HÓSPEDES");
 
-        tabelaConsultaHospedes.setModel(new javax.swing.table.DefaultTableModel(
+        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Nome", "Sexo", "Data de Nascimento", "Nacionalidade", "Telefone", "Nro do Quarto", "Tipo de Quarto", "Preço do Quarto", "Data de Check-in", "Consumo Total"
+                "ID", "Nome", "Sexo", "Nr do BI", "Nacionalidade", "Telefone", "Nr do Quarto", "Data de Check-in", "Consumo Total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tabelaConsultaHospedes.setColumnSelectionAllowed(true);
-        tabelaConsultaHospedes.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tabelaConsultaHospedes);
-        tabelaConsultaHospedes.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        tblClientes.setColumnSelectionAllowed(true);
+        tblClientes.getTableHeader().setReorderingAllowed(false);
+        tblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblClientesMousePressed(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblClientes);
+        tblClientes.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         lblCheckIn.setForeground(new java.awt.Color(255, 255, 255));
         lblCheckIn.setText("Data de Check-in:");
@@ -98,6 +174,11 @@ public class TelaCheckOut extends javax.swing.JFrame {
         btnCheckOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/door_out.png"))); // NOI18N
         btnCheckOut.setText("Check-Out");
         btnCheckOut.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCheckOut.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnCheckOutMousePressed(evt);
+            }
+        });
 
         lblNumeroQuarto.setForeground(new java.awt.Color(255, 255, 255));
         lblNumeroQuarto.setText("Número do Quarto:");
@@ -116,8 +197,8 @@ public class TelaCheckOut extends javax.swing.JFrame {
                     .addComponent(lblCheckIn))
                 .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(txtConsumoTotal)
-                    .addComponent(txtDataCheckin, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE))
+                    .addComponent(txtConsumo)
+                    .addComponent(txtCheckIn, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -135,16 +216,16 @@ public class TelaCheckOut extends javax.swing.JFrame {
                                 .addComponent(txtNumeroQuarto, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnCheckOut))
-                            .addComponent(txtPrecoQuarto, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtDataCheckOut, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(txtPrecoDoQuarto, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCheckOut, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblEstadia, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblValorTotal, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtDiasEstadia, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
-                            .addComponent(txtValorTotal))
+                            .addComponent(txtDias, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+                            .addComponent(txtValor))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -157,17 +238,17 @@ public class TelaCheckOut extends javax.swing.JFrame {
                     .addComponent(lblCheckIn)
                     .addComponent(lblCheckOut)
                     .addComponent(lblEstadia)
-                    .addComponent(txtDataCheckin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDiasEstadia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDataCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblConsumoTotal)
                     .addComponent(lblPrecoQuarto)
                     .addComponent(lblValorTotal)
-                    .addComponent(txtConsumoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPrecoQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtConsumo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPrecoDoQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCheckOut)
@@ -192,6 +273,21 @@ public class TelaCheckOut extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tblClientesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMousePressed
+        // TODO add your handling code here:
+        pegarId();
+        preencherCampos(pegarId());
+    }//GEN-LAST:event_tblClientesMousePressed
+
+    private void btnCheckOutMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCheckOutMousePressed
+        // TODO add your handling code here:
+        if (pegarId() == -1) {
+            JOptionPane.showMessageDialog(null, "Por favor selecione um registro!!");
+        } else {
+
+        }
+    }//GEN-LAST:event_btnCheckOutMousePressed
 
     /**
      * @param args the command line arguments
@@ -240,13 +336,13 @@ public class TelaCheckOut extends javax.swing.JFrame {
     private javax.swing.JLabel lblPrecoQuarto;
     private javax.swing.JLabel lblTextoNoTopo;
     private javax.swing.JLabel lblValorTotal;
-    private javax.swing.JTable tabelaConsultaHospedes;
-    private javax.swing.JTextField txtConsumoTotal;
-    private javax.swing.JTextField txtDataCheckOut;
-    private javax.swing.JTextField txtDataCheckin;
-    private javax.swing.JTextField txtDiasEstadia;
+    private javax.swing.JTable tblClientes;
+    private javax.swing.JTextField txtCheckIn;
+    private javax.swing.JTextField txtCheckOut;
+    private javax.swing.JTextField txtConsumo;
+    private javax.swing.JTextField txtDias;
     private javax.swing.JTextField txtNumeroQuarto;
-    private javax.swing.JTextField txtPrecoQuarto;
-    private javax.swing.JTextField txtValorTotal;
+    private javax.swing.JTextField txtPrecoDoQuarto;
+    private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 }
