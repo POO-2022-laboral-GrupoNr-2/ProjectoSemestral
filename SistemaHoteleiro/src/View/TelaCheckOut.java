@@ -311,6 +311,7 @@ public class TelaCheckOut extends javax.swing.JFrame {
             System.out.println(pegarId());
             if (ClienteController.checkOut(pegarId(), Double.parseDouble(txtValor.getText())));
             JOptionPane.showMessageDialog(null, "CheckOut efectuado com sucesso!!");
+            limparCampos();
             preencherTabela();
             
         }
