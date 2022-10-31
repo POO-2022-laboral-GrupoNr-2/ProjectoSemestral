@@ -5,7 +5,9 @@
 package View;
 
 import connection.ConnectionFactory;
+import controller.ClienteController;
 import dao.ClienteJpaController;
+import dao.QuartoJpaController;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.Period;
@@ -13,6 +15,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Cliente;
+import model.Quarto;
 
 /**
  *
@@ -23,6 +26,8 @@ public class TelaCheckOut extends javax.swing.JFrame {
     private ClienteJpaController controller;
     private List<Cliente> clientes;
     private Cliente cliente;
+    private Quarto quarto;
+    private QuartoJpaController controllerQuarto;
 
     private void preencherTabela() {
 
@@ -41,28 +46,46 @@ public class TelaCheckOut extends javax.swing.JFrame {
                 cliente.getNacionalidade(),
                 cliente.getCelular(),
                 cliente.getQuarto(),
-                cliente.getCheckIn(),
-                cliente.getValor()
+                cliente.getCheckIn()
 
             };
             tabela.addRow(obj);
 
         }
     }
+    
+    private void limparCampos(){
+        txtCheckIn.setText("");
+        txtCheckOut.setText("");
+        txtDias.setText("");
+        txtConsumo.setText("");
+        txtValor.setText("");
+        txtNumeroQuarto.setText("");
+        txtPrecoDoQuarto.setText("");
+        
+    }
 
     private void preencherCampos(Long id) {
 
+        controllerQuarto = new QuartoJpaController(ConnectionFactory.getEmf());
         controller = new ClienteJpaController(ConnectionFactory.getEmf());
         cliente = controller.findCliente(id);
 
+        quarto = controllerQuarto.findQuarto(cliente.getQuarto());
+        //determinando o numero de dias de estadia
         Period dias = Period.between(cliente.getCheckIn(), LocalDate.now());
-      
+
+        //Calculando o valor total
+        Double total = cliente.getConsumo() + (dias.getDays() * quarto.getPreco());
+
         txtCheckIn.setText(cliente.getCheckIn().toString());
         txtCheckOut.setText(LocalDate.now().toString());
         txtDias.setText(String.valueOf(dias.getDays()));
         txtConsumo.setText(String.valueOf(cliente.getConsumo()));
-        txtValor.setText(String.valueOf(cliente.getValor()));
+        txtValor.setText("");
         txtNumeroQuarto.setText(String.valueOf(cliente.getQuarto()));
+        txtPrecoDoQuarto.setText(String.valueOf(quarto.getPreco()));
+        txtValor.setText(String.valueOf(total));
 
     }
 
@@ -132,11 +155,11 @@ public class TelaCheckOut extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nome", "Sexo", "Nr do BI", "Nacionalidade", "Telefone", "Nr do Quarto", "Data de Check-in", "Consumo Total"
+                "ID", "Nome", "Sexo", "Nr do BI", "Nacionalidade", "Telefone", "Nr do Quarto", "Data de Check-in"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -285,7 +308,11 @@ public class TelaCheckOut extends javax.swing.JFrame {
         if (pegarId() == -1) {
             JOptionPane.showMessageDialog(null, "Por favor selecione um registro!!");
         } else {
-
+            System.out.println(pegarId());
+            if (ClienteController.checkOut(pegarId(), Double.parseDouble(txtValor.getText())));
+            JOptionPane.showMessageDialog(null, "CheckOut efectuado com sucesso!!");
+            preencherTabela();
+            
         }
     }//GEN-LAST:event_btnCheckOutMousePressed
 
