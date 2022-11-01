@@ -48,8 +48,8 @@ Projecto inicialmente académico com o propósito de criação dum sistema que s
 ##### Versão Web
 - [x]  Preparar ambiente de Desenvolvimento.
 - [x] Conexao com base dados e servidor tomcat
-- [ ]  Criar landing page do sistema
-- [ ] Criar formulario  de reserva
+- [x]  Criar landing page do sistema
+- [x] Criar formulario  de reserva
 - [ ]  Relacionar base de dados
 
 
