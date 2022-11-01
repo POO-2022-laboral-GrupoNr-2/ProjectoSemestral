@@ -42,7 +42,7 @@ public class TelaEfectuarReserva extends javax.swing.JFrame {
         lblSexo = new javax.swing.JLabel();
         lblNacionalidade = new javax.swing.JLabel();
         txtApelido = new javax.swing.JTextField();
-        txtNome = new javax.swing.JTextField();
+        txtNomeCliente = new javax.swing.JTextField();
         txtNacionalidade = new javax.swing.JTextField();
         lblEmail = new javax.swing.JLabel();
         lblTelemovel = new javax.swing.JLabel();
@@ -50,7 +50,7 @@ public class TelaEfectuarReserva extends javax.swing.JFrame {
         lblDataCheckIn = new javax.swing.JLabel();
         jdcDatadeCheckIn = new com.toedter.calendar.JDateChooser();
         lblDatadeNascimento = new javax.swing.JLabel();
-        txtTelemovel = new javax.swing.JTextField();
+        txtTelemovelCliente = new javax.swing.JTextField();
         lblNumeroQuarto = new javax.swing.JLabel();
         txtNumerodeQuarto = new javax.swing.JTextField();
         btnCheckin = new javax.swing.JButton();
@@ -172,7 +172,7 @@ public class TelaEfectuarReserva extends javax.swing.JFrame {
                             .addComponent(txtNacionalidade)
                             .addComponent(jcbSexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtApelido)
-                            .addComponent(txtNome)
+                            .addComponent(txtNomeCliente)
                             .addComponent(jdcDatadeNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(80, 80, 80)
                         .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -185,7 +185,7 @@ public class TelaEfectuarReserva extends javax.swing.JFrame {
                         .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtEmail)
                             .addComponent(jdcDatadeCheckIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtTelemovel)
+                            .addComponent(txtTelemovelCliente)
                             .addComponent(txtNumerodeQuarto, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
                             .addComponent(txtValordeReserva)))
                     .addGroup(panelCadastroClienteLayout.createSequentialGroup()
@@ -209,10 +209,10 @@ public class TelaEfectuarReserva extends javax.swing.JFrame {
                 .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCadastroClienteLayout.createSequentialGroup()
                         .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblNome)
                             .addComponent(lblTelemovel)
-                            .addComponent(txtTelemovel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtTelemovelCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(20, 20, 20)
                         .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelCadastroClienteLayout.createSequentialGroup()
@@ -329,9 +329,9 @@ public class TelaEfectuarReserva extends javax.swing.JFrame {
     private javax.swing.JTextField txtApelido;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtNacionalidade;
-    private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtNomeCliente;
     private javax.swing.JTextField txtNumerodeQuarto;
-    private javax.swing.JTextField txtTelemovel;
+    private javax.swing.JTextField txtTelemovelCliente;
     private javax.swing.JTextField txtValordeReserva;
     // End of variables declaration//GEN-END:variables
 }

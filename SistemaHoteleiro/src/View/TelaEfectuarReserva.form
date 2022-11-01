@@ -65,7 +65,7 @@
                               <Component id="txtNacionalidade" alignment="0" max="32767" attributes="0"/>
                               <Component id="jcbSexo" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtApelido" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtNome" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtNomeCliente" alignment="0" max="32767" attributes="0"/>
                               <Component id="jdcDatadeNascimento" alignment="0" min="-2" pref="276" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
@@ -80,7 +80,7 @@
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="txtEmail" max="32767" attributes="0"/>
                               <Component id="jdcDatadeCheckIn" max="32767" attributes="0"/>
-                              <Component id="txtTelemovel" max="32767" attributes="0"/>
+                              <Component id="txtTelemovelCliente" max="32767" attributes="0"/>
                               <Component id="txtNumerodeQuarto" pref="276" max="32767" attributes="0"/>
                               <Component id="txtValordeReserva" alignment="0" max="32767" attributes="0"/>
                           </Group>
@@ -113,10 +113,10 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txtNome" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtNomeCliente" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lblNome" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lblTelemovel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtTelemovel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtTelemovelCliente" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -278,7 +278,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtApelido">
         </Component>
-        <Component class="javax.swing.JTextField" name="txtNome">
+        <Component class="javax.swing.JTextField" name="txtNomeCliente">
         </Component>
         <Component class="javax.swing.JTextField" name="txtNacionalidade">
         </Component>
@@ -318,7 +318,7 @@
             <Property name="text" type="java.lang.String" value="Data de nascimento:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtTelemovel">
+        <Component class="javax.swing.JTextField" name="txtTelemovelCliente">
         </Component>
         <Component class="javax.swing.JLabel" name="lblNumeroQuarto">
           <Properties>
