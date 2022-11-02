@@ -11,9 +11,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Quarto;
@@ -23,23 +20,38 @@ import model.Quarto;
  * @author Edilson Ricardo
  */
 public class TelaEfectuarReserva extends javax.swing.JFrame {
+
     private QuartoJpaController controller;
     private List<Quarto> quartos;
     private Quarto quarto;
-    
-     private void limparCampos() {
+
+    private void limparCampos() {
         txtNome.setText("");
         txtCelular.setText("");
         txtEndereco.setText("");
         txtEmail.setText("");
         txtNacionalidade.setText("");
-        txtNumerodeQuarto.setText("");
+        txtQuarto.setText("");
         txtNrBi.setText("");
         txtValor.setText("");
 
     }
 
-    
+    // para pegar o id do quarto selecionado na tabela e preencheer o campo do quarto na tela
+    public long pegarIdQuarto() {
+        //pegando o numero da linha selecionada
+        int linhaSelecionada = tblQuartos.getSelectedRow();
+        //caso nenhuma linha seja selecionada
+        if (linhaSelecionada == -1) {
+
+        } else {
+            //pegando o primeiro valor da linha seleciona que eh o ID do usuario
+            Long id = Long.parseLong(tblQuartos.getValueAt(linhaSelecionada, 0).toString());
+            return id;
+        }
+        return -1l;
+    }
+
     public void preencherTabela() {
         controller = new QuartoJpaController(ConnectionFactory.getEmf());
         quarto = new Quarto();
@@ -49,16 +61,16 @@ public class TelaEfectuarReserva extends javax.swing.JFrame {
 
         tabela.setNumRows(0);
         for (Quarto quarto : quartos) {
-            Object[] obj = new Object[]{
-                quarto.getId(),
-                quarto.getDescricao(),
-                quarto.getTipo(),
-                quarto.getPreco(),
-                quarto.getEstado()
-
-            };
-            tabela.addRow(obj);
-
+            if (quarto.getEstado().equalsIgnoreCase("Disponivel")) {
+                Object[] obj = new Object[]{
+                    quarto.getId(),
+                    quarto.getDescricao(),
+                    quarto.getTipo(),
+                    quarto.getPreco(),
+                    quarto.getEstado()
+                };
+                tabela.addRow(obj);
+            }
         }
 
     }
@@ -69,7 +81,6 @@ public class TelaEfectuarReserva extends javax.swing.JFrame {
     public TelaEfectuarReserva() {
         initComponents();
         preencherTabela();
-        
 
     }
 
@@ -101,7 +112,7 @@ public class TelaEfectuarReserva extends javax.swing.JFrame {
         lblDatadeNascimento = new javax.swing.JLabel();
         txtCelular = new javax.swing.JTextField();
         lblNumeroQuarto = new javax.swing.JLabel();
-        txtNumerodeQuarto = new javax.swing.JTextField();
+        txtQuarto = new javax.swing.JTextField();
         btnCheckin = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         lblTituloNoTopo = new javax.swing.JLabel();
@@ -136,6 +147,11 @@ public class TelaEfectuarReserva extends javax.swing.JFrame {
         });
         tblQuartos.setColumnSelectionAllowed(true);
         tblQuartos.getTableHeader().setReorderingAllowed(false);
+        tblQuartos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblQuartosMousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblQuartos);
         tblQuartos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
@@ -247,7 +263,7 @@ public class TelaEfectuarReserva extends javax.swing.JFrame {
                             .addComponent(txtEmail)
                             .addComponent(jdcDatadeCheckIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtCelular)
-                            .addComponent(txtNumerodeQuarto, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                            .addComponent(txtQuarto, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
                             .addComponent(txtValor)))
                     .addGroup(panelCadastroClienteLayout.createSequentialGroup()
                         .addGap(343, 343, 343)
@@ -294,7 +310,7 @@ public class TelaEfectuarReserva extends javax.swing.JFrame {
                     .addComponent(txtNacionalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblNacionalidade)
                     .addComponent(lblNumeroQuarto)
-                    .addComponent(txtNumerodeQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -347,7 +363,7 @@ public class TelaEfectuarReserva extends javax.swing.JFrame {
         Date date = jdcDatadeCheckIn.getDate();
         LocalDate checkIn = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         String nacionalidade = txtNacionalidade.getText();
-        Long quarto = Long.parseLong(txtNumerodeQuarto.getText());
+        Long quarto = Long.parseLong(txtQuarto.getText());
         String nrBi = txtNrBi.getText();
         //Valor deve ser passado ao selecionar ou insirir o numero do quarto
 //        Double valor = Double.parseDouble(txtValor.getText());
@@ -359,6 +375,11 @@ public class TelaEfectuarReserva extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Ocorreu um erro ao tentar efectuar reserva!!");
         }
     }//GEN-LAST:event_btnCheckinMousePressed
+
+    private void tblQuartosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblQuartosMousePressed
+        // TODO add your handling code here:
+        txtQuarto.setText(String.valueOf(pegarIdQuarto()));
+    }//GEN-LAST:event_tblQuartosMousePressed
 
     /**
      * @param args the command line arguments
@@ -422,7 +443,7 @@ public class TelaEfectuarReserva extends javax.swing.JFrame {
     private javax.swing.JTextField txtNacionalidade;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNrBi;
-    private javax.swing.JTextField txtNumerodeQuarto;
+    private javax.swing.JTextField txtQuarto;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 }

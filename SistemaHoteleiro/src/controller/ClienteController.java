@@ -39,6 +39,9 @@ public class ClienteController {
         cliente.setQuarto(quarto);
         cliente.setNrBi(nrBi);
 
+        //mudando o status do quarto
+        QuartoController.statusOcupado(quarto);
+
         try {
             controller.create(cliente);
             return true;
@@ -93,7 +96,7 @@ public class ClienteController {
     }
 
     public static boolean checkOut(Long id, Double valor) {
-        
+
         controller = new ClienteJpaController(ConnectionFactory.getEmf());
         controllerCheckOut = new CheckOutJpaController(ConnectionFactory.getEmf());
         controllerQuarto = new QuartoJpaController(ConnectionFactory.getEmf());
@@ -102,7 +105,7 @@ public class ClienteController {
 
         cliente = controller.findCliente(id);
         quarto = controllerQuarto.findQuarto(cliente.getQuarto());
-        
+
         quarto.setEstado("Disponivel");
         cliente.setValor(valor);
 

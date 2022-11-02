@@ -23,7 +23,7 @@ public class TelaConsultaProdutos extends javax.swing.JFrame {
 
         controller = new ProdutoJpaController(ConnectionFactory.getEmf());
         String descricao = txtDescricao.getText();
-        produtos = controller.getProdutoByLikeDescricao(descricao);
+        produtos = controller.getProdutoByLikeDescricao(descricao.trim());
 
         //pegando o modelo da tabela para que seja possivel manipular
         DefaultTableModel tabela = (DefaultTableModel) tblProdutos.getModel();

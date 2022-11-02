@@ -38,7 +38,7 @@ public class TelaConsultaDeHospedes extends javax.swing.JFrame {
         
         String nome = txtNome.getText();
         controller = new ClienteJpaController(ConnectionFactory.getEmf());
-        clientes = controller.getClienteByLikeNome(nome);
+        clientes = controller.getClienteByLikeNome(nome.trim());
         
         DefaultTableModel tabela = (DefaultTableModel) tblClientes.getModel();
         tabela.setNumRows(0);

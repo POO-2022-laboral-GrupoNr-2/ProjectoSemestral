@@ -5,6 +5,7 @@
 package View;
 
 import connection.ConnectionFactory;
+import controller.ReservaController;
 import dao.ReservaJpaController;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -15,11 +16,12 @@ import model.Reserva;
  *
  * @author Edilson Ricardo
  */
-public class TelaConsultaDeReservas extends javax.swing.JFrame {
-    private TelaActualizarDadosReserva coringa = new TelaActualizarDadosReserva();
+public class TelaConsultaDeReservas11 extends javax.swing.JFrame {
+
+    private TelaActualizarDadosReserva telaActualizarReserva = new TelaActualizarDadosReserva();
     private ReservaJpaController controller;
     private List<Reserva> reservas;
-    
+
     public Long pegarId() {
         //pegando o numero da linha selecionada
         int linhaSelecionada = tblReservas.getSelectedRow();
@@ -33,38 +35,36 @@ public class TelaConsultaDeReservas extends javax.swing.JFrame {
         }
         return -1l;
     }
-    private void preencherTabela(){
-        
+
+    private void preencherTabela() {
+
         String nome = txtNome.getText();
         controller = new ReservaJpaController(ConnectionFactory.getEmf());
-        reservas = controller.getReservaByLikeNome(nome);
-        
+        reservas = controller.getReservaByLikeNome(nome.trim());
+
         DefaultTableModel tabela = (DefaultTableModel) tblReservas.getModel();
         tabela.setNumRows(0);
-        
+
         for (Reserva reserva : reservas) {
             Object[] obj = new Object[]{
-               reserva.getId(),
-               reserva.getNome(),
-               reserva.getGenero(),
-               reserva.getNrBi(),
-               reserva.getNacionalidade(),
-               reserva.getCelular(),
-               reserva.getQuarto(),
-               reserva.getValor(),
-               reserva.getCheckIn()
-
+                reserva.getId(),
+                reserva.getNome(),
+                reserva.getGenero(),
+                reserva.getNrBi(),
+                reserva.getNacionalidade(),
+                reserva.getCelular(),
+                reserva.getQuarto(),
+                reserva.getValor(),
+                reserva.getCheckIn()
             };
             tabela.addRow(obj);
-
         }
     }
-
 
     /**
      * Creates new form TelaConsultaDeFuncionarios
      */
-    public TelaConsultaDeReservas() {
+    public TelaConsultaDeReservas11() {
         initComponents();
         preencherTabela();
     }
@@ -82,10 +82,12 @@ public class TelaConsultaDeReservas extends javax.swing.JFrame {
         lblPesquisar = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
-        btnActualizarDadosReserva = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
         lblTextoNoTopo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaReservas = new javax.swing.JTable();
+        tblReservas = new javax.swing.JTable();
+        btnConfirmar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consulta de Reservas Efectuadas");
@@ -111,12 +113,12 @@ public class TelaConsultaDeReservas extends javax.swing.JFrame {
             }
         });
 
-        btnActualizarDadosReserva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/user_edit.png"))); // NOI18N
-        btnActualizarDadosReserva.setText("Actualizar Dados");
-        btnActualizarDadosReserva.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnActualizarDadosReserva.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/user_edit.png"))); // NOI18N
+        btnActualizar.setText("Actualizar Dados");
+        btnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnActualizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnActualizarDadosReservaMousePressed(evt);
+                btnActualizarMousePressed(evt);
             }
         });
 
@@ -129,7 +131,7 @@ public class TelaConsultaDeReservas extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nome", "Sexo", "Numero de BI", "Nacionalidade", "Telefone", "Número do Quarto", "Valor Pago", "Data de Check-in"
+                "ID", "Nome", "Sexo", "Nr do BI", "Nacionalidade", "Telefone", "Número do Quarto", "Valor Pago", "Data de Check-in"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -154,32 +156,49 @@ public class TelaConsultaDeReservas extends javax.swing.JFrame {
             tblReservas.getColumnModel().getColumn(2).setPreferredWidth(30);
         }
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/accept.png"))); // NOI18N
-        jButton1.setText("Confirmar Reserva");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/accept.png"))); // NOI18N
+        btnConfirmar.setText("Confirmar Reserva");
+        btnConfirmar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnConfirmar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnConfirmarMousePressed(evt);
+            }
+        });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/cancel.png"))); // NOI18N
-        jButton2.setText("Cancelar Reserva");
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/cancel.png"))); // NOI18N
+        btnCancelar.setText("Cancelar Reserva");
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnCancelarMousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(508, 508, 508)
-                .addComponent(btnActualizarDadosReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(237, 237, 237)
-                .addComponent(lblPesquisar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBuscar))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(274, 274, 274)
-                .addComponent(lblTextoNoTopo))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(237, 237, 237)
+                        .addComponent(lblPesquisar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnBuscar))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(274, 274, 274)
+                        .addComponent(lblTextoNoTopo))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(316, 316, 316)
+                        .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,9 +214,9 @@ public class TelaConsultaDeReservas extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnActualizarDadosReserva)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(btnActualizar)
+                    .addComponent(btnCancelar)
+                    .addComponent(btnConfirmar))
                 .addGap(55, 55, 55))
         );
 
@@ -220,26 +239,50 @@ public class TelaConsultaDeReservas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void btnActualizarDadosReservaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarDadosReservaMousePressed
+    private void txtNomeCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtNomeCaretUpdate
         // TODO add your handling code here:
-         if(pegarId() == -1){
-            JOptionPane.showMessageDialog(null, "Selecione um registro!");
-        }else{
-            coringa.preencherCampos(pegarId());
-            this.dispose();
-            coringa.setVisible(true);
-        }
-    }//GEN-LAST:event_btnActualizarDadosReservaMousePressed
+        preencherTabela();
+    }//GEN-LAST:event_txtNomeCaretUpdate
 
     private void tblReservasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblReservasMousePressed
         // TODO add your handling code here:
         pegarId();
     }//GEN-LAST:event_tblReservasMousePressed
 
-    private void txtNomeCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtNomeCaretUpdate
+    private void btnConfirmarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirmarMousePressed
         // TODO add your handling code here:
-        preencherTabela();
-    }//GEN-LAST:event_txtNomeCaretUpdate
+        if (pegarId() == -1) {
+            JOptionPane.showMessageDialog(null, "Por favor selecione um registro para efectuar uma confirmação.");
+        } else {
+            if (ReservaController.confirmar(pegarId())) {
+                JOptionPane.showMessageDialog(null, "Confirmação efectuada com sucesso.");
+                preencherTabela();
+            }
+        }
+    }//GEN-LAST:event_btnConfirmarMousePressed
+
+    private void btnCancelarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMousePressed
+        // TODO add your handling code here:
+        if (pegarId() == -1) {
+            JOptionPane.showMessageDialog(null, "Por favor selecione um registro para efectuar um cancelamento.");
+        } else {
+            if (ReservaController.cancelar(pegarId())) {
+                JOptionPane.showMessageDialog(null, "Cancelamento efectuado com sucesso.");
+                preencherTabela();
+            }
+        }
+    }//GEN-LAST:event_btnCancelarMousePressed
+
+    private void btnActualizarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarMousePressed
+        // TODO add your handling code here:
+        if (pegarId() == -1) {
+            JOptionPane.showMessageDialog(null, "Por favor selecione um registro para efectuar uma atualização.");
+        } else {
+            this.dispose();
+            telaActualizarReserva.preencherCampos(pegarId());
+            telaActualizarReserva.setVisible(true);
+        }
+    }//GEN-LAST:event_btnActualizarMousePressed
 
     /**
      * @param args the command line arguments
@@ -258,14 +301,26 @@ public class TelaConsultaDeReservas extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaConsultaDeReservas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaConsultaDeReservas11.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaConsultaDeReservas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaConsultaDeReservas11.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaConsultaDeReservas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaConsultaDeReservas11.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaConsultaDeReservas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaConsultaDeReservas11.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -274,16 +329,16 @@ public class TelaConsultaDeReservas extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaConsultaDeReservas().setVisible(true);
+                new TelaConsultaDeReservas11().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnActualizarDadosReserva;
+    private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnConfirmar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblPesquisar;

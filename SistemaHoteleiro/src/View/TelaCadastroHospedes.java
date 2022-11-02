@@ -6,7 +6,6 @@ package View;
 
 import connection.ConnectionFactory;
 import controller.ClienteController;
-import controller.QuartoController;
 import dao.QuartoJpaController;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -24,29 +23,42 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
 
     private QuartoJpaController controller;
     private List<Quarto> quartos;
-    private Quarto quarto;
 
+    //Este metodo preenche a tabela com os quartos disponiveis.
     public void preencherTabela() {
         controller = new QuartoJpaController(ConnectionFactory.getEmf());
-        quarto = new Quarto();
         quartos = controller.findQuartoEntities();
 
         DefaultTableModel tabela = (DefaultTableModel) tblQuartos.getModel();
 
         tabela.setNumRows(0);
         for (Quarto quarto : quartos) {
-            Object[] obj = new Object[]{
-                quarto.getId(),
-                quarto.getDescricao(),
-                quarto.getTipo(),
-                quarto.getPreco(),
-                quarto.getEstado()
-
-            };
-            tabela.addRow(obj);
-
+            if (quarto.getEstado().equalsIgnoreCase("Disponivel")) {
+                Object[] obj = new Object[]{
+                    quarto.getId(),
+                    quarto.getDescricao(),
+                    quarto.getTipo(),
+                    quarto.getPreco(),
+                    quarto.getEstado()
+                };
+                tabela.addRow(obj);
+            }
         }
 
+    }
+
+    public long pegarIdQuarto() {
+        //pegando o numero da linha selecionada
+        int linhaSelecionada = tblQuartos.getSelectedRow();
+        //caso nenhuma linha seja selecionada
+        if (linhaSelecionada == -1) {
+
+        } else {
+            //pegando o primeiro valor da linha seleciona que eh o ID do usuario
+            Long id = Long.parseLong(tblQuartos.getValueAt(linhaSelecionada, 0).toString());
+            return id;
+        }
+        return -1l;
     }
 
     private void limparCampos() {
@@ -55,7 +67,7 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
         txtEndereco.setText("");
         txtEmail.setText("");
         txtNacionalidade.setText("");
-        txtNumerodeQuarto.setText("");
+        txtQuarto.setText("");
         txtNumeroBi.setText("");
 
     }
@@ -97,7 +109,7 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
         lblDatadeNascimento = new javax.swing.JLabel();
         txtCelular = new javax.swing.JTextField();
         lblNumeroQuarto = new javax.swing.JLabel();
-        txtNumerodeQuarto = new javax.swing.JTextField();
+        txtQuarto = new javax.swing.JTextField();
         btnCheckin = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         lblTituloNoTopo = new javax.swing.JLabel();
@@ -130,6 +142,11 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
         });
         tblQuartos.setColumnSelectionAllowed(true);
         tblQuartos.getTableHeader().setReorderingAllowed(false);
+        tblQuartos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblQuartosMousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblQuartos);
         tblQuartos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
@@ -233,7 +250,7 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
                             .addComponent(txtEmail)
                             .addComponent(jdcDatadeCheckIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtCelular)
-                            .addComponent(txtNumerodeQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCadastroClienteLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -279,7 +296,7 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
                     .addComponent(txtNacionalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblNacionalidade)
                     .addComponent(lblNumeroQuarto)
-                    .addComponent(txtNumerodeQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNumeroBi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -326,10 +343,10 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
         Date date = jdcDatadeCheckIn.getDate();
         LocalDate checkIn = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         String nacionalidade = txtNacionalidade.getText();
-        Long quarto = Long.parseLong(txtNumerodeQuarto.getText());
+        Long quarto = Long.parseLong(txtQuarto.getText());
         String nrBi = txtNumeroBi.getText();
 
-        if (ClienteController.cadastrarCliente(nome, celular, endereco, email, genero, checkIn, nacionalidade, quarto, nrBi)) {
+        if (ClienteController.cadastrarCliente(nome, celular, endereco, email, genero, checkIn, nacionalidade, pegarIdQuarto(), nrBi)) {
             JOptionPane.showMessageDialog(null, "Hospede cadastrado com sucesso!!");
             this.limparCampos();
         } else {
@@ -337,6 +354,12 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnCheckinMousePressed
+
+    private void tblQuartosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblQuartosMousePressed
+        // TODO add your handling code here:
+        pegarIdQuarto();
+        txtQuarto.setText(String.valueOf(pegarIdQuarto()));
+    }//GEN-LAST:event_tblQuartosMousePressed
 
     /**
      * @param args the command line arguments
@@ -398,6 +421,6 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
     private javax.swing.JTextField txtNacionalidade;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNumeroBi;
-    private javax.swing.JTextField txtNumerodeQuarto;
+    private javax.swing.JTextField txtQuarto;
     // End of variables declaration//GEN-END:variables
 }

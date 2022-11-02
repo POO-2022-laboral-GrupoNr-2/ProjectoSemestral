@@ -41,7 +41,7 @@ public class TelaConsultaDeFuncionarios extends javax.swing.JFrame {
         controller = new FuncionarioJpaController(ConnectionFactory.getEmf());
         String nome = txtPesquisa.getText();
         this.controller = new FuncionarioJpaController(ConnectionFactory.getEmf());
-        funcionarios = controller.getFuncionarioByLikeNome(nome);
+        funcionarios = controller.getFuncionarioByLikeNome(nome.trim());
 
         //pegando o modelo da tabela para que seja possivel manipular
         DefaultTableModel tabela = (DefaultTableModel) tblFuncionarios.getModel();

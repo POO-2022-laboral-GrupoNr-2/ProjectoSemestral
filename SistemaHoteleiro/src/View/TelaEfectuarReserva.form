@@ -82,7 +82,7 @@
                               <Component id="txtEmail" max="32767" attributes="0"/>
                               <Component id="jdcDatadeCheckIn" max="32767" attributes="0"/>
                               <Component id="txtCelular" max="32767" attributes="0"/>
-                              <Component id="txtNumerodeQuarto" pref="276" max="32767" attributes="0"/>
+                              <Component id="txtQuarto" pref="276" max="32767" attributes="0"/>
                               <Component id="txtValor" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -145,7 +145,7 @@
                       <Component id="txtNacionalidade" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblNacionalidade" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblNumeroQuarto" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtNumerodeQuarto" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtQuarto" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -225,6 +225,9 @@
                   <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblQuartosMousePressed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -329,7 +332,7 @@
             <Property name="text" type="java.lang.String" value="N&#xfa;mero do Quarto:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtNumerodeQuarto">
+        <Component class="javax.swing.JTextField" name="txtQuarto">
         </Component>
         <Component class="javax.swing.JButton" name="btnCheckin">
           <Properties>

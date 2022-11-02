@@ -1,24 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package View;
 
 import controller.Login;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Edilson Ricardo
- */
 public class TelaLogin extends javax.swing.JFrame {
+
+    private int tentativas; //numero de vezes de tentativas de efectuar o login
 
     /**
      * Creates new form TelaLogin
      */
     public TelaLogin() {
         initComponents();
+        tentativas = 0;
         this.setExtendedState(6);
         //Comentario
     }
@@ -112,42 +107,53 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void btnEntrarKeyPressed(java.awt.event.KeyEvent evt) {
         // TODO add your handling code here:
+
         String nomeDeUsuario = txtNomeUsuario.getText();
         String senha = txtPalavraPasse.getText();
 
-        if (Login.logar(nomeDeUsuario, senha)) {
-            new TelaPrincipal().setVisible(rootPaneCheckingEnabled);
-            dispose();
+        if (nomeDeUsuario.isEmpty() && senha.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor preencha todos os campos.");
         } else {
-            JOptionPane.showMessageDialog(null, "Dados incorrectos, por favor verifique e volte a tentar!");
+            if (Login.logar(nomeDeUsuario.trim(), senha.trim())) {
+                new TelaPrincipal().setVisible(true);
+                dispose();
+            } else {
+                if (tentativas < 3) {
+                    JOptionPane.showMessageDialog(null, "Dados incorrectos, por favor verifique e volte a tentar!");
+                    tentativas++;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Limite de tentativas de efectuar login extrapolado, programa encerrando...");
+                    System.exit(0);
+                }
+            }
         }
-
     }
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         // TODO add your handling code here:
-        String nomeDeUsuario = txtNomeUsuario.getText();
-        String senha = txtPalavraPasse.getText();
-
-        if (Login.logar(nomeDeUsuario, senha)) {
-            new TelaPrincipal().setVisible(rootPaneCheckingEnabled);
-            dispose();
-        } else {
-            JOptionPane.showMessageDialog(null, "Dados incorrectos, por favor verifique e volte a tentar!");
-        }
-
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     private void txtPalavraPasseKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPalavraPasseKeyPressed
         // TODO add your handling code here:
+
         String nomeDeUsuario = txtNomeUsuario.getText();
         String senha = txtPalavraPasse.getText();
-        
+
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            if (Login.logar(nomeDeUsuario, senha)) {
-                new TelaPrincipal().setVisible(rootPaneCheckingEnabled);
-                dispose();
+            if (nomeDeUsuario.isEmpty() && senha.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Por favor preencha todos os campos.");
             } else {
-                JOptionPane.showMessageDialog(null, "Dados incorrectos, por favor verifique e volte a tentar!");
+                if (Login.logar(nomeDeUsuario.trim(), senha.trim())) {
+                    new TelaPrincipal().setVisible(true);
+                    dispose();
+                } else {
+                    if (tentativas < 3) {
+                        JOptionPane.showMessageDialog(null, "Dados incorrectos, por favor verifique e volte a tentar!");
+                        tentativas++;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Limite de tentativas de efectuar login extrapolado, programa encerrando...");
+                        System.exit(0);
+                    }
+                }
             }
         }
     }//GEN-LAST:event_txtPalavraPasseKeyPressed
@@ -158,6 +164,25 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void btnEntrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEntrarMousePressed
         // TODO add your handling code here:
+        String nomeDeUsuario = txtNomeUsuario.getText();
+        String senha = txtPalavraPasse.getText();
+        if (nomeDeUsuario.isEmpty() && senha.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor preencha todos os campos.");
+        } else {
+            if (Login.logar(nomeDeUsuario.trim(), senha.trim())) {
+                new TelaPrincipal().setVisible(true);
+                dispose();
+            } else {
+                if (tentativas < 3) {
+                    JOptionPane.showMessageDialog(null, "Dados incorrectos, por favor verifique e volte a tentar!");
+                    tentativas++;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Limite de tentativas de efectuar login extrapolado, programa encerrando...");
+                    System.exit(0);
+                    System.out.println("saindo");
+                }
+            }
+        }
     }//GEN-LAST:event_btnEntrarMousePressed
 
     /**

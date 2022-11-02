@@ -10,9 +10,6 @@ import dao.ReservaJpaController;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.Locale;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import javax.swing.JOptionPane;
 import model.Reserva;
 
@@ -22,12 +19,13 @@ import model.Reserva;
  */
 public class TelaActualizarDadosReserva extends javax.swing.JFrame {
 
-    private ReservaJpaController controller1;
+    private ReservaJpaController controllerReserva;
     private Reserva reserva;
 
     public void preencherCampos(Long id) {
-        controller1 = new ReservaJpaController(ConnectionFactory.getEmf());
-        reserva = controller1.findReserva(id);
+
+        controllerReserva = new ReservaJpaController(ConnectionFactory.getEmf());
+        reserva = controllerReserva.findReserva(id);
 
         lblId.setText(String.valueOf(id));
         txtNome.setText(reserva.getNome());
@@ -294,6 +292,7 @@ public class TelaActualizarDadosReserva extends javax.swing.JFrame {
 
     private void btnActualizarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarMousePressed
         // TODO add your handling code here:
+        //Capturando e tratando os valores da tela
         Long id = Long.parseLong(lblId.getText());
         String nome = txtNome.getText();
         String celular = txtCelular.getText();
@@ -307,10 +306,10 @@ public class TelaActualizarDadosReserva extends javax.swing.JFrame {
         String nrBi = txtNrBi.getText();
         Double valor = Double.parseDouble(txtValordeReserva.getText());
 
-        if (ReservaController.actualizar(id, nome, celular, endereco, email, genero, checkIn, nacionalidade, quarto, nrBi,valor)) {
+        if (ReservaController.actualizar(id, nome, celular, endereco, email, genero, checkIn, nacionalidade, quarto, nrBi, valor)) {
             JOptionPane.showMessageDialog(null, "Dados actualizados com sucesso!");
             this.dispose();
-            new TelaConsultaDeReservas().setVisible(true);
+            new TelaConsultaDeReservas11().setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Ocorreu um erro ao tentar actualizar dados!");
         }

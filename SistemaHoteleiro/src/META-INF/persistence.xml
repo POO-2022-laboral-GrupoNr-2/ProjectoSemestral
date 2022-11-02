@@ -8,6 +8,7 @@
     <class>model.Quarto</class>
     <class>model.Reserva</class>
     <class>model.CheckOut</class>
+    <class>validacoes.FuncionarioLogado</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/rufrago?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

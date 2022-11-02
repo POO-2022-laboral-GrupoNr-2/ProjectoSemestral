@@ -60,4 +60,49 @@ public class QuartoController {
 
     }
 
+    public static boolean statusDisponivel(Long id) {
+        controller = new QuartoJpaController(ConnectionFactory.getEmf());
+        quarto = controller.findQuarto(id);
+
+        quarto.setEstado("Disponivel");
+
+        try {
+            controller.edit(quarto);
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+    }
+    
+     public static boolean statusOcupado(Long id) {
+        controller = new QuartoJpaController(ConnectionFactory.getEmf());
+        quarto = controller.findQuarto(id);
+
+        quarto.setEstado("Ocupado");
+
+        try {
+            controller.edit(quarto);
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+    }
+     
+      public static boolean statusReservado(Long id) {
+        controller = new QuartoJpaController(ConnectionFactory.getEmf());
+        quarto = controller.findQuarto(id);
+
+        quarto.setEstado("Disponivel");
+
+        try {
+            controller.edit(quarto);
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+    }
+
 }

@@ -1,6 +1,10 @@
 package View;
 
+import connection.ConnectionFactory;
+import java.util.List;
 import javax.swing.JOptionPane;
+import validacoes.FuncionarioLogado;
+import validacoes.FuncionarioLogadoJpaController;
 
 /**
  *
@@ -8,12 +12,27 @@ import javax.swing.JOptionPane;
  */
 public class TelaPrincipal extends javax.swing.JFrame {
 
+    //Caso um funcionario efectue login
+    public void funcionario() {
+        FuncionarioLogadoJpaController controller = new FuncionarioLogadoJpaController(ConnectionFactory.getEmf());
+        FuncionarioLogado logado = new FuncionarioLogado();
+        List<FuncionarioLogado> coringa;
+        coringa = controller.findFuncionarioLogadoEntities();
+        int index = coringa.size() - 1;
+        logado = coringa.get(index);
+        if (logado.getAcesso().equalsIgnoreCase("Funcionário")) {
+            menuItemCadFuncionario.setVisible(false);
+            menuConsultaFuncionario.setVisible(false);
+        }
+    }
+
     /**
      * Creates new form TelaPrincipal
      */
     public TelaPrincipal() {
         initComponents();
         setExtendedState(6);
+        funcionario();
     }
 
     /**
@@ -65,6 +84,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnConsumo1 = new javax.swing.JButton();
         btnCadCliente = new javax.swing.JButton();
         lblImagemTelaPrincipal = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
         menuBar = new javax.swing.JMenuBar();
         menuCadastros = new javax.swing.JMenu();
         menuItemCadProduto = new javax.swing.JMenuItem();
@@ -75,7 +96,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
+        menuConsultaFuncionario = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         menuRelatorio = new javax.swing.JMenu();
         jMenuItem10 = new javax.swing.JMenuItem();
@@ -138,6 +159,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         lblImagemTelaPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/RUFmenuInicial5.jpg"))); // NOI18N
         panelTelaPrincipal.add(lblImagemTelaPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1370, 742));
+
+        jLabel1.setText("jLabel1");
+        panelTelaPrincipal.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, -1, -1));
+
+        jTextField1.setText("jTextField1");
+        panelTelaPrincipal.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 140, -1, -1));
 
         menuBar.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder()));
         menuBar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -228,21 +255,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         menuConsultar.add(jMenuItem7);
 
-        jMenuItem8.setText("Consultar Funcionário");
-        jMenuItem8.addMouseListener(new java.awt.event.MouseAdapter() {
+        menuConsultaFuncionario.setText("Consultar Funcionário");
+        menuConsultaFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenuItem8MouseClicked(evt);
+                menuConsultaFuncionarioMouseClicked(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jMenuItem8MousePressed(evt);
+                menuConsultaFuncionarioMousePressed(evt);
             }
         });
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+        menuConsultaFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
+                menuConsultaFuncionarioActionPerformed(evt);
             }
         });
-        menuConsultar.add(jMenuItem8);
+        menuConsultar.add(menuConsultaFuncionario);
 
         jMenuItem9.setText("Consultar Acomodações");
         jMenuItem9.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -341,10 +368,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         new TelaCadastroHospedes().setVisible(true);
     }
-    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem8ActionPerformed
 
+    private void menuConsultaFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {
+        // TODO add your handling code here:
+        new TelaConsultaDeFuncionarios().setVisible(true);
+    }
+    private void menuConsultaFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsultaFuncionarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuConsultaFuncionarioActionPerformed
+    private void menuConsultaFuncionarioMousePressed(java.awt.event.MouseEvent evt) {
+        // TODO add your handling code here:
+        new TelaConsultaDeFuncionarios().setVisible(true);
+    }
     private void btnCadClienteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadClienteMousePressed
         // TODO add your handling code here:
         new TelaCadastroHospedes().setVisible(true);
@@ -363,7 +398,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void btnCheckOutMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCheckOutMousePressed
         // TODO add your handling code here:
         new TelaCheckOut().setVisible(true);
-        
+
     }//GEN-LAST:event_btnCheckOutMousePressed
 
     private void btnConsumo1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConsumo1MousePressed
@@ -378,8 +413,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem5MousePressed
         // TODO add your handling code here:
-        new TelaConsultaDeReservas().setVisible(true);
-        
+        new TelaConsultaDeReservas11().setVisible(true);
+
     }//GEN-LAST:event_jMenuItem5MousePressed
 
     private void jMenuItem6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem6MousePressed
@@ -442,6 +477,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnCheckOut;
     private javax.swing.JButton btnConsumo1;
     private javax.swing.JButton btnEfectuarReserva;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
@@ -450,15 +486,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblImagemTelaPrincipal;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuCadastros;
     private javax.swing.JMenu menuConfiguracoes;
+    public javax.swing.JMenuItem menuConsultaFuncionario;
     private javax.swing.JMenu menuConsultar;
     private javax.swing.JMenuItem menuItemCadAcomodacao;
-    private javax.swing.JMenuItem menuItemCadFuncionario;
+    public javax.swing.JMenuItem menuItemCadFuncionario;
     private javax.swing.JMenuItem menuItemCadHospedes;
     private javax.swing.JMenuItem menuItemCadProduto;
     private javax.swing.JMenu menuRelatorio;

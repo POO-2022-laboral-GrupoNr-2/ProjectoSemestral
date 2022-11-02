@@ -22,7 +22,7 @@ public class TelaConsultadeAcomodacao extends javax.swing.JFrame {
 
         controller = new QuartoJpaController(ConnectionFactory.getEmf());
         String descricao = txtDescricao.getText();
-        quartos = controller.getQuartoByLikeDescricao(descricao);
+        quartos = controller.getQuartoByLikeDescricao(descricao.trim());
 
         //pegando o modelo da tabela para que seja possivel manipular
         DefaultTableModel tabela = (DefaultTableModel) tblQuartos.getModel();
