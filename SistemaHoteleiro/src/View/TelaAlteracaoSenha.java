@@ -4,11 +4,21 @@
  */
 package View;
 
+import controller.FuncionarioController;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Edilson Ricardo
  */
 public class TelaAlteracaoSenha extends javax.swing.JFrame {
+    
+    public void limparCampos(){
+        txtCodigoID.setText("");
+        txtConfirmarSenha.setText("");
+        txtSenhaAntiga.setText("");
+        txtSenhaNova.setText("");
+    }
 
     /**
      * Creates new form TelaAlteracaoSenha
@@ -36,8 +46,8 @@ public class TelaAlteracaoSenha extends javax.swing.JFrame {
         txtSenhaNova = new javax.swing.JTextField();
         txtCodigoID = new javax.swing.JTextField();
         txtConfirmarSenha = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnAlterar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Alteração de Senha");
@@ -61,13 +71,23 @@ public class TelaAlteracaoSenha extends javax.swing.JFrame {
         lblCodigoID.setForeground(new java.awt.Color(255, 255, 255));
         lblCodigoID.setText("Código ID:");
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/accept.png"))); // NOI18N
-        jButton1.setText("Alterar");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/accept.png"))); // NOI18N
+        btnAlterar.setText("Alterar");
+        btnAlterar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAlterar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnAlterarMousePressed(evt);
+            }
+        });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/cancel.png"))); // NOI18N
-        jButton2.setText("Cancelar");
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/cancel.png"))); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnCancelarMousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -93,9 +113,9 @@ public class TelaAlteracaoSenha extends javax.swing.JFrame {
                         .addComponent(lblTitulonoTopo))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(369, 369, 369)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(55, 55, 55)
-                        .addComponent(jButton2)))
+                        .addComponent(btnCancelar)))
                 .addContainerGap(298, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -121,8 +141,8 @@ public class TelaAlteracaoSenha extends javax.swing.JFrame {
                     .addComponent(txtCodigoID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btnAlterar)
+                    .addComponent(btnCancelar))
                 .addContainerGap(134, Short.MAX_VALUE))
         );
 
@@ -142,6 +162,29 @@ public class TelaAlteracaoSenha extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCancelarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMousePressed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarMousePressed
+
+    private void btnAlterarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlterarMousePressed
+        // TODO add your handling code here:
+        
+        //Em andamento
+        String senhaAntiga = txtSenhaAntiga.getText();
+        String novaSenha = txtSenhaNova.getText();
+        String confirmar = txtConfirmarSenha.getText();
+        Long id = Long.parseLong(txtCodigoID.getText());
+        if (novaSenha.equalsIgnoreCase(confirmar)) {
+            if (FuncionarioController.alterarSenha(id, novaSenha)) {
+                JOptionPane.showMessageDialog(null, "Senha alterada com sucesso!!");
+                limparCampos();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor, confirme a sua nova senha");
+        }
+    }//GEN-LAST:event_btnAlterarMousePressed
 
     /**
      * @param args the command line arguments
@@ -179,8 +222,8 @@ public class TelaAlteracaoSenha extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnAlterar;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblCodigoID;
     private javax.swing.JLabel lblSenhaAntiga;
