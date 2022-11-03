@@ -5,10 +5,13 @@
 package View;
 
 import controller.FuncionarioController;
+import java.awt.Color;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.border.LineBorder;
+import validacoes.Validacao;
 
 /**
  *
@@ -97,6 +100,15 @@ public class TelaDeCadastroFuncionario extends javax.swing.JFrame {
         lblNuit.setForeground(new java.awt.Color(255, 255, 255));
         lblNuit.setText("Nuit:");
 
+        txtNome.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNomeFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNomeFocusLost(evt);
+            }
+        });
+
         lblTitulonoTopo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         lblTitulonoTopo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulonoTopo.setText("CADASTRO DE FUNCIONÁRIOS");
@@ -120,6 +132,15 @@ public class TelaDeCadastroFuncionario extends javax.swing.JFrame {
         lblContactoAlternativo.setText("Contacto Alternativo:");
 
         jcbNiveldeAcesso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione:", "Administrador", "Funcionário" }));
+
+        txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtEmailFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtEmailFocusLost(evt);
+            }
+        });
 
         btnCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/user_add.png"))); // NOI18N
         btnCadastrar.setText("Cadastrar");
@@ -272,6 +293,35 @@ public class TelaDeCadastroFuncionario extends javax.swing.JFrame {
     private void btnCancelarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnCancelarKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelarKeyPressed
+
+    private void txtNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusLost
+        // TODO add your handling code here:
+        String nome = txtNome.getText();
+        if(nome.isEmpty()){
+            txtNome.setBorder(new LineBorder(Color.RED));
+        }
+            
+        
+    }//GEN-LAST:event_txtNomeFocusLost
+
+    private void txtNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusGained
+        // TODO add your handling code here:
+        txtNome.setBorder(new LineBorder(Color.white));
+    }//GEN-LAST:event_txtNomeFocusGained
+
+    private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
+        // TODO add your handling code here:
+        String email = txtEmail.getText();
+        if(!Validacao.validarEmail(email)){
+            txtEmail.setBorder(new LineBorder(Color.red));
+        }
+    }//GEN-LAST:event_txtEmailFocusLost
+
+    private void txtEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusGained
+        // TODO add your handling code here:
+        txtEmail.setBorder(new LineBorder(Color.white));
+
+    }//GEN-LAST:event_txtEmailFocusGained
     private void btnCancelarMousePressed(java.awt.event.MouseEvent evt) {
         // TODO add your handling code here:
         this.dispose();
