@@ -215,10 +215,22 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtEndereco">
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtEnderecoFocusGained"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtEnderecoFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNrDeBI">
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNrDeBIFocusGained"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNrDeBIFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNuit">
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNuitFocusGained"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNuitFocusLost"/>
+          </Events>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="jdcDatadeNascimento">
         </Component>
@@ -284,6 +296,10 @@
         <Component class="javax.swing.JTextField" name="txtNomedeUsuario">
         </Component>
         <Component class="javax.swing.JPasswordField" name="txtSenha">
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtSenhaFocusGained"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtSenhaFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="jcbNiveldeAcesso">
           <Properties>
@@ -308,6 +324,9 @@
         <Component class="javax.swing.JTextField" name="txtContacto">
         </Component>
         <Component class="javax.swing.JTextField" name="txtContactoAllternativo">
+          <Events>
+            <EventHandler event="hierarchyChanged" listener="java.awt.event.HierarchyListener" parameters="java.awt.event.HierarchyEvent" handler="txtContactoAllternativoHierarchyChanged"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnCadastrar">
           <Properties>

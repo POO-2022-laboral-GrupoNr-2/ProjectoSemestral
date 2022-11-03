@@ -11,6 +11,7 @@ import java.time.ZoneId;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
+import org.apache.commons.lang3.StringUtils;
 import validacoes.Validacao;
 
 /**
@@ -18,7 +19,7 @@ import validacoes.Validacao;
  * @author Edilson Ricardo
  */
 public class TelaDeCadastroFuncionario extends javax.swing.JFrame {
-
+    
     private void limparCampos() {
         txtNome.setText("");
         txtNomedeUsuario.setText("");
@@ -109,6 +110,33 @@ public class TelaDeCadastroFuncionario extends javax.swing.JFrame {
             }
         });
 
+        txtEndereco.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtEnderecoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtEnderecoFocusLost(evt);
+            }
+        });
+
+        txtNrDeBI.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNrDeBIFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNrDeBIFocusLost(evt);
+            }
+        });
+
+        txtNuit.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNuitFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNuitFocusLost(evt);
+            }
+        });
+
         lblTitulonoTopo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         lblTitulonoTopo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulonoTopo.setText("CADASTRO DE FUNCIONÁRIOS");
@@ -131,6 +159,15 @@ public class TelaDeCadastroFuncionario extends javax.swing.JFrame {
         lblContactoAlternativo.setForeground(new java.awt.Color(255, 255, 255));
         lblContactoAlternativo.setText("Contacto Alternativo:");
 
+        txtSenha.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtSenhaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtSenhaFocusLost(evt);
+            }
+        });
+
         jcbNiveldeAcesso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione:", "Administrador", "Funcionário" }));
 
         txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -139,6 +176,12 @@ public class TelaDeCadastroFuncionario extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtEmailFocusLost(evt);
+            }
+        });
+
+        txtContactoAllternativo.addHierarchyListener(new java.awt.event.HierarchyListener() {
+            public void hierarchyChanged(java.awt.event.HierarchyEvent evt) {
+                txtContactoAllternativoHierarchyChanged(evt);
             }
         });
 
@@ -297,11 +340,11 @@ public class TelaDeCadastroFuncionario extends javax.swing.JFrame {
     private void txtNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusLost
         // TODO add your handling code here:
         String nome = txtNome.getText();
-        if(nome.isEmpty()){
+        if (nome.isEmpty()) {
             txtNome.setBorder(new LineBorder(Color.RED));
         }
-            
         
+
     }//GEN-LAST:event_txtNomeFocusLost
 
     private void txtNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusGained
@@ -312,7 +355,7 @@ public class TelaDeCadastroFuncionario extends javax.swing.JFrame {
     private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
         // TODO add your handling code here:
         String email = txtEmail.getText();
-        if(!Validacao.validarEmail(email)){
+        if (!Validacao.validarEmail(email)) {
             txtEmail.setBorder(new LineBorder(Color.red));
         }
     }//GEN-LAST:event_txtEmailFocusLost
@@ -322,16 +365,68 @@ public class TelaDeCadastroFuncionario extends javax.swing.JFrame {
         txtEmail.setBorder(new LineBorder(Color.white));
 
     }//GEN-LAST:event_txtEmailFocusGained
+
+    private void txtEnderecoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEnderecoFocusLost
+        // TODO add your handling code here:
+        if (txtEndereco.getText().isEmpty()) {
+            txtEndereco.setBorder(new LineBorder(Color.red));
+        }
+    }//GEN-LAST:event_txtEnderecoFocusLost
+
+    private void txtEnderecoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEnderecoFocusGained
+        // TODO add your handling code here:
+        txtEndereco.setBorder(new LineBorder(Color.white));
+    }//GEN-LAST:event_txtEnderecoFocusGained
+
+    private void txtNrDeBIFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNrDeBIFocusLost
+        // TODO add your handling code here:
+        if(txtNrDeBI.getText().isEmpty()){
+            txtNrDeBI.setBorder(new LineBorder(Color.red));
+        }
+    }//GEN-LAST:event_txtNrDeBIFocusLost
+
+    private void txtNrDeBIFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNrDeBIFocusGained
+        // TODO add your handling code here:
+        txtNrDeBI.setBorder(new LineBorder(Color.white));
+    }//GEN-LAST:event_txtNrDeBIFocusGained
+
+    private void txtSenhaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSenhaFocusLost
+        // TODO add your handling code here:
+        if(txtSenha.getText().isEmpty()){
+            txtSenha.setBorder(new LineBorder(Color.red));
+        }
+    }//GEN-LAST:event_txtSenhaFocusLost
+
+    private void txtSenhaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSenhaFocusGained
+        // TODO add your handling code here:
+        txtSenha.setBorder(new LineBorder(Color.white));
+    }//GEN-LAST:event_txtSenhaFocusGained
+
+    private void txtNuitFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNuitFocusGained
+        // TODO add your handling code here:
+        txtNuit.setBorder(new LineBorder(Color.white));
+    }//GEN-LAST:event_txtNuitFocusGained
+
+    private void txtNuitFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNuitFocusLost
+        // TODO add your handling code here:
+        if(!StringUtils.isNumeric(txtNuit.getText())){
+           txtNuit.setBorder(new LineBorder(Color.red));
+        }
+    }//GEN-LAST:event_txtNuitFocusLost
+
+    private void txtContactoAllternativoHierarchyChanged(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_txtContactoAllternativoHierarchyChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtContactoAllternativoHierarchyChanged
     private void btnCancelarMousePressed(java.awt.event.MouseEvent evt) {
         // TODO add your handling code here:
         this.dispose();
     }
-
+    
     private void btnLimparCamposMousePressed(java.awt.event.MouseEvent evt) {
         // TODO add your handling code here:
         this.limparCampos();
     }
-
+    
     private void btnCadastrarMousePressed(java.awt.event.MouseEvent evt) {
         // TODO add your handling code here:
         String nome = txtNome.getText();
@@ -347,14 +442,14 @@ public class TelaDeCadastroFuncionario extends javax.swing.JFrame {
         String contacto = txtContacto.getText();
         Integer nuit = Integer.parseInt(txtNuit.getText());
         String contactoAlternativo = txtContactoAllternativo.getText();
-
+        
         if (FuncionarioController.cadastrarFuncionario(nome, nomeDeUsuario, email, endereco, senha, genero, acesso, nascimento, nrBi, contacto, nuit, contactoAlternativo)) {
             JOptionPane.showMessageDialog(null, "Funcionario cadastrado com sucesso!");
             limparCampos();
         } else {
             JOptionPane.showMessageDialog(null, "Ocorreu um erro ao cadastrar funcionario!");
         }
-
+        
     }
 
     /**
