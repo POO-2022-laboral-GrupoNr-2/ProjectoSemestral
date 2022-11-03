@@ -74,8 +74,8 @@ public class QuartoController {
             return false;
         }
     }
-    
-     public static boolean statusOcupado(Long id) {
+
+    public static boolean statusOcupado(Long id) {
         controller = new QuartoJpaController(ConnectionFactory.getEmf());
         quarto = controller.findQuarto(id);
 
@@ -89,12 +89,12 @@ public class QuartoController {
             return false;
         }
     }
-     
-      public static boolean statusReservado(Long id) {
+
+    public static boolean statusReservado(Long id) {
         controller = new QuartoJpaController(ConnectionFactory.getEmf());
         quarto = controller.findQuarto(id);
 
-        quarto.setEstado("Disponivel");
+        quarto.setEstado("Reservado");
 
         try {
             controller.edit(quarto);
@@ -103,6 +103,15 @@ public class QuartoController {
             System.out.println(e);
             return false;
         }
+    }
+
+    //setar o valor no momento da reserva
+    public static double setarValor(Long id) {
+        controller = new QuartoJpaController(ConnectionFactory.getEmf());
+        quarto = controller.findQuarto(id);
+
+        return quarto.getPreco() / 2;
+
     }
 
 }

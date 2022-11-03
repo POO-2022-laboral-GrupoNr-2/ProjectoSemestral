@@ -95,13 +95,28 @@ public class FuncionarioController {
         }
 
     }
-    
-    public static boolean alterarSenha(Long id, String senha){
+
+    public static boolean alterarSenha(Long id, String senha) {
         controller = new FuncionarioJpaController(ConnectionFactory.getEmf());
         funcionario = controller.findFuncionario(id);
-        
+
         funcionario.setSenha(senha);
-        
+
+        try {
+            controller.edit(funcionario);
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+    }
+
+    public static boolean recuperarSenha(Long id, String novaSenha) {
+        controller = new FuncionarioJpaController(ConnectionFactory.getEmf());
+        funcionario = controller.findFuncionario(id);
+
+        funcionario.setSenha(novaSenha);
+
         try {
             controller.edit(funcionario);
             return true;

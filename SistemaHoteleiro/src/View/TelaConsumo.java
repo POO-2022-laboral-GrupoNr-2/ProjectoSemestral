@@ -208,6 +208,7 @@ public class TelaConsumo extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         Long id = Long.parseLong(txtIdCliente.getText());
+        
         if (ClienteController.adicionarConsumo(id, ProdutoController.calcularPreco(Long.parseLong(txtIDProduto.getText()), Integer.parseInt(txtQuantidade.getText())))) {
             JOptionPane.showMessageDialog(null, "Consumo adicionado");
             limparCampos();

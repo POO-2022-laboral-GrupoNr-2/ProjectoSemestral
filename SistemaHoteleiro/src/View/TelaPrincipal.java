@@ -14,12 +14,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     //Caso um funcionario efectue login
     public void funcionario() {
+        
         FuncionarioLogadoJpaController controller = new FuncionarioLogadoJpaController(ConnectionFactory.getEmf());
         FuncionarioLogado logado = new FuncionarioLogado();
-        List<FuncionarioLogado> coringa;
-        coringa = controller.findFuncionarioLogadoEntities();
-        int index = coringa.size() - 1;
-        logado = coringa.get(index);
+        List<FuncionarioLogado> acesso;
+        
+        acesso = controller.findFuncionarioLogadoEntities();
+        int index = acesso.size() - 1;
+        logado = acesso.get(index);
+        
         if (logado.getAcesso().equalsIgnoreCase("Funcionário")) {
             menuItemCadFuncionario.setVisible(false);
             menuConsultaFuncionario.setVisible(false);

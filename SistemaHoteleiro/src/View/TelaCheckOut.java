@@ -53,8 +53,8 @@ public class TelaCheckOut extends javax.swing.JFrame {
 
         }
     }
-    
-    private void limparCampos(){
+
+    private void limparCampos() {
         txtCheckIn.setText("");
         txtCheckOut.setText("");
         txtDias.setText("");
@@ -62,7 +62,7 @@ public class TelaCheckOut extends javax.swing.JFrame {
         txtValor.setText("");
         txtNumeroQuarto.setText("");
         txtPrecoDoQuarto.setText("");
-        
+
     }
 
     private void preencherCampos(Long id) {
@@ -194,6 +194,18 @@ public class TelaCheckOut extends javax.swing.JFrame {
         lblValorTotal.setForeground(new java.awt.Color(255, 255, 255));
         lblValorTotal.setText("Valor Total:");
 
+        txtCheckIn.setEditable(false);
+
+        txtDias.setEditable(false);
+
+        txtCheckOut.setEditable(false);
+
+        txtConsumo.setEditable(false);
+
+        txtPrecoDoQuarto.setEditable(false);
+
+        txtValor.setEditable(false);
+
         btnCheckOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/door_out.png"))); // NOI18N
         btnCheckOut.setText("Check-Out");
         btnCheckOut.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -205,6 +217,8 @@ public class TelaCheckOut extends javax.swing.JFrame {
 
         lblNumeroQuarto.setForeground(new java.awt.Color(255, 255, 255));
         lblNumeroQuarto.setText("Número do Quarto:");
+
+        txtNumeroQuarto.setEditable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -308,12 +322,17 @@ public class TelaCheckOut extends javax.swing.JFrame {
         if (pegarId() == -1) {
             JOptionPane.showMessageDialog(null, "Por favor selecione um registro!!");
         } else {
-            System.out.println(pegarId());
-            if (ClienteController.checkOut(pegarId(), Double.parseDouble(txtValor.getText())));
-            JOptionPane.showMessageDialog(null, "CheckOut efectuado com sucesso!!");
-            limparCampos();
-            preencherTabela();
-            
+            int resposta = JOptionPane.showConfirmDialog(null, "Confirmas a saída do Hóspede, e de seguida gerar o comprovativo?", "CHECK-OUT", JOptionPane.YES_NO_OPTION);
+
+            if (resposta == JOptionPane.YES_OPTION) {
+                
+                System.out.println(pegarId());
+                if (ClienteController.checkOut(pegarId(), Double.parseDouble(txtValor.getText())));
+                JOptionPane.showMessageDialog(null, "Check-Out efectuado com sucesso!!");
+                limparCampos();
+                preencherTabela();
+                ClienteController.gerarComprovovativo(pegarId(),Double.parseDouble(txtValor.getText()) );
+            }
         }
     }//GEN-LAST:event_btnCheckOutMousePressed
 

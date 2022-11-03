@@ -28,6 +28,9 @@ public class ReservaController {
         reserva.setQuarto(quarto);
         reserva.setNrBi(nrBi);
         reserva.setValor(valor);
+        
+        //mudando o status do quarto
+        QuartoController.statusReservado(quarto);
 
         try {
             controller.create(reserva);

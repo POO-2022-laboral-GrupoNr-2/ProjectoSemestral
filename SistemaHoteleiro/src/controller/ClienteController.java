@@ -1,10 +1,19 @@
 package controller;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import connection.ConnectionFactory;
 import dao.CheckOutJpaController;
 import dao.ClienteJpaController;
 import dao.QuartoJpaController;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.time.LocalDate;
+import java.util.Date;
+import javax.swing.JFileChooser;
 import model.CheckOut;
 import model.Cliente;
 import model.Quarto;
@@ -81,7 +90,6 @@ public class ClienteController {
         controller = new ClienteJpaController(ConnectionFactory.getEmf());
         cliente = controller.findCliente(id);
 
-//        Double adicionar = cliente.getConsumo() + consumo;
         Double adicionar = cliente.getConsumo() + consumo;
         cliente.setConsumo(adicionar);
 
@@ -120,6 +128,7 @@ public class ClienteController {
         checkOut.setNrBi(cliente.getNrBi());
         checkOut.setConsumo(cliente.getConsumo());
         checkOut.setValor(cliente.getValor());
+        checkOut.setCheckOut(LocalDate.now());
 
         try {
             controllerQuarto.edit(quarto);
@@ -131,6 +140,80 @@ public class ClienteController {
             return false;
         }
 
+    }
+
+    public static void gerarComprovovativo(Long id, Double valor) {
+        controller = new ClienteJpaController(ConnectionFactory.getEmf());
+        cliente = controller.findCliente(id);
+        cliente.setValor(valor);
+        String email = "rufragosystem@gmail.com";
+        String arquivo = "Comprovativo.pdf";
+        Document document = new Document();
+        Date date = new Date();
+
+        try {
+
+            PdfWriter.getInstance(document, new FileOutputStream(arquivo));
+            document.open();
+            Paragraph p1 = new Paragraph("Rufrago Hotels Manager");
+            Paragraph p2 = new Paragraph("Maputo-Cidade");
+            Paragraph p3 = new Paragraph("Universidade Eduardo Mondlane");
+            Paragraph p4 = new Paragraph("Comprovativo");
+            Paragraph p6 = new Paragraph(date.toString());
+            Paragraph p7 = new Paragraph(" ");
+            Paragraph p8 = new Paragraph(" ");
+            Paragraph p10 = new Paragraph("          TransN:         " + " " + cliente.getId());
+            Paragraph p11 = new Paragraph("          Nome:           " + " " + cliente.getNome());
+            Paragraph p12 = new Paragraph("          Quarto:         " + " " + cliente.getQuarto());
+            Paragraph p13 = new Paragraph("          Data Check-In:  " + " " + cliente.getCheckIn());
+            Paragraph p14 = new Paragraph("          Data Check-Out: " + " " + LocalDate.now());
+            Paragraph p15 = new Paragraph("          Consumo:        " + " " + cliente.getConsumo()
+            );
+            Paragraph p16 = new Paragraph("          Valor Total:    " + " " + cliente.getValor());
+            Paragraph p18 = new Paragraph(" ");
+            Paragraph p19 = new Paragraph("          Contacto:      " + " " + 01010101010101l);
+            Paragraph p20 = new Paragraph("          Email:         " + " " + email);
+
+            p1.setAlignment(1);
+            p2.setAlignment(1);
+            p3.setAlignment(1);
+            p4.setAlignment(1);
+            p6.setAlignment(1);
+            p7.setAlignment(0);
+            p8.setAlignment(0);
+            p10.setAlignment(0);
+            p11.setAlignment(0);
+            p12.setAlignment(0);
+            p13.setAlignment(0);
+            p14.setAlignment(0);
+            p15.setAlignment(0);
+            p16.setAlignment(0);
+
+            document.add(p1);
+            document.add(p2);
+            document.add(p3);
+            document.add(p4);
+            document.add(p6);
+            document.add(p7);
+            document.add(p8);
+            document.add(p10);
+            document.add(p11);
+            document.add(p12);
+            document.add(p13);
+            document.add(p14);
+            document.add(p15);
+            document.add(p16);
+            document.add(p18);
+            document.add(p19);
+            document.add(p20);
+
+            document.close();
+            Desktop.getDesktop().open(new File(arquivo));
+
+        } catch (Exception e) {
+
+            System.out.println("Erro ao tenetar gerar comprovativo em pdf" + e);
+        }
     }
 
 }

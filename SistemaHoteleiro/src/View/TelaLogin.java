@@ -92,6 +92,11 @@ public class TelaLogin extends javax.swing.JFrame {
         lblEsqueceuPalavraPasse.setForeground(new java.awt.Color(0, 153, 255));
         lblEsqueceuPalavraPasse.setText("Esqueceu a palavra passe?");
         lblEsqueceuPalavraPasse.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblEsqueceuPalavraPasse.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblEsqueceuPalavraPasseMousePressed(evt);
+            }
+        });
         getContentPane().add(lblEsqueceuPalavraPasse, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 460, -1, -1));
 
         lblImagemLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Ruf.jpg"))); // NOI18N
@@ -184,6 +189,11 @@ public class TelaLogin extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnEntrarMousePressed
+
+    private void lblEsqueceuPalavraPasseMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEsqueceuPalavraPasseMousePressed
+        // TODO add your handling code here:
+        new TelaRecuperacaoSenha11().setVisible(true);
+    }//GEN-LAST:event_lblEsqueceuPalavraPasseMousePressed
 
     /**
      * @param args the command line arguments

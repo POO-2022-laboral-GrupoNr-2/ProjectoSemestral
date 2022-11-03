@@ -5,6 +5,7 @@
 package View;
 
 import connection.ConnectionFactory;
+import controller.QuartoController;
 import controller.ReservaController;
 import dao.QuartoJpaController;
 import java.time.LocalDate;
@@ -72,7 +73,6 @@ public class TelaEfectuarReserva extends javax.swing.JFrame {
                 tabela.addRow(obj);
             }
         }
-
     }
 
     /**
@@ -366,11 +366,13 @@ public class TelaEfectuarReserva extends javax.swing.JFrame {
         Long quarto = Long.parseLong(txtQuarto.getText());
         String nrBi = txtNrBi.getText();
         //Valor deve ser passado ao selecionar ou insirir o numero do quarto
-//        Double valor = Double.parseDouble(txtValor.getText());
+        Double valor = Double.parseDouble(txtValor.getText());
 
-        if (ReservaController.cadastrar(nome, celular, endereco, email, genero, checkIn, nacionalidade, quarto, nrBi, 1200.0)) {
+        if (ReservaController.cadastrar(nome, celular, endereco, email, genero, checkIn, nacionalidade, quarto, nrBi, valor)) {
             JOptionPane.showMessageDialog(null, "Reserva efectuada com sucesso!!");
             this.limparCampos();
+            QuartoController.statusReservado(quarto);
+            preencherTabela();
         } else {
             JOptionPane.showMessageDialog(null, "Ocorreu um erro ao tentar efectuar reserva!!");
         }
@@ -378,7 +380,9 @@ public class TelaEfectuarReserva extends javax.swing.JFrame {
 
     private void tblQuartosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblQuartosMousePressed
         // TODO add your handling code here:
+
         txtQuarto.setText(String.valueOf(pegarIdQuarto()));
+        txtValor.setText(String.valueOf(QuartoController.setarValor(pegarIdQuarto())));
     }//GEN-LAST:event_tblQuartosMousePressed
 
     /**

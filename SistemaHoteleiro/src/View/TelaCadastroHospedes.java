@@ -184,6 +184,8 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
         lblNumeroQuarto.setForeground(new java.awt.Color(255, 255, 255));
         lblNumeroQuarto.setText("Número do Quarto:");
 
+        txtQuarto.setEditable(false);
+
         btnCheckin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/door_in.png"))); // NOI18N
         btnCheckin.setText("Check-in");
         btnCheckin.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -349,6 +351,7 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
         if (ClienteController.cadastrarCliente(nome, celular, endereco, email, genero, checkIn, nacionalidade, pegarIdQuarto(), nrBi)) {
             JOptionPane.showMessageDialog(null, "Hospede cadastrado com sucesso!!");
             this.limparCampos();
+            preencherTabela();
         } else {
             JOptionPane.showMessageDialog(null, "Ocorreu um erro ao tentar cadastrar!!");
         }
