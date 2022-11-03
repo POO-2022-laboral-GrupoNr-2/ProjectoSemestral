@@ -315,6 +315,9 @@
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtValorMousePressed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnCheckOut">
           <Properties>

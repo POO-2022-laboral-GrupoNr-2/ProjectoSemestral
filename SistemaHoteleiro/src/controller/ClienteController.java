@@ -10,10 +10,8 @@ import dao.QuartoJpaController;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.time.LocalDate;
 import java.util.Date;
-import javax.swing.JFileChooser;
 import model.CheckOut;
 import model.Cliente;
 import model.Quarto;
@@ -130,6 +128,9 @@ public class ClienteController {
         checkOut.setValor(cliente.getValor());
         checkOut.setCheckOut(LocalDate.now());
 
+        ////Gerar o comprovativo no momento do checkout
+        gerarComprovovativo(cliente, valor);
+
         try {
             controllerQuarto.edit(quarto);
             controllerCheckOut.create(checkOut);
@@ -142,10 +143,8 @@ public class ClienteController {
 
     }
 
-    public static void gerarComprovovativo(Long id, Double valor) {
-        controller = new ClienteJpaController(ConnectionFactory.getEmf());
-        cliente = controller.findCliente(id);
-        cliente.setValor(valor);
+    public static void gerarComprovovativo(Cliente cliente, Double valor) {
+
         String email = "rufragosystem@gmail.com";
         String arquivo = "Comprovativo.pdf";
         Document document = new Document();

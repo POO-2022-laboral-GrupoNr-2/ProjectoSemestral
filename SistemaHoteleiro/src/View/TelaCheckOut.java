@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package View;
 
 import connection.ConnectionFactory;
@@ -9,7 +6,6 @@ import controller.ClienteController;
 import dao.ClienteJpaController;
 import dao.QuartoJpaController;
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.Period;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -17,10 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import model.Cliente;
 import model.Quarto;
 
-/**
- *
- * @author Edilson Ricardo
- */
+
 public class TelaCheckOut extends javax.swing.JFrame {
 
     private ClienteJpaController controller;
@@ -205,6 +198,11 @@ public class TelaCheckOut extends javax.swing.JFrame {
         txtPrecoDoQuarto.setEditable(false);
 
         txtValor.setEditable(false);
+        txtValor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtValorMousePressed(evt);
+            }
+        });
 
         btnCheckOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/door_out.png"))); // NOI18N
         btnCheckOut.setText("Check-Out");
@@ -325,16 +323,21 @@ public class TelaCheckOut extends javax.swing.JFrame {
             int resposta = JOptionPane.showConfirmDialog(null, "Confirmas a saída do Hóspede, e de seguida gerar o comprovativo?", "CHECK-OUT", JOptionPane.YES_NO_OPTION);
 
             if (resposta == JOptionPane.YES_OPTION) {
-                
+                //para debug
+                Double valor = Double.parseDouble(txtValor.getText());
                 System.out.println(pegarId());
+                System.out.println(valor);
+                //Efectuando o checkout
                 if (ClienteController.checkOut(pegarId(), Double.parseDouble(txtValor.getText())));
-                JOptionPane.showMessageDialog(null, "Check-Out efectuado com sucesso!!");
                 limparCampos();
                 preencherTabela();
-                ClienteController.gerarComprovovativo(pegarId(),Double.parseDouble(txtValor.getText()) );
             }
         }
     }//GEN-LAST:event_btnCheckOutMousePressed
+
+    private void txtValorMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtValorMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtValorMousePressed
 
     /**
      * @param args the command line arguments
