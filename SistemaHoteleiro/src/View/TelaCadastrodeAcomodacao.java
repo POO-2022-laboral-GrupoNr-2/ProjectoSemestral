@@ -253,18 +253,21 @@ public class TelaCadastrodeAcomodacao extends javax.swing.JFrame {
 
     private void btnCadastrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadastrarMousePressed
         // TODO add your handling code here:
-        String tipo = txtTipo.getText();
-        Double preco = Double.parseDouble(txtPreco.getText());
-        String descricao = txtDescricao.getText();
+        if (!txtDescricao.getText().isEmpty() && !txtPreco.getText().isEmpty() && !txtTipo.getText().isEmpty()) {
+            String tipo = txtTipo.getText();
+            Double preco = Double.parseDouble(txtPreco.getText());
+            String descricao = txtDescricao.getText();
 
-        if (QuartoController.cadastrar(tipo, preco, descricao)) {
-            JOptionPane.showMessageDialog(null, "Quarto adicionado");
-            limparCampos();
-            preencherTabela();
+            if (QuartoController.cadastrar(tipo, preco, descricao)) {
+                JOptionPane.showMessageDialog(null, "Quarto adicionado");
+                limparCampos();
+                preencherTabela();
+            } else {
+                JOptionPane.showMessageDialog(null, "Ocorreu um erro ao tentar cadastrar um quarto");
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao tentar cadastrar um quarto");
+            JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos.");
         }
-
     }//GEN-LAST:event_btnCadastrarMousePressed
 
     private void tblQuartosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblQuartosMousePressed
@@ -290,12 +293,12 @@ public class TelaCadastrodeAcomodacao extends javax.swing.JFrame {
 
     private void btnRemoverMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRemoverMousePressed
         // TODO add your handling code here:
-        if(pegarId() == -1){
-             JOptionPane.showMessageDialog(null, "Selecione um registro!");
-        }else{
-            if(QuartoController.remover(pegarId())){
-                 JOptionPane.showMessageDialog(null, "Quarto removido");
-                 preencherTabela();
+        if (pegarId() == -1) {
+            JOptionPane.showMessageDialog(null, "Selecione um registro!");
+        } else {
+            if (QuartoController.remover(pegarId())) {
+                JOptionPane.showMessageDialog(null, "Quarto removido");
+                preencherTabela();
             }
         }
     }//GEN-LAST:event_btnRemoverMousePressed

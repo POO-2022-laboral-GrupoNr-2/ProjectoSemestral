@@ -161,17 +161,17 @@ public class ClienteController {
             Paragraph p6 = new Paragraph(date.toString());
             Paragraph p7 = new Paragraph(" ");
             Paragraph p8 = new Paragraph(" ");
-            Paragraph p10 = new Paragraph("          TransN:         " + " " + cliente.getId());
-            Paragraph p11 = new Paragraph("          Nome:           " + " " + cliente.getNome());
-            Paragraph p12 = new Paragraph("          Quarto:         " + " " + cliente.getQuarto());
-            Paragraph p13 = new Paragraph("          Data Check-In:  " + " " + cliente.getCheckIn());
-            Paragraph p14 = new Paragraph("          Data Check-Out: " + " " + LocalDate.now());
-            Paragraph p15 = new Paragraph("          Consumo:        " + " " + cliente.getConsumo()
+            Paragraph p10 = new Paragraph("          TransN:         " + "      " + cliente.getId());
+            Paragraph p11 = new Paragraph("          Nome:           " + "      " + cliente.getNome());
+            Paragraph p12 = new Paragraph("          Quarto:         " + "      " + cliente.getQuarto());
+            Paragraph p13 = new Paragraph("          Data Check-In:  " + "      " + cliente.getCheckIn());
+            Paragraph p14 = new Paragraph("          Data Check-Out: " + "      " + LocalDate.now());
+            Paragraph p15 = new Paragraph("          Consumo:        " + "      " + cliente.getConsumo()
             );
-            Paragraph p16 = new Paragraph("          Valor Total:    " + " " + cliente.getValor());
+            Paragraph p16 = new Paragraph("          Valor Total:    " + "      " + cliente.getValor());
             Paragraph p18 = new Paragraph(" ");
-            Paragraph p19 = new Paragraph("          Contacto:      " + " " + 01010101010101l);
-            Paragraph p20 = new Paragraph("          Email:         " + " " + email);
+            Paragraph p19 = new Paragraph("          Contacto:       " + "      " + 01010101010101l);
+            Paragraph p20 = new Paragraph("          Email:          " + "      " + email);
 
             p1.setAlignment(1);
             p2.setAlignment(1);

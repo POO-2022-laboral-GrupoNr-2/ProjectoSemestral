@@ -19,7 +19,7 @@ import validacoes.Validacao;
  * @author Edilson Ricardo
  */
 public class TelaDeCadastroFuncionario extends javax.swing.JFrame {
-    
+
     private void limparCampos() {
         txtNome.setText("");
         txtNomedeUsuario.setText("");
@@ -343,7 +343,7 @@ public class TelaDeCadastroFuncionario extends javax.swing.JFrame {
         if (nome.isEmpty()) {
             txtNome.setBorder(new LineBorder(Color.RED));
         }
-        
+
 
     }//GEN-LAST:event_txtNomeFocusLost
 
@@ -380,7 +380,7 @@ public class TelaDeCadastroFuncionario extends javax.swing.JFrame {
 
     private void txtNrDeBIFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNrDeBIFocusLost
         // TODO add your handling code here:
-        if(txtNrDeBI.getText().isEmpty()){
+        if (txtNrDeBI.getText().isEmpty()) {
             txtNrDeBI.setBorder(new LineBorder(Color.red));
         }
     }//GEN-LAST:event_txtNrDeBIFocusLost
@@ -392,7 +392,7 @@ public class TelaDeCadastroFuncionario extends javax.swing.JFrame {
 
     private void txtSenhaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSenhaFocusLost
         // TODO add your handling code here:
-        if(txtSenha.getText().isEmpty()){
+        if (txtSenha.getText().isEmpty()) {
             txtSenha.setBorder(new LineBorder(Color.red));
         }
     }//GEN-LAST:event_txtSenhaFocusLost
@@ -409,8 +409,8 @@ public class TelaDeCadastroFuncionario extends javax.swing.JFrame {
 
     private void txtNuitFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNuitFocusLost
         // TODO add your handling code here:
-        if(!StringUtils.isNumeric(txtNuit.getText())){
-           txtNuit.setBorder(new LineBorder(Color.red));
+        if (!StringUtils.isNumeric(txtNuit.getText())) {
+            txtNuit.setBorder(new LineBorder(Color.red));
         }
     }//GEN-LAST:event_txtNuitFocusLost
 
@@ -421,35 +421,38 @@ public class TelaDeCadastroFuncionario extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }
-    
+
     private void btnLimparCamposMousePressed(java.awt.event.MouseEvent evt) {
         // TODO add your handling code here:
         this.limparCampos();
     }
-    
+
     private void btnCadastrarMousePressed(java.awt.event.MouseEvent evt) {
         // TODO add your handling code here:
-        String nome = txtNome.getText();
-        String nomeDeUsuario = txtNomedeUsuario.getText();
-        String email = txtEmail.getText();
-        String endereco = txtEndereco.getText();
-        String senha = txtSenha.getText();
-        String genero = jcbSexo.getSelectedItem().toString();
-        String acesso = jcbNiveldeAcesso.getSelectedItem().toString();
-        Date date = jdcDatadeNascimento.getDate();
-        LocalDate nascimento = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        String nrBi = txtNrDeBI.getText();
-        String contacto = txtContacto.getText();
-        Integer nuit = Integer.parseInt(txtNuit.getText());
-        String contactoAlternativo = txtContactoAllternativo.getText();
-        
-        if (FuncionarioController.cadastrarFuncionario(nome, nomeDeUsuario, email, endereco, senha, genero, acesso, nascimento, nrBi, contacto, nuit, contactoAlternativo)) {
-            JOptionPane.showMessageDialog(null, "Funcionario cadastrado com sucesso!");
-            limparCampos();
-        } else {
-            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao cadastrar funcionario!");
+        if (!txtContacto.getText().isEmpty() && !txtEmail.getText().isEmpty() && !txtNomedeUsuario.getText().isEmpty() && !txtSenha.getText().isEmpty()) {
+            String nome = txtNome.getText();
+            String nomeDeUsuario = txtNomedeUsuario.getText();
+            String email = txtEmail.getText();
+            String endereco = txtEndereco.getText();
+            String senha = txtSenha.getText();
+            String genero = jcbSexo.getSelectedItem().toString();
+            String acesso = jcbNiveldeAcesso.getSelectedItem().toString();
+            Date date = jdcDatadeNascimento.getDate();
+            LocalDate nascimento = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            String nrBi = txtNrDeBI.getText();
+            String contacto = txtContacto.getText();
+            Integer nuit = Integer.parseInt(txtNuit.getText());
+            String contactoAlternativo = txtContactoAllternativo.getText();
+
+            if (FuncionarioController.cadastrarFuncionario(nome, nomeDeUsuario, email, endereco, senha, genero, acesso, nascimento, nrBi, contacto, nuit, contactoAlternativo)) {
+                JOptionPane.showMessageDialog(null, "Funcionario cadastrado com sucesso!");
+                limparCampos();
+            } else {
+                JOptionPane.showMessageDialog(null, "Ocorreu um erro ao cadastrar funcionario!");
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Por favor preencha todos os campos");
         }
-        
     }
 
     /**

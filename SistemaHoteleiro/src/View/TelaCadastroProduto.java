@@ -290,20 +290,23 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
 
     private void btnCadastrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadastrarMousePressed
         // TODO add your handling code here:
+        if (!txtNomeDescricao.getText().isEmpty() && !txtPrecoAquisicao.getText().isEmpty() && !txtPrecoVenda.getText().isEmpty() && !txtQuantidade.getText().isEmpty()) {
+            String descricao = txtNomeDescricao.getText();
+            Integer quantidade = Integer.parseInt(txtQuantidade.getText());
+            Double preco = Double.parseDouble(txtPrecoVenda.getText());
+            Double custo = Double.parseDouble(txtPrecoAquisicao.getText());
+            Date date = jdcValidade.getDate();
+            LocalDate validade = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
-        String descricao = txtNomeDescricao.getText();
-        Integer quantidade = Integer.parseInt(txtQuantidade.getText());
-        Double preco = Double.parseDouble(txtPrecoVenda.getText());
-        Double custo = Double.parseDouble(txtPrecoAquisicao.getText());
-        Date date = jdcValidade.getDate();
-        LocalDate validade = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
-        if (ProdutoController.cadastrar(descricao, quantidade, preco, custo, validade)) {
-            JOptionPane.showMessageDialog(null, "Produto adicionado");
-            limparCampos();
-            preencherTabela();
+            if (ProdutoController.cadastrar(descricao, quantidade, preco, custo, validade)) {
+                JOptionPane.showMessageDialog(null, "Produto adicionado");
+                limparCampos();
+                preencherTabela();
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro ao adicionar produto");
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "Erro ao adicionar produto");
+            JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos");
         }
     }//GEN-LAST:event_btnCadastrarMousePressed
 
@@ -313,14 +316,14 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         if (pegarId() == -1) {
             JOptionPane.showMessageDialog(null, "Selecione um registro");
         } else {
-            
+
             String descricao = txtNomeDescricao.getText();
             Integer quantidade = Integer.parseInt(txtQuantidade.getText());
             Double preco = Double.parseDouble(txtPrecoVenda.getText());
             Double custo = Double.parseDouble(txtPrecoAquisicao.getText());
             Date date = jdcValidade.getDate();
             LocalDate validade = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            
+
             if (ProdutoController.actualizar(pegarId(), descricao, quantidade, preco, custo, validade)) {
                 JOptionPane.showMessageDialog(null, "Dados actualizados com sucesso!!");
                 limparCampos();
@@ -339,20 +342,20 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
 
     private void btnRemoverMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRemoverMousePressed
         // TODO add your handling code here:
-        if(pegarId() == -1){
-            JOptionPane.showMessageDialog(null, "Selecione um registro"); 
-        }else{
-            if(ProdutoController.remover(pegarId())){
-             JOptionPane.showMessageDialog(null, "Produto removido");
-             limparCampos();
-             preencherTabela();
+        if (pegarId() == -1) {
+            JOptionPane.showMessageDialog(null, "Selecione um registro");
+        } else {
+            if (ProdutoController.remover(pegarId())) {
+                JOptionPane.showMessageDialog(null, "Produto removido");
+                limparCampos();
+                preencherTabela();
             }
         }
     }//GEN-LAST:event_btnRemoverMousePressed
 
     private void btnCadastrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadastrarMouseEntered
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_btnCadastrarMouseEntered
 
     /**

@@ -341,24 +341,29 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
 
     private void btnCheckinMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCheckinMousePressed
         // TODO add your handling code here:
-        Long id = Long.parseLong(lblId.getText());
-        String nome = txtNome.getText();
-        String celular = txtCelular.getText();
-        String endereco = txtEndereco.getText();
-        String email = txtEmail.getText();
-        String genero = jcbSexo.getSelectedItem().toString();
-        Date date = jdcDatadeCheckIn.getDate();
-        LocalDate checkIn = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        String nacionalidade = txtNacionalidade.getText();
-        Long quarto = Long.parseLong(txtNumerodeQuarto.getText());
-        String nrBi = txtNrBi.getText();
+        if (!txtCelular.getText().isEmpty() && !txtEmail.getText().isEmpty() && !txtEndereco.getText().isEmpty() && !txtNacionalidade.getText().isEmpty() && !txtNome.getText().isEmpty() && txtNrBi.getText().isEmpty() && !txtNumerodeQuarto.getText().isEmpty()) {
 
-        if (ClienteController.actualizar(id, nome, celular, endereco, email, genero, checkIn, nacionalidade, quarto, nrBi)) {
-            JOptionPane.showMessageDialog(null, "Dados actualizados com sucesso!");
-            this.dispose();
-            new TelaConsultaDeHospedes().setVisible(true);
+            Long id = Long.parseLong(lblId.getText());
+            String nome = txtNome.getText();
+            String celular = txtCelular.getText();
+            String endereco = txtEndereco.getText();
+            String email = txtEmail.getText();
+            String genero = jcbSexo.getSelectedItem().toString();
+            Date date = jdcDatadeCheckIn.getDate();
+            LocalDate checkIn = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            String nacionalidade = txtNacionalidade.getText();
+            Long quarto = Long.parseLong(txtNumerodeQuarto.getText());
+            String nrBi = txtNrBi.getText();
+
+            if (ClienteController.actualizar(id, nome, celular, endereco, email, genero, checkIn, nacionalidade, quarto, nrBi)) {
+                JOptionPane.showMessageDialog(null, "Dados actualizados com sucesso!");
+                this.dispose();
+                new TelaConsultaDeHospedes().setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Ocorreu um erro ao tentar actualizar dados do hospede");
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao tentar actualizar dados do hospede");
+            JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos");
         }
 
     }//GEN-LAST:event_btnCheckinMousePressed

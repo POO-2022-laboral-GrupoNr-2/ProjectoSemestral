@@ -7,13 +7,16 @@ package View;
 import connection.ConnectionFactory;
 import controller.ClienteController;
 import dao.QuartoJpaController;
+import java.awt.Color;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import model.Quarto;
+import validacoes.Validacao;
 
 /**
  *
@@ -174,6 +177,15 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
 
         lblTelemovel.setForeground(new java.awt.Color(255, 255, 255));
         lblTelemovel.setText("Telemóvel:");
+
+        txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtEmailFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtEmailFocusLost(evt);
+            }
+        });
 
         lblDataCheckIn.setForeground(new java.awt.Color(255, 255, 255));
         lblDataCheckIn.setText("Data de Check-in:");
@@ -363,6 +375,18 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
         pegarIdQuarto();
         txtQuarto.setText(String.valueOf(pegarIdQuarto()));
     }//GEN-LAST:event_tblQuartosMousePressed
+
+    private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
+        // TODO add your handling code here:
+        if (!Validacao.validarEmail(txtEmail.getText())) {
+            txtEmail.setBorder(new LineBorder(Color.red));
+        }
+    }//GEN-LAST:event_txtEmailFocusLost
+
+    private void txtEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusGained
+        // TODO add your handling code here:
+        txtEmail.setBorder(new LineBorder(Color.white));
+    }//GEN-LAST:event_txtEmailFocusGained
 
     /**
      * @param args the command line arguments

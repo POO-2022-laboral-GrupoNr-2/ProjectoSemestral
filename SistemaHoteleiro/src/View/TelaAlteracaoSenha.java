@@ -172,6 +172,7 @@ public class TelaAlteracaoSenha extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         //Em andamento
+        if(!txtCodigoID.getText().isEmpty()&&!txtConfirmarSenha.getText().isEmpty()&&!txtSenhaAntiga.getText().isEmpty()&&!txtSenhaNova.getText().isEmpty()){
         String senhaAntiga = txtSenhaAntiga.getText();
         String novaSenha = txtSenhaNova.getText();
         String confirmar = txtConfirmarSenha.getText();
@@ -183,6 +184,10 @@ public class TelaAlteracaoSenha extends javax.swing.JFrame {
             }
         } else {
             JOptionPane.showMessageDialog(null, "Por favor, confirme a sua nova senha");
+        }
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos.");
         }
     }//GEN-LAST:event_btnAlterarMousePressed
 
