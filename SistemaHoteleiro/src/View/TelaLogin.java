@@ -175,6 +175,12 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void txtNomeUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeUsuarioKeyPressed
         // TODO add your handling code here:
+        String nomeDeUsuario = txtNomeUsuario.getText();
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            if(nomeDeUsuario.length() !=0 ){
+                txtPalavraPasse.requestFocus();
+            }
+        }
     }//GEN-LAST:event_txtNomeUsuarioKeyPressed
 
     private void btnEntrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEntrarMousePressed
