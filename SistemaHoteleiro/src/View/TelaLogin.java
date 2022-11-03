@@ -1,8 +1,10 @@
 package View;
 
 import controller.Login;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import javax.swing.border.LineBorder;
 
 public class TelaLogin extends javax.swing.JFrame {
 
@@ -51,6 +53,14 @@ public class TelaLogin extends javax.swing.JFrame {
         lblNomeUsuario.setText("Nome de usuário:");
         getContentPane().add(lblNomeUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 330, 120, -1));
 
+        txtNomeUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNomeUsuarioFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNomeUsuarioFocusLost(evt);
+            }
+        });
         txtNomeUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNomeUsuarioActionPerformed(evt);
@@ -194,6 +204,23 @@ public class TelaLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
         new TelaRecuperacaoSenha11().setVisible(true);
     }//GEN-LAST:event_lblEsqueceuPalavraPasseMousePressed
+
+    private void txtNomeUsuarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeUsuarioFocusLost
+        // TODO add your handling code here:
+         String nomeDeUsuario = txtNomeUsuario.getText();
+         if(nomeDeUsuario.isEmpty()){
+             txtNomeUsuario.setBorder(new LineBorder(Color.RED));
+         }
+    }//GEN-LAST:event_txtNomeUsuarioFocusLost
+
+    private void txtNomeUsuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeUsuarioFocusGained
+        // TODO add your handling code here:
+         String nomeDeUsuario = txtNomeUsuario.getText();
+         if(nomeDeUsuario.isEmpty()){
+             txtNomeUsuario.setBorder(new LineBorder(Color.white));
+         }
+
+    }//GEN-LAST:event_txtNomeUsuarioFocusGained
 
     /**
      * @param args the command line arguments
