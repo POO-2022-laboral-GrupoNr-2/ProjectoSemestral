@@ -18,12 +18,7 @@ Projecto inicialmente académico com o propósito de criação dum sistema que s
 - [ ]  Validação de campos
 
 
-##### Metodo auxiliares
-- [ ] Preencher tabelas ;
-- [ ]  Autenticação;
-- [ ]  Envio de email para recuperar senha;
-- [ ]  Alteração de senha de usuarios;
-- [ ]  Relacionar base de dados.
+
 
 ##### Relatório
 - [ ]  Geral
@@ -31,37 +26,32 @@ Projecto inicialmente académico com o propósito de criação dum sistema que s
 - [ ] Produto
 - [ ] Reserva
 
+
+
+
+
+
+## In Progress
+
+
+##### Nivel de Acesso
+- [x]  Admin
+- [ ]  usuario
+
 ##### Eventos
- - [ ]  Eventos do teclado
+ - [x]  Eventos do teclado
 
  - [ ]   Mouse event
 
  - [ ]  Shortcuts 
 
-##### Nivel de Acesso
-- [ ]  Admin
-- [ ]  usuario
 
-
-## In Progress
-
-##### Versão Web
-- [x]  Preparar ambiente de Desenvolvimento.
-- [x] Conexao com base dados e servidor tomcat
-- [x]  Criar landing page do sistema
-- [x] Criar formulario  de reserva
-- [ ]  Relacionar base de dados
-
-
-
-
-##### Telas
-- [x] Login
-- [x] Principal
-- [ ]  Cadastros
-- [ ] Recuperação/alteração de senha
-
-
+##### Metodo auxiliares
+- [x] Preencher tabelas ;
+- [x]  Autenticação;
+- [ ]  Envio de email para recuperar senha;
+- [x]  Alteração de senha de usuarios;
+- [x]  Relacionar base de dados.
 
 
 
@@ -87,13 +77,20 @@ Projecto inicialmente académico com o propósito de criação dum sistema que s
 
 
 
+##### Telas
+- [x] Login
+- [x] Principal
+- [x]  Cadastros
+- [x] Recuperação/alteração de senha
 
 
 
-
-
-
-
+##### Versão Web
+- [x]  Preparar ambiente de Desenvolvimento.
+- [x] Conexao com base dados e servidor tomcat
+- [x]  Criar landing page do sistema
+- [x] Criar formulario  de reserva
+- [x]  Relacionar base de dados
 
 
 
