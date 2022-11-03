@@ -122,7 +122,7 @@ public class TelaEfectuarReserva extends javax.swing.JFrame {
         txtNrBi = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Check-in");
+        setTitle("Efectuar Reserva ");
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 

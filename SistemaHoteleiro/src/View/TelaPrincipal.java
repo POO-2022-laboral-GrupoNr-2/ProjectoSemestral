@@ -12,17 +12,25 @@ import validacoes.FuncionarioLogadoJpaController;
  */
 public class TelaPrincipal extends javax.swing.JFrame {
 
+    public void desabilitarTela() {
+        this.setEnabled(false);
+    }
+
+    public void abilitar() {
+        this.setEnabled(true);
+    }
+
     //Caso um funcionario efectue login
     public void funcionario() {
-        
+
         FuncionarioLogadoJpaController controller = new FuncionarioLogadoJpaController(ConnectionFactory.getEmf());
         FuncionarioLogado logado = new FuncionarioLogado();
         List<FuncionarioLogado> acesso;
-        
+
         acesso = controller.findFuncionarioLogadoEntities();
         int index = acesso.size() - 1;
         logado = acesso.get(index);
-        
+
         if (logado.getAcesso().equalsIgnoreCase("Funcionário")) {
             menuItemCadFuncionario.setVisible(false);
             menuConsultaFuncionario.setVisible(false);
@@ -103,11 +111,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem9 = new javax.swing.JMenuItem();
         menuRelatorio = new javax.swing.JMenu();
         jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem11 = new javax.swing.JMenuItem();
-        jMenuItem12 = new javax.swing.JMenuItem();
         menuConfiguracoes = new javax.swing.JMenu();
         jMenuItem13 = new javax.swing.JMenuItem();
-        jMenuItem14 = new javax.swing.JMenuItem();
         menuSair = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -288,16 +293,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuRelatorio.setText("Relatório   |");
 
         jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/report_picture.png"))); // NOI18N
-        jMenuItem10.setText("Relatório Financeiro");
+        jMenuItem10.setText("Relatório de Estadias");
+        jMenuItem10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jMenuItem10MousePressed(evt);
+            }
+        });
         menuRelatorio.add(jMenuItem10);
-
-        jMenuItem11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/report_go.png"))); // NOI18N
-        jMenuItem11.setText("Relatório de Reservas");
-        menuRelatorio.add(jMenuItem11);
-
-        jMenuItem12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/report_user.png"))); // NOI18N
-        jMenuItem12.setText("Relatório de Produtos");
-        menuRelatorio.add(jMenuItem12);
 
         menuBar.add(menuRelatorio);
 
@@ -312,10 +314,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         menuConfiguracoes.add(jMenuItem13);
-
-        jMenuItem14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/images.png"))); // NOI18N
-        jMenuItem14.setText("Alterar Fundo");
-        menuConfiguracoes.add(jMenuItem14);
 
         menuBar.add(menuConfiguracoes);
 
@@ -440,6 +438,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         new TelaAlteracaoSenha().setVisible(true);
     }//GEN-LAST:event_jMenuItem13MousePressed
 
+    private void jMenuItem10MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem10MousePressed
+        // TODO add your handling code here:
+        new TelaRelatorio11().setVisible(true);
+    }//GEN-LAST:event_jMenuItem10MousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -482,10 +485,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnEfectuarReserva;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
-    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;

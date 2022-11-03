@@ -170,6 +170,9 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         btnCadastrar.setText("Cadastrar");
         btnCadastrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCadastrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCadastrarMouseEntered(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 btnCadastrarMousePressed(evt);
             }
@@ -346,6 +349,11 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnRemoverMousePressed
+
+    private void btnCadastrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadastrarMouseEntered
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnCadastrarMouseEntered
 
     /**
      * @param args the command line arguments

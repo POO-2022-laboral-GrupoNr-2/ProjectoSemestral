@@ -147,24 +147,11 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Imagens/Icons/report_picture.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Relat&#xf3;rio Financeiro"/>
+                <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Estadias"/>
               </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem11">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Imagens/Icons/report_go.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Reservas"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem12">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Imagens/Icons/report_user.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Produtos"/>
-              </Properties>
+              <Events>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jMenuItem10MousePressed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -186,14 +173,6 @@
               <Events>
                 <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jMenuItem13MousePressed"/>
               </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem14">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Imagens/Icons/images.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Alterar Fundo"/>
-              </Properties>
             </MenuItem>
           </SubComponents>
         </Menu>
