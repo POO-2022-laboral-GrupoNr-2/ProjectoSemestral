@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package View;
 
 import connection.ConnectionFactory;
@@ -12,16 +8,17 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Reserva;
 
-/**
- *
- * @author Edilson Ricardo
- */
 public class TelaConsultaDeReservas11 extends javax.swing.JFrame {
 
     private TelaActualizarDadosReserva telaActualizarReserva = new TelaActualizarDadosReserva();
     private ReservaJpaController controller;
     private List<Reserva> reservas;
 
+    /**
+     * Captura o primeiro valor da linha selecionada na tabela.
+     *
+     * @return primeiro valor na tabela correspondente ao ID.
+     */
     public Long pegarId() {
         //pegando o numero da linha selecionada
         int linhaSelecionada = tblReservas.getSelectedRow();
@@ -36,6 +33,10 @@ public class TelaConsultaDeReservas11 extends javax.swing.JFrame {
         return -1l;
     }
 
+    /**
+     * Preenche a tabela com os dados, recuperados a partir da base
+     * dados.
+     */
     private void preencherTabela() {
 
         String nome = txtNome.getText();

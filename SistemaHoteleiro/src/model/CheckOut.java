@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
 import java.io.Serializable;
@@ -14,13 +10,19 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.Data;
 
+/**
+ * Classe modelo, para os clientes que forem a efectuar o checkout do hotel.
+ * 
+ *
+ * @author
+ */
 @Entity
 @Table(name = "CheckOut")
 @Data
 @lombok.AllArgsConstructor
 @lombok.NoArgsConstructor
 public class CheckOut implements Serializable {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -38,5 +40,5 @@ public class CheckOut implements Serializable {
     private Long quarto;
     private Double consumo;
     private Double valor;
-    
+
 }

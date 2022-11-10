@@ -12,6 +12,12 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import lombok.Data;
 
+/**
+ * Classe modelo para os clientes.
+ * 
+ * @author 
+ */
+
 @NamedQueries(
         {
     @NamedQuery(

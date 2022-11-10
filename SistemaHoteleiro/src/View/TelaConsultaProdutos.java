@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package View;
 
 import connection.ConnectionFactory;
@@ -10,24 +6,22 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import model.Produto;
 
-/**
- *
- * @author Edilson Ricardo
- */
 public class TelaConsultaProdutos extends javax.swing.JFrame {
 
     private ProdutoJpaController controller;
     private List<Produto> produtos;
 
+    /**
+     * Preenche a tabela com os dados, recuperados a partir da base
+     * dados.
+     */
     private void preencherTabela() {
 
         controller = new ProdutoJpaController(ConnectionFactory.getEmf());
         String descricao = txtDescricao.getText();
         produtos = controller.getProdutoByLikeDescricao(descricao.trim());
 
-        //pegando o modelo da tabela para que seja possivel manipular
         DefaultTableModel tabela = (DefaultTableModel) tblProdutos.getModel();
-        //zerando as linhas da tabela, para nao sobrepor os registros toda vez que o metodo for chamado
         tabela.setNumRows(0);
         for (Produto produto : produtos) {
             Object[] obj = new Object[]{
@@ -37,12 +31,9 @@ public class TelaConsultaProdutos extends javax.swing.JFrame {
                 produto.getValidade(),
                 produto.getCusto(),
                 produto.getQuantidade()
-
             };
             tabela.addRow(obj);
-
         }
-
     }
 
     /**

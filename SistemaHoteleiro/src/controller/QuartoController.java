@@ -4,11 +4,26 @@ import connection.ConnectionFactory;
 import dao.QuartoJpaController;
 import model.Quarto;
 
+/**
+ * Esta classe contem metodos que nos permitem estabelecer a conexao entre as
+ * camadas model, dao e a view. Metodos relacionados com a entidade.
+ *
+ *
+ * @author
+ */
 public class QuartoController {
 
     private static Quarto quarto;
     private static QuartoJpaController controller;
 
+    /**
+     * Metodo para cadastrar quartos
+     *
+     * @param tipo
+     * @param preco
+     * @param descricao
+     * @return true caso nao ocorra nenhuma exception
+     */
     public static boolean cadastrar(String tipo, Double preco, String descricao) {
 
         controller = new QuartoJpaController(ConnectionFactory.getEmf());
@@ -27,7 +42,12 @@ public class QuartoController {
         }
 
     }
-
+    /**
+     * Metodo para remover um quarto da base de dados.
+     * 
+     * @param id identificador do quarto
+     * @return 
+     */
     public static boolean remover(Long id) {
         controller = new QuartoJpaController(ConnectionFactory.getEmf());
 
@@ -40,7 +60,15 @@ public class QuartoController {
         }
 
     }
-
+    /**
+     * Metodo para alterar os dados dos quartos.
+     * 
+     * @param id
+     * @param tipo
+     * @param preco
+     * @param descricao
+     * @return true caso nao ocorra nenhuma exception.
+     */
     public static boolean actualizar(Long id, String tipo, Double preco, String descricao) {
         controller = new QuartoJpaController(ConnectionFactory.getEmf());
 
@@ -60,6 +88,13 @@ public class QuartoController {
 
     }
 
+    /**
+     * Metodo para alterar o status do quarto no momento da checkout ou
+     * cancelamento de uma reserva..
+     *
+     * @param id identificador do quarto
+     * @return true caso nao ocorra nenhuma exception.
+     */
     public static boolean statusDisponivel(Long id) {
         controller = new QuartoJpaController(ConnectionFactory.getEmf());
         quarto = controller.findQuarto(id);
@@ -75,6 +110,12 @@ public class QuartoController {
         }
     }
 
+    /**
+     * Metodo para alterar o status do quarto no momento do checkin.
+     *
+     * @param id identificador do quarto
+     * @return true caso nao ocorra nenhuma exception.
+     */
     public static boolean statusOcupado(Long id) {
         controller = new QuartoJpaController(ConnectionFactory.getEmf());
         quarto = controller.findQuarto(id);
@@ -90,6 +131,12 @@ public class QuartoController {
         }
     }
 
+    /**
+     * Metodo para alterar o status do quarto no momento da reserva.
+     *
+     * @param id identificador do quarto
+     * @return true caso nao ocorra nenhuma exception.
+     */
     public static boolean statusReservado(Long id) {
         controller = new QuartoJpaController(ConnectionFactory.getEmf());
         quarto = controller.findQuarto(id);
@@ -105,7 +152,14 @@ public class QuartoController {
         }
     }
 
-    //setar o valor no momento da reserva
+    /**
+     * Metodo para efectuar o calculo do valor de adiantamento no momento de uma
+     * reserva.
+     *
+     * @param id identificador do quartp
+     * @return valor que o cliente deve pagar adiantado, correspondente a metade
+     * do valor do quarto.
+     */
     public static double setarValor(Long id) {
         controller = new QuartoJpaController(ConnectionFactory.getEmf());
         quarto = controller.findQuarto(id);

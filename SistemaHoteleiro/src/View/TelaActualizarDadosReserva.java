@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package View;
 
 import connection.ConnectionFactory;
@@ -13,15 +9,16 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import model.Reserva;
 
-/**
- *
- * @author Edilson Ricardo
- */
 public class TelaActualizarDadosReserva extends javax.swing.JFrame {
 
     private ReservaJpaController controllerReserva;
     private Reserva reserva;
 
+    /**
+     * Preenche a tabela com os registros da base de dados, recuperados pelo id.
+     *
+     * @param id parametro para buscar buscar registros na base de dados.
+     */
     public void preencherCampos(Long id) {
 
         controllerReserva = new ReservaJpaController(ConnectionFactory.getEmf());
@@ -165,7 +162,7 @@ public class TelaActualizarDadosReserva extends javax.swing.JFrame {
 
         jLabel1.setText("ID");
 
-        lblId.setText("jLabel2");
+        lblId.setText("ID_Reserva");
 
         javax.swing.GroupLayout panelCadastroClienteLayout = new javax.swing.GroupLayout(panelCadastroCliente);
         panelCadastroCliente.setLayout(panelCadastroClienteLayout);

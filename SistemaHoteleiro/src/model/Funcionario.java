@@ -12,12 +12,17 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import lombok.Data;
 
+/**
+ * Classe modelo para os funcionarios.
+ *
+ * @author
+ */
 @NamedQueries(
         {
-    @NamedQuery(
-            name = "Funcionario.findByLikeNome",
-            query = "SELECT f FROM Funcionario f WHERE f.nome LIKE :nome")
-}
+            @NamedQuery(
+                    name = "Funcionario.findByLikeNome",
+                    query = "SELECT f FROM Funcionario f WHERE f.nome LIKE :nome")
+        }
 )
 
 @Entity

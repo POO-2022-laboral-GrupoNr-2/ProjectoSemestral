@@ -12,14 +12,18 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import lombok.Data;
 
+/**
+ * Classe modelo para os produtos.
+ *
+ * @author
+ */
 @NamedQueries(
         {
-    @NamedQuery(
-            name = "Produto.findByLikeDescricao",
-            query = "SELECT p FROM Produto p WHERE p.descricao LIKE :descricao")
-}
+            @NamedQuery(
+                    name = "Produto.findByLikeDescricao",
+                    query = "SELECT p FROM Produto p WHERE p.descricao LIKE :descricao")
+        }
 )
-
 
 @Entity
 @Table(name = "Produtos")
@@ -39,8 +43,18 @@ public class Produto implements Serializable {
     private Double preco;
     private Double custo;
     private LocalDate validade;
-    
-    
-    
+
+    /**
+     * Metodo para diminuir a quantidade do produto, quando for adicionado um
+     * consumo para o cliente
+     *
+     * @param quantidade quantidade a ser sacada
+     */
+    public void diminuirQuantidade(Integer quantidade) {
+        
+        if (this.quantidade > quantidade) {
+            this.quantidade += -quantidade;
+        }
+    }
 
 }

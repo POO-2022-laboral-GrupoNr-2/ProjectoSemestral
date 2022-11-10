@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package View;
 
 import connection.ConnectionFactory;
@@ -22,10 +18,6 @@ import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.statistics.HistogramDataset;
 
-/**
- *
- * @author Edilson Ricardo
- */
 public class TelaRelatorio11 extends javax.swing.JFrame {
 
     int jan = 0;
@@ -50,6 +42,11 @@ public class TelaRelatorio11 extends javax.swing.JFrame {
         // showHistogram();
     }
 
+    /**
+     * Este metodo desenha o grafico, relativo ao numero de estadias mensais.
+     * Para isso buscamos todos os registros na base de dados para verificar as
+     * datas de checkin
+     */
     public void showBarChart() {
 
         CheckOutJpaController controller = new CheckOutJpaController(ConnectionFactory.getEmf());
@@ -136,7 +133,7 @@ public class TelaRelatorio11 extends javax.swing.JFrame {
         txtOut.setText(String.valueOf(out));
         txtNov.setText(String.valueOf(nov));
         txtDez.setText(String.valueOf(dez));
-        
+
     }
 
     /**

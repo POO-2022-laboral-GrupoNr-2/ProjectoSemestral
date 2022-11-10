@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package View;
 
 import connection.ConnectionFactory;
@@ -12,40 +8,39 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Funcionario;
 
-/**
- *
- * @author Edilson Ricardo
- */
 public class TelaConsultaDeFuncionarios extends javax.swing.JFrame {
+
     public TelaDeActualizacaoDeDadosDeFuncionarios coringa = new TelaDeActualizacaoDeDadosDeFuncionarios();
     public Funcionario funcionario;
-    private FuncionarioJpaController controller;
+    private FuncionarioJpaController controllerFuncionario;
     private List<Funcionario> funcionarios;
 
-    //o metodo abaixo pega o id do registro selecionao na tabela
+    /**
+     * Captura o primeiro valor da linha selecionada na tabela.
+     *
+     * @return primeiro valor na tabela correspondente ao ID.
+     */
     public Long pegarId() {
-        //pegando o numero da linha selecionada
         int linhaSelecionada = tblFuncionarios.getSelectedRow();
-        //caso nenhuma linha seja selecionada
         if (linhaSelecionada == -1) {
 
         } else {
-            //pegando o primeiro valor da linha seleciona que eh o ID do usuario
             Long id = Long.parseLong(tblFuncionarios.getValueAt(linhaSelecionada, 0).toString());
             return id;
         }
         return -1l;
     }
 
+    /**
+     * Preenche a tabela com os dados, recuperados a partir da base dados.
+     */
     private void preencherTabela() {
-        controller = new FuncionarioJpaController(ConnectionFactory.getEmf());
+        controllerFuncionario = new FuncionarioJpaController(ConnectionFactory.getEmf());
         String nome = txtPesquisa.getText();
-        this.controller = new FuncionarioJpaController(ConnectionFactory.getEmf());
-        funcionarios = controller.getFuncionarioByLikeNome(nome.trim());
+        this.controllerFuncionario = new FuncionarioJpaController(ConnectionFactory.getEmf());
+        funcionarios = controllerFuncionario.getFuncionarioByLikeNome(nome.trim());
 
-        //pegando o modelo da tabela para que seja possivel manipular
         DefaultTableModel tabela = (DefaultTableModel) tblFuncionarios.getModel();
-        //zerando as linhas da tabela, para nao sobrepor os registros toda vez que o metodo for chamado
         tabela.setNumRows(0);
         for (Funcionario funcionario : funcionarios) {
             Object[] obj = new Object[]{
@@ -60,12 +55,9 @@ public class TelaConsultaDeFuncionarios extends javax.swing.JFrame {
                 funcionario.getContacto(),
                 funcionario.getContactoAlternativo(),
                 funcionario.getEstado()
-
             };
             tabela.addRow(obj);
-
         }
-
     }
 
     /**
@@ -264,7 +256,7 @@ public class TelaConsultaDeFuncionarios extends javax.swing.JFrame {
             this.dispose();
             coringa.preencherCampos(this.pegarId());
             coringa.setVisible(true);
-            
+
         }
 
     }//GEN-LAST:event_btnActualizarDadosFuncionarioMousePressed

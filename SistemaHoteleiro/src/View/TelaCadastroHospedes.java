@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package View;
 
 import connection.ConnectionFactory;
@@ -18,19 +14,17 @@ import javax.swing.table.DefaultTableModel;
 import model.Quarto;
 import validacoes.Validacao;
 
-/**
- *
- * @author Edilson Ricardo
- */
 public class TelaCadastroHospedes extends javax.swing.JFrame {
 
-    private QuartoJpaController controller;
+    private QuartoJpaController controllerQuarto;
     private List<Quarto> quartos;
 
-    //Este metodo preenche a tabela com os quartos disponiveis.
+    /**
+     * Preenche a tabela com os dados, recuperados a partir da base dados.
+     */
     public void preencherTabela() {
-        controller = new QuartoJpaController(ConnectionFactory.getEmf());
-        quartos = controller.findQuartoEntities();
+        controllerQuarto = new QuartoJpaController(ConnectionFactory.getEmf());
+        quartos = controllerQuarto.findQuartoEntities();
 
         DefaultTableModel tabela = (DefaultTableModel) tblQuartos.getModel();
 
@@ -47,17 +41,18 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
                 tabela.addRow(obj);
             }
         }
-
     }
 
+    /**
+     * Captura o primeiro valor da linha selecionada na tabela.
+     *
+     * @return primeiro valor na tabela correspondente ao ID.
+     */
     public long pegarIdQuarto() {
-        //pegando o numero da linha selecionada
         int linhaSelecionada = tblQuartos.getSelectedRow();
-        //caso nenhuma linha seja selecionada
         if (linhaSelecionada == -1) {
 
         } else {
-            //pegando o primeiro valor da linha seleciona que eh o ID do usuario
             Long id = Long.parseLong(tblQuartos.getValueAt(linhaSelecionada, 0).toString());
             return id;
         }

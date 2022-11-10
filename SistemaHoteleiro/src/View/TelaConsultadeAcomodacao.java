@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package View;
 
 import connection.ConnectionFactory;
@@ -10,39 +6,33 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import model.Quarto;
 
-/**
- *
- * @author Edilson Ricardo
- */
 public class TelaConsultadeAcomodacao extends javax.swing.JFrame {
+
     private QuartoJpaController controller;
     private List<Quarto> quartos;
-    
+
+    /**
+     * Preenche a tabela com os dados, recuperados a partir da base dados.
+     */
     private void preencherTabela() {
 
         controller = new QuartoJpaController(ConnectionFactory.getEmf());
         String descricao = txtDescricao.getText();
         quartos = controller.getQuartoByLikeDescricao(descricao.trim());
 
-        //pegando o modelo da tabela para que seja possivel manipular
         DefaultTableModel tabela = (DefaultTableModel) tblQuartos.getModel();
-        //zerando as linhas da tabela, para nao sobrepor os registros toda vez que o metodo for chamado
         tabela.setNumRows(0);
-         for (Quarto quarto : quartos) {
+        for (Quarto quarto : quartos) {
             Object[] obj = new Object[]{
                 quarto.getId(),
                 quarto.getDescricao(),
                 quarto.getTipo(),
                 quarto.getPreco(),
                 quarto.getEstado()
-
             };
             tabela.addRow(obj);
-
         }
-
     }
-
 
     /**
      * Creates new form TeladeCadastrodeAcomodacao

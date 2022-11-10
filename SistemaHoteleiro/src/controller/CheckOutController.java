@@ -9,7 +9,20 @@ public class CheckOutController {
 
     private static CheckOutJpaController controller;
     private static CheckOut checkOut;
-
+    /**
+     * Metodo para salvar dados durante o checkout, chamado a partir da tela de checkout.
+     * 
+     * @param nome
+     * @param celular
+     * @param endereco
+     * @param email
+     * @param genero
+     * @param checkIn
+     * @param nacionalidade
+     * @param quarto
+     * @param nrBi
+     * @return true caso o cadastro seja efectuado com sucesso, e false caso ocorra alguma exception.
+     */
     public static boolean adicionar(String nome, String celular, String endereco, String email, String genero, LocalDate checkIn, String nacionalidade, Long quarto, String nrBi) {
         controller = new CheckOutJpaController(ConnectionFactory.getEmf());
         checkOut = new CheckOut();

@@ -1,4 +1,3 @@
-
 package View;
 
 import connection.ConnectionFactory;
@@ -13,19 +12,21 @@ import javax.swing.table.DefaultTableModel;
 import model.Cliente;
 import model.Quarto;
 
-
 public class TelaCheckOut extends javax.swing.JFrame {
 
-    private ClienteJpaController controller;
+    private ClienteJpaController controllerCliente;
     private List<Cliente> clientes;
     private Cliente cliente;
     private Quarto quarto;
     private QuartoJpaController controllerQuarto;
 
+    /**
+     * Preenche a tabela com os dados, recuperados a partir da base dados.
+     */
     private void preencherTabela() {
 
-        controller = new ClienteJpaController(ConnectionFactory.getEmf());
-        clientes = controller.findClienteEntities();
+        controllerCliente = new ClienteJpaController(ConnectionFactory.getEmf());
+        clientes = controllerCliente.findClienteEntities();
 
         DefaultTableModel tabela = (DefaultTableModel) tblClientes.getModel();
         tabela.setNumRows(0);
@@ -40,10 +41,8 @@ public class TelaCheckOut extends javax.swing.JFrame {
                 cliente.getCelular(),
                 cliente.getQuarto(),
                 cliente.getCheckIn()
-
             };
             tabela.addRow(obj);
-
         }
     }
 
@@ -58,11 +57,17 @@ public class TelaCheckOut extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Preencher os campos na tela, no momento de efectuar o checkout de um
+     * cliente, realizar operacoes de calculo de dias de dias e valor total.
+     *
+     * @param id usado para buscar o cliente na base de dados.
+     */
     private void preencherCampos(Long id) {
 
         controllerQuarto = new QuartoJpaController(ConnectionFactory.getEmf());
-        controller = new ClienteJpaController(ConnectionFactory.getEmf());
-        cliente = controller.findCliente(id);
+        controllerCliente = new ClienteJpaController(ConnectionFactory.getEmf());
+        cliente = controllerCliente.findCliente(id);
 
         quarto = controllerQuarto.findQuarto(cliente.getQuarto());
         //determinando o numero de dias de estadia
@@ -82,14 +87,16 @@ public class TelaCheckOut extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Captura o primeiro valor da linha selecionada na tabela.
+     *
+     * @return primeiro valor na tabela correspondente ao ID.
+     */
     public Long pegarId() {
-        //pegando o numero da linha selecionada
         int linhaSelecionada = tblClientes.getSelectedRow();
-        //caso nenhuma linha seja selecionada
         if (linhaSelecionada == -1) {
 
         } else {
-            //pegando o primeiro valor da linha seleciona que eh o ID do usuario
             Long id = Long.parseLong(tblClientes.getValueAt(linhaSelecionada, 0).toString());
             return id;
         }

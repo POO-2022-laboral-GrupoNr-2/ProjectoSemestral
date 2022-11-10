@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package View;
 
-/**
- *
- * @author Edilson Ricardo
- */
 public class TelaDeActualizaçãoDeDadosDeFuncionarios extends javax.swing.JFrame {
 
     /**

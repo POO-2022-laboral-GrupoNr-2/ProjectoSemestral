@@ -1,23 +1,53 @@
 package View;
 
-import controller.Login;
+import connection.ConnectionFactory;
+import dao.FuncionarioJpaController;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
+import model.Funcionario;
 
 public class TelaLogin extends javax.swing.JFrame {
 
-    private int tentativas; //numero de vezes de tentativas de efectuar o login
+    private TelaPrincipal telaPrincipal;
+    private FuncionarioJpaController controllerFuncionario;
+    private List<Funcionario> funcionarios;
+
+    /**
+     * Metodo para efectuar o login no sistema.
+     *
+     * @param userName nome de usuario do funcionario
+     * @param senha senha do funcionarrio
+     * @return true se o funcionario tiver sido cadastrado
+     */
+    private boolean logar(String userName, String senha) {
+        controllerFuncionario = new FuncionarioJpaController(ConnectionFactory.getEmf());
+        funcionarios = controllerFuncionario.findFuncionarioEntities();
+
+        for (Funcionario funcionario : funcionarios) {
+            if (funcionario.getNomeDeUsuario().equalsIgnoreCase(userName) && funcionario.getSenha().equalsIgnoreCase(senha) && funcionario.getAcesso().equalsIgnoreCase("Administrador")) {
+                telaPrincipal = new TelaPrincipal();
+                telaPrincipal.setVisible(true);
+                return true;
+            }
+            if (funcionario.getNomeDeUsuario().equalsIgnoreCase(userName) && funcionario.getSenha().equalsIgnoreCase(senha) && funcionario.getAcesso().equalsIgnoreCase("Funcionário")) {
+                telaPrincipal = new TelaPrincipal();
+                telaPrincipal.setVisible(true);
+                telaPrincipal.ocultarFuncionalidades();
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * Creates new form TelaLogin
      */
     public TelaLogin() {
         initComponents();
-        tentativas = 0;
         this.setExtendedState(6);
-        //Comentario
     }
 
     /**
@@ -73,6 +103,14 @@ public class TelaLogin extends javax.swing.JFrame {
         });
         getContentPane().add(txtNomeUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 360, 310, -1));
 
+        txtPalavraPasse.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtPalavraPasseFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtPalavraPasseFocusLost(evt);
+            }
+        });
         txtPalavraPasse.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtPalavraPasseKeyPressed(evt);
@@ -122,23 +160,14 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void btnEntrarKeyPressed(java.awt.event.KeyEvent evt) {
         // TODO add your handling code here:
-
-        String nomeDeUsuario = txtNomeUsuario.getText();
-        String senha = txtPalavraPasse.getText();
-
-        if (nomeDeUsuario.isEmpty() && senha.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor preencha todos os campos.");
-        } else {
-            if (Login.logar(nomeDeUsuario.trim(), senha.trim())) {
-                new TelaPrincipal().setVisible(true);
-                dispose();
-            } else {
-                if (tentativas < 3) {
-                    JOptionPane.showMessageDialog(null, "Dados incorrectos, por favor verifique e volte a tentar!");
-                    tentativas++;
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (!txtPalavraPasse.getText().isEmpty()) {
+                String nomeDeUsuario = txtNomeUsuario.getText();
+                String senha = txtPalavraPasse.getText();
+                if (this.logar(nomeDeUsuario, senha)) {
+                    this.dispose();
                 } else {
-                    JOptionPane.showMessageDialog(null, "Limite de tentativas de efectuar login extrapolado, programa encerrando...");
-                    System.exit(0);
+                    JOptionPane.showMessageDialog(null, "Dados incorrectos, por favor verique e volte a tentar.");
                 }
             }
         }
@@ -149,35 +178,25 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void txtPalavraPasseKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPalavraPasseKeyPressed
         // TODO add your handling code here:
-
-        String nomeDeUsuario = txtNomeUsuario.getText();
-        String senha = txtPalavraPasse.getText();
-
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            if (nomeDeUsuario.isEmpty() && senha.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Por favor preencha todos os campos.");
-            } else {
-                if (Login.logar(nomeDeUsuario.trim(), senha.trim())) {
-                    new TelaPrincipal().setVisible(true);
-                    dispose();
+            if (!txtPalavraPasse.getText().isEmpty()) {
+                String nomeDeUsuario = txtNomeUsuario.getText();
+                String senha = txtPalavraPasse.getText();
+                if (this.logar(nomeDeUsuario, senha)) {
+                    this.dispose();
                 } else {
-                    if (tentativas < 3) {
-                        JOptionPane.showMessageDialog(null, "Dados incorrectos, por favor verifique e volte a tentar!");
-                        tentativas++;
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Limite de tentativas de efectuar login extrapolado, programa encerrando...");
-                        System.exit(0);
-                    }
+                    JOptionPane.showMessageDialog(null, "Dados incorrectos, por favor verique e volte a tentar.");
                 }
             }
         }
+
     }//GEN-LAST:event_txtPalavraPasseKeyPressed
 
     private void txtNomeUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeUsuarioKeyPressed
         // TODO add your handling code here:
         String nomeDeUsuario = txtNomeUsuario.getText();
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-            if(nomeDeUsuario.length() !=0 ){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (nomeDeUsuario.length() != 0) {
                 txtPalavraPasse.requestFocus();
             }
         }
@@ -185,25 +204,20 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void btnEntrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEntrarMousePressed
         // TODO add your handling code here:
-        String nomeDeUsuario = txtNomeUsuario.getText();
-        String senha = txtPalavraPasse.getText();
-        if (nomeDeUsuario.isEmpty() && senha.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor preencha todos os campos.");
-        } else {
-            if (Login.logar(nomeDeUsuario.trim(), senha.trim())) {
-                new TelaPrincipal().setVisible(true);
-                dispose();
+        if (!txtNomeUsuario.getText().isEmpty() && !txtPalavraPasse.getText().isEmpty()) {
+
+            String nomeDeUsuario = txtNomeUsuario.getText();
+            String senha = txtPalavraPasse.getText();
+
+            if (this.logar(nomeDeUsuario, senha)) {
+                this.dispose();
             } else {
-                if (tentativas < 3) {
-                    JOptionPane.showMessageDialog(null, "Dados incorrectos, por favor verifique e volte a tentar!");
-                    tentativas++;
-                } else {
-                    JOptionPane.showMessageDialog(null, "Limite de tentativas de efectuar login extrapolado, programa encerrando...");
-                    System.exit(0);
-                    System.out.println("saindo");
-                }
+                JOptionPane.showMessageDialog(null, "Dados incorrectos, por favor verique e volte a tentar.");
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos!");
         }
+
     }//GEN-LAST:event_btnEntrarMousePressed
 
     private void lblEsqueceuPalavraPasseMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEsqueceuPalavraPasseMousePressed
@@ -213,20 +227,32 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void txtNomeUsuarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeUsuarioFocusLost
         // TODO add your handling code here:
-         String nomeDeUsuario = txtNomeUsuario.getText();
-         if(nomeDeUsuario.isEmpty()){
-             txtNomeUsuario.setBorder(new LineBorder(Color.RED));
-         }
+        String nomeDeUsuario = txtNomeUsuario.getText();
+        if (nomeDeUsuario.isEmpty()) {
+            txtNomeUsuario.setBorder(new LineBorder(Color.RED));
+        }
     }//GEN-LAST:event_txtNomeUsuarioFocusLost
 
     private void txtNomeUsuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeUsuarioFocusGained
         // TODO add your handling code here:
-         String nomeDeUsuario = txtNomeUsuario.getText();
-         if(nomeDeUsuario.isEmpty()){
-             txtNomeUsuario.setBorder(new LineBorder(Color.white));
-         }
+        String nomeDeUsuario = txtNomeUsuario.getText();
+        if (nomeDeUsuario.isEmpty()) {
+            txtNomeUsuario.setBorder(new LineBorder(Color.white));
+        }
 
     }//GEN-LAST:event_txtNomeUsuarioFocusGained
+
+    private void txtPalavraPasseFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPalavraPasseFocusGained
+        // TODO add your handling code here:
+        txtPalavraPasse.setBorder(new LineBorder(Color.WHITE));
+    }//GEN-LAST:event_txtPalavraPasseFocusGained
+
+    private void txtPalavraPasseFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPalavraPasseFocusLost
+        // TODO add your handling code here:
+        if (txtPalavraPasse.getText().isEmpty()) {
+            txtPalavraPasse.setBorder(new LineBorder(Color.RED));
+        }
+    }//GEN-LAST:event_txtPalavraPasseFocusLost
 
     /**
      * @param args the command line arguments

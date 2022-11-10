@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
 import java.io.Serializable;
@@ -16,12 +12,17 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import lombok.Data;
 
+/**
+ * Classe modelo para os clientes que forem a efectuar uma reserva.
+ *
+ * @author
+ */
 @NamedQueries(
         {
-    @NamedQuery(
-            name = "Reserva.findByLikeNome",
-            query = "SELECT r FROM Reserva r WHERE r.nome LIKE :nome")
-}
+            @NamedQuery(
+                    name = "Reserva.findByLikeNome",
+                    query = "SELECT r FROM Reserva r WHERE r.nome LIKE :nome")
+        }
 )
 
 @Entity

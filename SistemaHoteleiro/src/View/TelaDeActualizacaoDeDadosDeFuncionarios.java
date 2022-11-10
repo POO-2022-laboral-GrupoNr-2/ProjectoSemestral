@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package View;
 
 import connection.ConnectionFactory;
@@ -13,15 +9,16 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import model.Funcionario;
 
-/**
- *
- * @author Edilson Ricardo
- */
 public class TelaDeActualizacaoDeDadosDeFuncionarios extends javax.swing.JFrame {
 
     private FuncionarioJpaController controller;
     private Funcionario funcionario;
 
+    /**
+     * Preenche a tabela com os registros da base de dados, recuperados pelo id.
+     *
+     * @param id parametro para buscar buscar registros na base de dados.
+     */
     public void preencherCampos(Long id) {
         controller = new FuncionarioJpaController(ConnectionFactory.getEmf());
         funcionario = controller.findFuncionario(id);

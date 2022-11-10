@@ -1,24 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package View;
 
 import controller.FuncionarioController;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Edilson Ricardo
- */
 public class TelaRecuperacaoSenha11 extends javax.swing.JFrame {
-    
-    private void limparCampos(){
+
+    private void limparCampos() {
         txtCodigoID.setText("");
         txtConfirmarSenha.setText("");
         txtSenhaAntiga.setText("");
         txtSenhaNova.setText("");
     }
+
     /**
      * Creates new form TelaAlteracaoSenha
      */

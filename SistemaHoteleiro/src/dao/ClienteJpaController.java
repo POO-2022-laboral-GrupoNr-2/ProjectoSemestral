@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dao;
 
 import dao.exceptions.NonexistentEntityException;
@@ -16,8 +12,12 @@ import javax.persistence.criteria.Root;
 import model.Cliente;
 
 /**
+ * Esta classe contem metodos gerados a partir das classes que sao entidades,
+ * que nos permitem efectuar diversas operacoes relacionadas a
+ * conexao/(persistencia de dados) do sistema com a base de dados. Metodos para
+ * salvar objectos, editar, deletar, buscar todos registros, entre outros.
  *
- * @author Augusto Chissano
+ * @author
  */
 public class ClienteJpaController implements Serializable {
 
@@ -133,22 +133,21 @@ public class ClienteJpaController implements Serializable {
             em.close();
         }
     }
-    
-    public List<Cliente> getClienteByLikeNome(String nome){
+
+    public List<Cliente> getClienteByLikeNome(String nome) {
         EntityManager em = getEntityManager();
         List<Cliente> lista = null;
         try {
-        lista =  em.createNamedQuery("Cliente.findByLikeNome").
-                setParameter("nome", "%" + nome + "%").
-                getResultList();
-            
+            lista = em.createNamedQuery("Cliente.findByLikeNome").
+                    setParameter("nome", "%" + nome + "%").
+                    getResultList();
+
         } catch (Exception e) {
             System.out.println(e);
-        }
-        finally{
+        } finally {
             em.close();
         }
         return lista;
     }
-    
+
 }

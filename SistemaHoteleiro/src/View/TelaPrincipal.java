@@ -1,40 +1,16 @@
 package View;
 
-import connection.ConnectionFactory;
-import java.util.List;
 import javax.swing.JOptionPane;
-import validacoes.FuncionarioLogado;
-import validacoes.FuncionarioLogadoJpaController;
 
-/**
- *
- * @author Edilson Ricardo
- */
 public class TelaPrincipal extends javax.swing.JFrame {
 
-    public void desabilitarTela() {
-        this.setEnabled(false);
-    }
-
-    public void abilitar() {
-        this.setEnabled(true);
-    }
-
-    //Caso um funcionario efectue login
-    public void funcionario() {
-
-        FuncionarioLogadoJpaController controller = new FuncionarioLogadoJpaController(ConnectionFactory.getEmf());
-        FuncionarioLogado logado = new FuncionarioLogado();
-        List<FuncionarioLogado> acesso;
-
-        acesso = controller.findFuncionarioLogadoEntities();
-        int index = acesso.size() - 1;
-        logado = acesso.get(index);
-
-        if (logado.getAcesso().equalsIgnoreCase("Funcionário")) {
-            menuItemCadFuncionario.setVisible(false);
-            menuConsultaFuncionario.setVisible(false);
-        }
+    /**
+     * Este metodo e chamado na tela de login, caso o funcionario logado nao
+     * seja administrador oculta as funcionalidades relativas ao funcionario
+     */
+    public void ocultarFuncionalidades() {
+        menuCadastroFuncionario.setVisible(false);
+        menuConsultaFuncionario.setVisible(false);
     }
 
     /**
@@ -43,7 +19,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public TelaPrincipal() {
         initComponents();
         setExtendedState(6);
-        funcionario();
     }
 
     /**
@@ -101,7 +76,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuCadastros = new javax.swing.JMenu();
         menuItemCadProduto = new javax.swing.JMenuItem();
         menuItemCadHospedes = new javax.swing.JMenuItem();
-        menuItemCadFuncionario = new javax.swing.JMenuItem();
+        menuCadastroFuncionario = new javax.swing.JMenuItem();
         menuItemCadAcomodacao = new javax.swing.JMenuItem();
         menuConsultar = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -208,17 +183,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         menuCadastros.add(menuItemCadHospedes);
 
-        menuItemCadFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/user_add.png"))); // NOI18N
-        menuItemCadFuncionario.setText("Cadastrar Funcionário");
-        menuItemCadFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
+        menuCadastroFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/user_add.png"))); // NOI18N
+        menuCadastroFuncionario.setText("Cadastrar Funcionário");
+        menuCadastroFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menuItemCadFuncionarioMouseClicked(evt);
+                menuCadastroFuncionarioMouseClicked(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                menuItemCadFuncionarioMousePressed(evt);
+                menuCadastroFuncionarioMousePressed(evt);
             }
         });
-        menuCadastros.add(menuItemCadFuncionario);
+        menuCadastros.add(menuCadastroFuncionario);
 
         menuItemCadAcomodacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/door_open.png"))); // NOI18N
         menuItemCadAcomodacao.setText("Cadastrar Acomodação");
@@ -370,6 +345,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         new TelaCadastroHospedes().setVisible(true);
     }
 
+    private void menuCadastroFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {
+        // TODO add your handling code here:
+        new TelaDeCadastroFuncionario().setVisible(true);
+    }
+
     private void menuConsultaFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {
         // TODO add your handling code here:
         new TelaConsultaDeFuncionarios().setVisible(true);
@@ -437,7 +417,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         new TelaAlteracaoSenha().setVisible(true);
     }//GEN-LAST:event_jMenuItem13MousePressed
-
+    private void menuCadastroFuncionarioMousePressed(java.awt.event.MouseEvent evt) {
+        // TODO add your handling code here:
+        new TelaDeCadastroFuncionario().setVisible(true);
+    }
     private void jMenuItem10MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem10MousePressed
         // TODO add your handling code here:
         new TelaRelatorio11().setVisible(true);
@@ -493,12 +476,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblImagemTelaPrincipal;
     private javax.swing.JMenuBar menuBar;
+    public javax.swing.JMenuItem menuCadastroFuncionario;
     private javax.swing.JMenu menuCadastros;
     private javax.swing.JMenu menuConfiguracoes;
     public javax.swing.JMenuItem menuConsultaFuncionario;
     private javax.swing.JMenu menuConsultar;
     private javax.swing.JMenuItem menuItemCadAcomodacao;
-    public javax.swing.JMenuItem menuItemCadFuncionario;
     private javax.swing.JMenuItem menuItemCadHospedes;
     private javax.swing.JMenuItem menuItemCadProduto;
     private javax.swing.JMenu menuRelatorio;

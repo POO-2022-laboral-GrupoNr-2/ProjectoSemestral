@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package View;
 
 import connection.ConnectionFactory;
@@ -16,10 +12,6 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Quarto;
 
-/**
- *
- * @author Edilson Ricardo
- */
 public class TelaEfectuarReserva extends javax.swing.JFrame {
 
     private QuartoJpaController controller;
@@ -38,20 +30,25 @@ public class TelaEfectuarReserva extends javax.swing.JFrame {
 
     }
 
-    // para pegar o id do quarto selecionado na tabela e preencheer o campo do quarto na tela
+    /**
+     * Captura o primeiro valor da linha selecionada na tabela.
+     *
+     * @return primeiro valor na tabela, correspondente ao ID.
+     */
     public long pegarIdQuarto() {
-        //pegando o numero da linha selecionada
         int linhaSelecionada = tblQuartos.getSelectedRow();
-        //caso nenhuma linha seja selecionada
         if (linhaSelecionada == -1) {
 
         } else {
-            //pegando o primeiro valor da linha seleciona que eh o ID do usuario
             Long id = Long.parseLong(tblQuartos.getValueAt(linhaSelecionada, 0).toString());
             return id;
         }
         return -1l;
     }
+
+    /**
+     * Este metodo preenche a tabela com os registros da base de dados
+     */
 
     public void preencherTabela() {
         controller = new QuartoJpaController(ConnectionFactory.getEmf());

@@ -1,19 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package View;
 
 import controller.FuncionarioController;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Edilson Ricardo
- */
 public class TelaAlteracaoSenha extends javax.swing.JFrame {
-    
-    public void limparCampos(){
+
+    public void limparCampos() {
         txtCodigoID.setText("");
         txtConfirmarSenha.setText("");
         txtSenhaAntiga.setText("");
@@ -170,23 +162,23 @@ public class TelaAlteracaoSenha extends javax.swing.JFrame {
 
     private void btnAlterarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlterarMousePressed
         // TODO add your handling code here:
-        
+
         //Em andamento
-        if(!txtCodigoID.getText().isEmpty()&&!txtConfirmarSenha.getText().isEmpty()&&!txtSenhaAntiga.getText().isEmpty()&&!txtSenhaNova.getText().isEmpty()){
-        String senhaAntiga = txtSenhaAntiga.getText();
-        String novaSenha = txtSenhaNova.getText();
-        String confirmar = txtConfirmarSenha.getText();
-        Long id = Long.parseLong(txtCodigoID.getText());
-        if (novaSenha.equalsIgnoreCase(confirmar)) {
-            if (FuncionarioController.alterarSenha(id, novaSenha)) {
-                JOptionPane.showMessageDialog(null, "Senha alterada com sucesso!!");
-                limparCampos();
+        if (!txtCodigoID.getText().isEmpty() && !txtConfirmarSenha.getText().isEmpty() && !txtSenhaAntiga.getText().isEmpty() && !txtSenhaNova.getText().isEmpty()) {
+            String senhaAntiga = txtSenhaAntiga.getText();
+            String novaSenha = txtSenhaNova.getText();
+            String confirmar = txtConfirmarSenha.getText();
+            Long id = Long.parseLong(txtCodigoID.getText());
+            if (novaSenha.equalsIgnoreCase(confirmar)) {
+                if (FuncionarioController.alterarSenha(id, novaSenha)) {
+                    JOptionPane.showMessageDialog(null, "Senha alterada com sucesso!!");
+                    limparCampos();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Por favor, confirme a sua nova senha");
             }
+
         } else {
-            JOptionPane.showMessageDialog(null, "Por favor, confirme a sua nova senha");
-        }
-            
-        }else{
             JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos.");
         }
     }//GEN-LAST:event_btnAlterarMousePressed

@@ -1,39 +1,40 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package View;
 
 import connection.ConnectionFactory;
 import controller.ClienteController;
 import dao.ClienteJpaController;
 import dao.QuartoJpaController;
+import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import javax.swing.JOptionPane;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import model.Cliente;
 import model.Quarto;
 
-/**
- *
- * @author Edilson Ricardo
- */
 public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
 
-    private QuartoJpaController controller;
+    private QuartoJpaController controllerQuarto;
     private List<Quarto> quartos;
-    private ClienteJpaController controller1;
+    private ClienteJpaController controllerCliente;
     private Cliente cliente;
 
+    /**
+     * Este metodo preenche os campos do formulario com os dados do registro
+     * selecionado na tabela. Os dados sao recuperados na base de dados pelo id.
+     *
+     * @param id este parametro serve para fazer uma busca pelo funcionario na
+     * base de dados.
+     */
     public void preencherCampos(Long id) {
-        controller1 = new ClienteJpaController(ConnectionFactory.getEmf());
-        cliente = controller1.findCliente(id);
+
+        controllerCliente = new ClienteJpaController(ConnectionFactory.getEmf());
+        cliente = controllerCliente.findCliente(id);
+
         lblId.setText(String.valueOf(id));
         txtNome.setText(cliente.getNome());
         txtCelular.setText(cliente.getCelular());
@@ -45,9 +46,12 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Este metodo preenche a tabela com os registros da base de ados
+     */
     public void preencherTabela() {
-        controller = new QuartoJpaController(ConnectionFactory.getEmf());
-        quartos = controller.findQuartoEntities();
+        controllerQuarto = new QuartoJpaController(ConnectionFactory.getEmf());
+        quartos = controllerQuarto.findQuartoEntities();
 
         DefaultTableModel tabela = (DefaultTableModel) tblQuartos.getModel();
 
@@ -59,12 +63,9 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
                 quarto.getTipo(),
                 quarto.getPreco(),
                 quarto.getEstado()
-
             };
             tabela.addRow(obj);
-
         }
-
     }
 
     /**
@@ -161,6 +162,20 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
         lblNacionalidade.setForeground(new java.awt.Color(255, 255, 255));
         lblNacionalidade.setText("Nacionalidade:");
 
+        txtNome.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNomeFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNomeFocusLost(evt);
+            }
+        });
+        txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNomeKeyPressed(evt);
+            }
+        });
+
         lblEmail.setForeground(new java.awt.Color(255, 255, 255));
         lblEmail.setText("Email:");
 
@@ -208,7 +223,7 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
 
         jLabel1.setText("ID:");
 
-        lblId.setText("jLabel2");
+        lblId.setText("ID_Funcionario");
 
         javax.swing.GroupLayout panelCadastroClienteLayout = new javax.swing.GroupLayout(panelCadastroCliente);
         panelCadastroCliente.setLayout(panelCadastroClienteLayout);
@@ -367,6 +382,27 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnCheckinMousePressed
+
+    private void txtNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusGained
+        // TODO add your handling code here:
+        txtNome.setBorder(new LineBorder(Color.white));
+    }//GEN-LAST:event_txtNomeFocusGained
+
+    private void txtNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusLost
+        // TODO add your handling code here:
+        if (txtNome.getText().isEmpty()) {
+            txtNome.setBorder(new LineBorder(Color.red));
+        }
+    }//GEN-LAST:event_txtNomeFocusLost
+
+    private void txtNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (!txtNome.getText().isEmpty()) {
+                txtEndereco.requestFocus();
+            }
+        }
+    }//GEN-LAST:event_txtNomeKeyPressed
 
     /**
      * @param args the command line arguments

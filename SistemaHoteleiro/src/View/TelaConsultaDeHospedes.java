@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package View;
 
 import connection.ConnectionFactory;
@@ -11,52 +7,53 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Cliente;
 
-/**
- *
- * @author Edilson Ricardo
- */
 public class TelaConsultaDeHospedes extends javax.swing.JFrame {
-    private TelaActualizacaodeDadosdeHospedes coringa = new TelaActualizacaodeDadosdeHospedes();
+
+    private TelaActualizacaodeDadosdeHospedes telaActualizarHospede;
     private ClienteJpaController controller;
     private List<Cliente> clientes;
-    
+
+    /**
+     * Captura o primeiro valor da linha selecionada na tabela.
+     *
+     * @return primeiro valor na tabela correspondente ao ID.
+     */
     public Long pegarId() {
-        //pegando o numero da linha selecionada
         int linhaSelecionada = tblClientes.getSelectedRow();
-        //caso nenhuma linha seja selecionada
         if (linhaSelecionada == -1) {
 
         } else {
-            //pegando o primeiro valor da linha seleciona que eh o ID do usuario
             Long id = Long.parseLong(tblClientes.getValueAt(linhaSelecionada, 0).toString());
             return id;
         }
         return -1l;
     }
-    
-    private void preencherTabela(){
-        
+
+    /**
+     * Preenche a tabela com os dados, recuperados a partir da base
+     * dados.
+     */
+    private void preencherTabela() {
+
         String nome = txtNome.getText();
         controller = new ClienteJpaController(ConnectionFactory.getEmf());
         clientes = controller.getClienteByLikeNome(nome.trim());
-        
+
         DefaultTableModel tabela = (DefaultTableModel) tblClientes.getModel();
         tabela.setNumRows(0);
-        
+
         for (Cliente cliente : clientes) {
             Object[] obj = new Object[]{
-               cliente.getId(),
-               cliente.getNome(),
-               cliente.getGenero(),
-               cliente.getNrBi(),
-               cliente.getNacionalidade(),
-               cliente.getCelular(),
-               cliente.getQuarto(),
-               cliente.getCheckIn()
-
+                cliente.getId(),
+                cliente.getNome(),
+                cliente.getGenero(),
+                cliente.getNrBi(),
+                cliente.getNacionalidade(),
+                cliente.getCelular(),
+                cliente.getQuarto(),
+                cliente.getCheckIn()
             };
             tabela.addRow(obj);
-
         }
     }
 
@@ -212,12 +209,13 @@ public class TelaConsultaDeHospedes extends javax.swing.JFrame {
 
     private void btnActualizarDadosClienteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarDadosClienteMousePressed
         // TODO add your handling code here:
-        if(pegarId() == -1){
+        if (pegarId() == -1) {
             JOptionPane.showMessageDialog(null, "Selecione um registro!");
-        }else{
-            coringa.preencherCampos(pegarId());
+        } else {
+            telaActualizarHospede = new TelaActualizacaodeDadosdeHospedes();
+            telaActualizarHospede.preencherCampos(pegarId());
             this.dispose();
-            coringa.setVisible(true);
+            telaActualizarHospede.setVisible(true);
         }
     }//GEN-LAST:event_btnActualizarDadosClienteMousePressed
 

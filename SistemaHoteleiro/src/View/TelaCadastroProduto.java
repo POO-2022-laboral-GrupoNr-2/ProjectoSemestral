@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package View;
 
 import connection.ConnectionFactory;
@@ -15,32 +11,36 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Produto;
 
-/**
- *
- * @author Edilson Ricardo
- */
 public class TelaCadastroProduto extends javax.swing.JFrame {
 
     private Produto produto;
-    private ProdutoJpaController controller;
+    private ProdutoJpaController controllerProduto;
     private List<Produto> produtos;
 
+    /**
+     * Captura o primeiro valor da linha selecionada na tabela.
+     *
+     * @return primeiro valor na tabela correspondente ao ID.
+     */
     public Long pegarId() {
-        //pegando o numero da linha selecionada
         int linhaSelecionada = tblProdutos.getSelectedRow();
-        //caso nenhuma linha seja selecionada
         if (linhaSelecionada == -1) {
 
         } else {
-            //pegando o primeiro valor da linha seleciona que eh o ID do usuario
             Long id = Long.parseLong(tblProdutos.getValueAt(linhaSelecionada, 0).toString());
             return id;
         }
         return -1l;
     }
 
+    /**
+     * Preencher os campos na tela, com dados recuperados na base de dados a
+     * partir do ID.
+     *
+     * @param id valor para efectuar uma pesquisa na base de dados.
+     */
     public void preencherCampos(Long id) {
-        produto = controller.findProduto(id);
+        produto = controllerProduto.findProduto(id);
 
         txtNomeDescricao.setText(produto.getDescricao());
         txtQuantidade.setText(String.valueOf(produto.getQuantidade()));
@@ -57,14 +57,15 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Preenche a tabela com os dados, recuperados a partir da base dados.
+     */
     private void preencherTabela() {
 
-        controller = new ProdutoJpaController(ConnectionFactory.getEmf());
-        produtos = controller.findProdutoEntities();
+        controllerProduto = new ProdutoJpaController(ConnectionFactory.getEmf());
+        produtos = controllerProduto.findProdutoEntities();
 
-        //pegando o modelo da tabela para que seja possivel manipular
         DefaultTableModel tabela = (DefaultTableModel) tblProdutos.getModel();
-        //zerando as linhas da tabela, para nao sobrepor os registros toda vez que o metodo for chamado
         tabela.setNumRows(0);
         for (Produto produto : produtos) {
             Object[] obj = new Object[]{
@@ -74,12 +75,9 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
                 produto.getValidade(),
                 produto.getCusto(),
                 produto.getQuantidade()
-
             };
             tabela.addRow(obj);
-
         }
-
     }
 
     /**

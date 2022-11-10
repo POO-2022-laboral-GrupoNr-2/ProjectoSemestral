@@ -14,12 +14,11 @@ import javax.swing.border.LineBorder;
 import org.apache.commons.lang3.StringUtils;
 import validacoes.Validacao;
 
-/**
- *
- * @author Edilson Ricardo
- */
 public class TelaDeCadastroFuncionario extends javax.swing.JFrame {
 
+    /**
+     * Este metodo esvazia os campos caso o cadastro seja efectuado com sucesso
+     */
     private void limparCampos() {
         txtNome.setText("");
         txtNomedeUsuario.setText("");
@@ -450,7 +449,7 @@ public class TelaDeCadastroFuncionario extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Ocorreu um erro ao cadastrar funcionario!");
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Por favor preencha todos os campos");
         }
     }

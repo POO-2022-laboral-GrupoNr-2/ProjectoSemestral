@@ -17,10 +17,11 @@ import model.Cliente;
 import model.Quarto;
 
 /**
- * Esta classe contains os methods que nos permitirao manipular os dados das
- * telas referentes aos hospedes
+ * Esta classe contem metodos que nos permitem estabelecer a conexao entre as
+ * camadas model, dao e a view. Metodos relacionados com a entidade.
  *
- * @author Augusto Chissano
+ *
+ * @author
  */
 public class ClienteController {
 
@@ -31,6 +32,21 @@ public class ClienteController {
     private static Quarto quarto;
     private static QuartoJpaController controllerQuarto;
 
+    /**
+     * Metodo para cadastrar os clientes na base de dados. A seguir temos uma
+     * lista dos dados exigidos no momento do cadastro:
+     *
+     * @param nome
+     * @param celular
+     * @param endereco
+     * @param email
+     * @param genero
+     * @param checkIn
+     * @param nacionalidade
+     * @param quarto
+     * @param nrBi
+     * @return true caso o cadastro seja efectuado com sucesso
+     */
     public static boolean cadastrarCliente(String nome, String celular, String endereco, String email, String genero, LocalDate checkIn, String nacionalidade, Long quarto, String nrBi) {
 
         controller = new ClienteJpaController(ConnectionFactory.getEmf());
@@ -59,6 +75,22 @@ public class ClienteController {
 
     }
 
+    /**
+     * Metodo chamado na tela de actualizar os dados dos clientes, para
+     * actualizar os dados dos clientes
+     *
+     * @param id
+     * @param nome
+     * @param celular
+     * @param endereco
+     * @param email
+     * @param genero
+     * @param checkIn
+     * @param nacionalidade
+     * @param quarto
+     * @param nrBi
+     * @return true caso a actualizacao ocorra com sucesso
+     */
     public static boolean actualizar(Long id, String nome, String celular, String endereco, String email, String genero, LocalDate checkIn, String nacionalidade, Long quarto, String nrBi) {
 
         controller = new ClienteJpaController(ConnectionFactory.getEmf());
@@ -84,6 +116,14 @@ public class ClienteController {
 
     }
 
+    /**
+     * Metodo chamado na tela de consumo para adicionar consumo para um
+     * determinado cliente.
+     *
+     * @param id identificador do cliente
+     * @param consumo valor correspondente ao consumo
+     * @return
+     */
     public static boolean adicionarConsumo(Long id, Double consumo) {
         controller = new ClienteJpaController(ConnectionFactory.getEmf());
         cliente = controller.findCliente(id);
@@ -101,6 +141,13 @@ public class ClienteController {
 
     }
 
+    /**
+     * Metodo para efectuar o checkout dos clientes
+     *
+     * @param id identificador do cliente
+     * @param valor dos gastos pela estadia e pelo consumo
+     * @return
+     */
     public static boolean checkOut(Long id, Double valor) {
 
         controller = new ClienteJpaController(ConnectionFactory.getEmf());
@@ -128,8 +175,8 @@ public class ClienteController {
         checkOut.setValor(cliente.getValor());
         checkOut.setCheckOut(LocalDate.now());
 
-        ////Gerar o comprovativo no momento do checkout
-        gerarComprovovativo(cliente, valor);
+        //Gerar o comprovativo no momento do checkout
+        gerarComprovativo(cliente, valor);
 
         try {
             controllerQuarto.edit(quarto);
@@ -143,7 +190,15 @@ public class ClienteController {
 
     }
 
-    public static void gerarComprovovativo(Cliente cliente, Double valor) {
+    /**
+     * Este metodo e chamado na tela de checkout, para gerar o comprovativo de
+     * checkout em forma de PDF
+     *
+     * @param cliente objecto que contem os dados do cliente no momento do
+     * checkout
+     * @param valor a ser pago pelos dias de estadia e pelos consumos
+     */
+    public static void gerarComprovativo(Cliente cliente, Double valor) {
 
         String email = "rufragosystem@gmail.com";
         String arquivo = "Comprovativo.pdf";
@@ -211,7 +266,7 @@ public class ClienteController {
 
         } catch (Exception e) {
 
-            System.out.println("Erro ao tenetar gerar comprovativo em pdf" + e);
+            System.out.println("Erro ao tentar gerar comprovativo em pdf" + e);
         }
     }
 
