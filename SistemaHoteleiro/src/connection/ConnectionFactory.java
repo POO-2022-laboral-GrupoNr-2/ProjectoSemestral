@@ -3,6 +3,10 @@ package connection;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+/**
+ *
+ * @author Augusto Chissano
+ */
 public class ConnectionFactory {
     //O metodo getEmf() retorna o EntityManagerFactory
     /**

@@ -9,6 +9,10 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import model.Reserva;
 
+/**
+ *
+ * @author Augusto Chissano
+ */
 public class TelaActualizarDadosReserva extends javax.swing.JFrame {
 
     private ReservaJpaController controllerReserva;

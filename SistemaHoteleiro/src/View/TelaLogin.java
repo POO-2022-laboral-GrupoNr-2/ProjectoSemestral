@@ -9,6 +9,10 @@ import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
 import model.Funcionario;
 
+/**
+ *
+ * @author Augusto Chissano
+ */
 public class TelaLogin extends javax.swing.JFrame {
 
     private TelaPrincipal telaPrincipal;

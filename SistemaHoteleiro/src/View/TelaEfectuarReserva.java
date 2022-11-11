@@ -12,12 +12,18 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Quarto;
 
+/**
+ *
+ * @author Augusto Chissano
+ */
 public class TelaEfectuarReserva extends javax.swing.JFrame {
 
     private QuartoJpaController controller;
     private List<Quarto> quartos;
     private Quarto quarto;
-
+ /**
+  * Limpar campos
+  */
     private void limparCampos() {
         txtNome.setText("");
         txtCelular.setText("");

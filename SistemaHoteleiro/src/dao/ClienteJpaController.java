@@ -21,15 +21,27 @@ import model.Cliente;
  */
 public class ClienteJpaController implements Serializable {
 
+    /**
+     *
+     * @param emf
+     */
     public ClienteJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
+    /**
+     *
+     * @return
+     */
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
+    /**
+     *
+     * @param cliente
+     */
     public void create(Cliente cliente) {
         EntityManager em = null;
         try {
@@ -44,6 +56,12 @@ public class ClienteJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param cliente
+     * @throws NonexistentEntityException
+     * @throws Exception
+     */
     public void edit(Cliente cliente) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
@@ -67,6 +85,11 @@ public class ClienteJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @throws NonexistentEntityException
+     */
     public void destroy(long id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
@@ -88,10 +111,20 @@ public class ClienteJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Cliente> findClienteEntities() {
         return findClienteEntities(true, -1, -1);
     }
 
+    /**
+     *
+     * @param maxResults
+     * @param firstResult
+     * @return
+     */
     public List<Cliente> findClienteEntities(int maxResults, int firstResult) {
         return findClienteEntities(false, maxResults, firstResult);
     }
@@ -112,6 +145,11 @@ public class ClienteJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Cliente findCliente(long id) {
         EntityManager em = getEntityManager();
         try {
@@ -121,6 +159,10 @@ public class ClienteJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public int getClienteCount() {
         EntityManager em = getEntityManager();
         try {
@@ -134,6 +176,11 @@ public class ClienteJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param nome
+     * @return
+     */
     public List<Cliente> getClienteByLikeNome(String nome) {
         EntityManager em = getEntityManager();
         List<Cliente> lista = null;

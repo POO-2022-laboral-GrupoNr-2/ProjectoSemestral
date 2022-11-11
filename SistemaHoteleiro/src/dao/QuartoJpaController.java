@@ -21,15 +21,27 @@ import model.Quarto;
  */
 public class QuartoJpaController implements Serializable {
 
+    /**
+     *
+     * @param emf
+     */
     public QuartoJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
+    /**
+     *
+     * @return
+     */
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
+    /**
+     *
+     * @param quarto
+     */
     public void create(Quarto quarto) {
         EntityManager em = null;
         try {
@@ -44,6 +56,12 @@ public class QuartoJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param quarto
+     * @throws NonexistentEntityException
+     * @throws Exception
+     */
     public void edit(Quarto quarto) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
@@ -67,6 +85,11 @@ public class QuartoJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @throws NonexistentEntityException
+     */
     public void destroy(Long id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
@@ -88,10 +111,20 @@ public class QuartoJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Quarto> findQuartoEntities() {
         return findQuartoEntities(true, -1, -1);
     }
 
+    /**
+     *
+     * @param maxResults
+     * @param firstResult
+     * @return
+     */
     public List<Quarto> findQuartoEntities(int maxResults, int firstResult) {
         return findQuartoEntities(false, maxResults, firstResult);
     }
@@ -112,6 +145,11 @@ public class QuartoJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Quarto findQuarto(Long id) {
         EntityManager em = getEntityManager();
         try {
@@ -121,6 +159,10 @@ public class QuartoJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public int getQuartoCount() {
         EntityManager em = getEntityManager();
         try {
@@ -134,6 +176,11 @@ public class QuartoJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param descricao
+     * @return
+     */
     public List<Quarto> getQuartoByLikeDescricao(String descricao) {
         EntityManager em = getEntityManager();
         List<Quarto> lista = null;

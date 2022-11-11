@@ -14,6 +14,10 @@ import javax.swing.table.DefaultTableModel;
 import model.Quarto;
 import validacoes.Validacao;
 
+/**
+ *
+ * @author Augusto Chissano
+ */
 public class TelaCadastroHospedes extends javax.swing.JFrame {
 
     private QuartoJpaController controllerQuarto;
@@ -58,7 +62,9 @@ public class TelaCadastroHospedes extends javax.swing.JFrame {
         }
         return -1l;
     }
-
+    /**
+     * Limpar os campos
+     */
     private void limparCampos() {
         txtNome.setText("");
         txtCelular.setText("");

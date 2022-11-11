@@ -18,6 +18,10 @@ import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.statistics.HistogramDataset;
 
+/**
+ *
+ * @author Augusto Chissano
+ */
 public class TelaRelatorio11 extends javax.swing.JFrame {
 
     int jan = 0;

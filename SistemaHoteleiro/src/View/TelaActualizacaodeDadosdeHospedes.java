@@ -16,6 +16,10 @@ import javax.swing.table.DefaultTableModel;
 import model.Cliente;
 import model.Quarto;
 
+/**
+ *
+ * @author Augusto Chissano
+ */
 public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
 
     private QuartoJpaController controllerQuarto;

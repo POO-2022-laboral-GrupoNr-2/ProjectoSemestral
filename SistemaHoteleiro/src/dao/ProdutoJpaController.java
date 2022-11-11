@@ -21,15 +21,27 @@ import model.Produto;
  */
 public class ProdutoJpaController implements Serializable {
 
+    /**
+     *
+     * @param emf
+     */
     public ProdutoJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
+    /**
+     *
+     * @return
+     */
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
+    /**
+     *
+     * @param produto
+     */
     public void create(Produto produto) {
         EntityManager em = null;
         try {
@@ -44,6 +56,12 @@ public class ProdutoJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param produto
+     * @throws NonexistentEntityException
+     * @throws Exception
+     */
     public void edit(Produto produto) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
@@ -67,6 +85,11 @@ public class ProdutoJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @throws NonexistentEntityException
+     */
     public void destroy(Long id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
@@ -88,10 +111,20 @@ public class ProdutoJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Produto> findProdutoEntities() {
         return findProdutoEntities(true, -1, -1);
     }
 
+    /**
+     *
+     * @param maxResults
+     * @param firstResult
+     * @return
+     */
     public List<Produto> findProdutoEntities(int maxResults, int firstResult) {
         return findProdutoEntities(false, maxResults, firstResult);
     }
@@ -112,6 +145,11 @@ public class ProdutoJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Produto findProduto(Long id) {
         EntityManager em = getEntityManager();
         try {
@@ -121,6 +159,10 @@ public class ProdutoJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public int getProdutoCount() {
         EntityManager em = getEntityManager();
         try {
@@ -134,6 +176,11 @@ public class ProdutoJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param descricao
+     * @return
+     */
     public List<Produto> getProdutoByLikeDescricao(String descricao) {
         EntityManager em = getEntityManager();
         List<Produto> lista = null;

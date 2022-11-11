@@ -21,15 +21,27 @@ import model.Reserva;
  */
 public class ReservaJpaController implements Serializable {
 
+    /**
+     *
+     * @param emf
+     */
     public ReservaJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
+    /**
+     *
+     * @return
+     */
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
+    /**
+     *
+     * @param reserva
+     */
     public void create(Reserva reserva) {
         EntityManager em = null;
         try {
@@ -44,6 +56,12 @@ public class ReservaJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param reserva
+     * @throws NonexistentEntityException
+     * @throws Exception
+     */
     public void edit(Reserva reserva) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
@@ -67,6 +85,11 @@ public class ReservaJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @throws NonexistentEntityException
+     */
     public void destroy(long id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
@@ -88,10 +111,20 @@ public class ReservaJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Reserva> findReservaEntities() {
         return findReservaEntities(true, -1, -1);
     }
 
+    /**
+     *
+     * @param maxResults
+     * @param firstResult
+     * @return
+     */
     public List<Reserva> findReservaEntities(int maxResults, int firstResult) {
         return findReservaEntities(false, maxResults, firstResult);
     }
@@ -112,6 +145,11 @@ public class ReservaJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Reserva findReserva(long id) {
         EntityManager em = getEntityManager();
         try {
@@ -121,6 +159,10 @@ public class ReservaJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public int getReservaCount() {
         EntityManager em = getEntityManager();
         try {
@@ -134,6 +176,11 @@ public class ReservaJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param nome
+     * @return
+     */
     public List<Reserva> getReservaByLikeNome(String nome) {
         EntityManager em = getEntityManager();
         List<Reserva> lista = null;

@@ -9,6 +9,10 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import model.Funcionario;
 
+/**
+ *
+ * @author Augusto Chissano
+ */
 public class TelaDeActualizacaoDeDadosDeFuncionarios extends javax.swing.JFrame {
 
     private FuncionarioJpaController controller;
@@ -35,7 +39,9 @@ public class TelaDeActualizacaoDeDadosDeFuncionarios extends javax.swing.JFrame 
         txtNuit.setText(String.valueOf(funcionario.getNuit()));
 
     }
-
+    /**
+     * Limpar os campos
+     */
     private void limparCampos() {
         txtID.setText("");
         txtNome.setText("");

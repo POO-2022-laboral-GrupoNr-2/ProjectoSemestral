@@ -8,6 +8,10 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Quarto;
 
+/**
+ *
+ * @author Augusto Chissano
+ */
 public class TelaCadastrodeAcomodacao extends javax.swing.JFrame {
 
     private QuartoJpaController controllerQuarto;
@@ -70,6 +74,9 @@ public class TelaCadastrodeAcomodacao extends javax.swing.JFrame {
         }
     }
 
+    /**
+     *Limpar os campos
+     */
     public void limparCampos() {
         txtDescricao.setText("");
         txtPreco.setText("");

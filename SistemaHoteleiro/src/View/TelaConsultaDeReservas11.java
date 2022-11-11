@@ -8,6 +8,10 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Reserva;
 
+/**
+ *
+ * @author Augusto Chissano
+ */
 public class TelaConsultaDeReservas11 extends javax.swing.JFrame {
 
     private TelaActualizarDadosReserva telaActualizarReserva = new TelaActualizarDadosReserva();

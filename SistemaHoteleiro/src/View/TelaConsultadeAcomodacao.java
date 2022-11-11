@@ -6,6 +6,10 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import model.Quarto;
 
+/**
+ *
+ * @author Augusto Chissano
+ */
 public class TelaConsultadeAcomodacao extends javax.swing.JFrame {
 
     private QuartoJpaController controller;

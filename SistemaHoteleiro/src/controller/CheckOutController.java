@@ -5,6 +5,10 @@ import dao.CheckOutJpaController;
 import java.time.LocalDate;
 import model.CheckOut;
 
+/**
+ *
+ * @author Augusto Chissano
+ */
 public class CheckOutController {
 
     private static CheckOutJpaController controller;

@@ -6,6 +6,10 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import model.Produto;
 
+/**
+ *
+ * @author Augusto Chissano
+ */
 public class TelaConsultaProdutos extends javax.swing.JFrame {
 
     private ProdutoJpaController controller;

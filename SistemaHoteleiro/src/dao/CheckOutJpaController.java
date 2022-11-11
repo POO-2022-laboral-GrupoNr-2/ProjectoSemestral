@@ -21,15 +21,27 @@ import model.CheckOut;
  */
 public class CheckOutJpaController implements Serializable {
 
+    /**
+     *
+     * @param emf
+     */
     public CheckOutJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
+    /**
+     *
+     * @return
+     */
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
+    /**
+     *
+     * @param checkOut
+     */
     public void create(CheckOut checkOut) {
         EntityManager em = null;
         try {
@@ -44,6 +56,12 @@ public class CheckOutJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param checkOut
+     * @throws NonexistentEntityException
+     * @throws Exception
+     */
     public void edit(CheckOut checkOut) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
@@ -67,6 +85,11 @@ public class CheckOutJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @throws NonexistentEntityException
+     */
     public void destroy(long id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
@@ -88,10 +111,20 @@ public class CheckOutJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public List<CheckOut> findCheckOutEntities() {
         return findCheckOutEntities(true, -1, -1);
     }
 
+    /**
+     *
+     * @param maxResults
+     * @param firstResult
+     * @return
+     */
     public List<CheckOut> findCheckOutEntities(int maxResults, int firstResult) {
         return findCheckOutEntities(false, maxResults, firstResult);
     }
@@ -112,6 +145,11 @@ public class CheckOutJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public CheckOut findCheckOut(long id) {
         EntityManager em = getEntityManager();
         try {
@@ -121,6 +159,10 @@ public class CheckOutJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public int getCheckOutCount() {
         EntityManager em = getEntityManager();
         try {

@@ -21,15 +21,27 @@ import model.Funcionario;
  */
 public class FuncionarioJpaController implements Serializable {
 
+    /**
+     *
+     * @param emf
+     */
     public FuncionarioJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
+    /**
+     *
+     * @return
+     */
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
+    /**
+     *
+     * @param funcionario
+     */
     public void create(Funcionario funcionario) {
         EntityManager em = null;
         try {
@@ -44,6 +56,12 @@ public class FuncionarioJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param funcionario
+     * @throws NonexistentEntityException
+     * @throws Exception
+     */
     public void edit(Funcionario funcionario) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
@@ -67,6 +85,11 @@ public class FuncionarioJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @throws NonexistentEntityException
+     */
     public void destroy(Long id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
@@ -88,10 +111,20 @@ public class FuncionarioJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Funcionario> findFuncionarioEntities() {
         return findFuncionarioEntities(true, -1, -1);
     }
 
+    /**
+     *
+     * @param maxResults
+     * @param firstResult
+     * @return
+     */
     public List<Funcionario> findFuncionarioEntities(int maxResults, int firstResult) {
         return findFuncionarioEntities(false, maxResults, firstResult);
     }
@@ -112,6 +145,11 @@ public class FuncionarioJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Funcionario findFuncionario(Long id) {
         EntityManager em = getEntityManager();
         try {
@@ -121,6 +159,10 @@ public class FuncionarioJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public int getFuncionarioCount() {
         EntityManager em = getEntityManager();
         try {
@@ -134,6 +176,11 @@ public class FuncionarioJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param nome
+     * @return
+     */
     public List<Funcionario> getFuncionarioByLikeNome(String nome) {
         EntityManager em = getEntityManager();
         List<Funcionario> lista = null;

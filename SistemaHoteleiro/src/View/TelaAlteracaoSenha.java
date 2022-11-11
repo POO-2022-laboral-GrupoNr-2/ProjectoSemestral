@@ -3,8 +3,15 @@ package View;
 import controller.FuncionarioController;
 import javax.swing.JOptionPane;
 
+/**
+ *
+ * @author Augusto Chissano
+ */
 public class TelaAlteracaoSenha extends javax.swing.JFrame {
 
+    /**
+     * Limpar os campos
+     */
     public void limparCampos() {
         txtCodigoID.setText("");
         txtConfirmarSenha.setText("");

@@ -8,9 +8,20 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Funcionario;
 
+/**
+ *
+ * @author Augusto Chissano
+ */
 public class TelaConsultaDeFuncionarios extends javax.swing.JFrame {
 
+    /**
+     *
+     */
     public TelaDeActualizacaoDeDadosDeFuncionarios coringa = new TelaDeActualizacaoDeDadosDeFuncionarios();
+
+    /**
+     *
+     */
     public Funcionario funcionario;
     private FuncionarioJpaController controllerFuncionario;
     private List<Funcionario> funcionarios;

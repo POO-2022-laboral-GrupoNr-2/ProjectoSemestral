@@ -9,6 +9,10 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Produto;
 
+/**
+ *
+ * @author Augusto Chissano
+ */
 public class TelaConsumo extends javax.swing.JFrame {
 
     private ProdutoJpaController controller;
@@ -34,7 +38,9 @@ public class TelaConsumo extends javax.swing.JFrame {
             tabela.addRow(obj);
         }
     }
-
+    /**
+     * Limpar os campos
+     */
     private void limparCampos() {
         txtIDProduto.setText("");
         txtIdCliente.setText("");

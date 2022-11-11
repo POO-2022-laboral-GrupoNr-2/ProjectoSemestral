@@ -1,5 +1,9 @@
 package View;
 
+/**
+ *
+ * @author Augusto Chissano
+ */
 public class TelaDeActualizaçãoDeDadosDeFuncionarios extends javax.swing.JFrame {
 
     /**

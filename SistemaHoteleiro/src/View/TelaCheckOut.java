@@ -12,6 +12,10 @@ import javax.swing.table.DefaultTableModel;
 import model.Cliente;
 import model.Quarto;
 
+/**
+ *
+ * @author Augusto Chissano
+ */
 public class TelaCheckOut extends javax.swing.JFrame {
 
     private ClienteJpaController controllerCliente;
@@ -45,7 +49,9 @@ public class TelaCheckOut extends javax.swing.JFrame {
             tabela.addRow(obj);
         }
     }
-
+    /**
+     * Limpar os campos
+     */
     private void limparCampos() {
         txtCheckIn.setText("");
         txtCheckOut.setText("");

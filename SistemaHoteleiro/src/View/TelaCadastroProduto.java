@@ -11,6 +11,10 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Produto;
 
+/**
+ *
+ * @author Augusto Chissano
+ */
 public class TelaCadastroProduto extends javax.swing.JFrame {
 
     private Produto produto;
@@ -49,6 +53,9 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
 
     }
 
+    /**
+     *Limpar os campos
+     */
     private void limparCampos() {
         txtNomeDescricao.setText("");
         txtQuantidade.setText("");

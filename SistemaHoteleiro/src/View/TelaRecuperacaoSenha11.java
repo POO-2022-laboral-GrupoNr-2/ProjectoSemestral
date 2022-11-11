@@ -3,8 +3,14 @@ package View;
 import controller.FuncionarioController;
 import javax.swing.JOptionPane;
 
+/**
+ *
+ * @author Augusto Chissano
+ */
 public class TelaRecuperacaoSenha11 extends javax.swing.JFrame {
-
+    /**
+     * Limpar os campos
+     */
     private void limparCampos() {
         txtCodigoID.setText("");
         txtConfirmarSenha.setText("");

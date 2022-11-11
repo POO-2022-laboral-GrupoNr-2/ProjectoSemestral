@@ -14,6 +14,10 @@ import javax.swing.border.LineBorder;
 import org.apache.commons.lang3.StringUtils;
 import validacoes.Validacao;
 
+/**
+ *
+ * @author Augusto Chissano
+ */
 public class TelaDeCadastroFuncionario extends javax.swing.JFrame {
 
     /**

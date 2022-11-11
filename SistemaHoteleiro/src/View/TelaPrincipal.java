@@ -2,6 +2,10 @@ package View;
 
 import javax.swing.JOptionPane;
 
+/**
+ *
+ * @author Augusto Chissano
+ */
 public class TelaPrincipal extends javax.swing.JFrame {
 
     /**

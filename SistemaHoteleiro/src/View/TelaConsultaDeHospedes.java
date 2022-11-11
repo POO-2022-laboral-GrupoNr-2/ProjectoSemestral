@@ -7,6 +7,10 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Cliente;
 
+/**
+ *
+ * @author Augusto Chissano
+ */
 public class TelaConsultaDeHospedes extends javax.swing.JFrame {
 
     private TelaActualizacaodeDadosdeHospedes telaActualizarHospede;
