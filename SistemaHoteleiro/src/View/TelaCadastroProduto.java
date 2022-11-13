@@ -3,13 +3,17 @@ package View;
 import connection.ConnectionFactory;
 import controller.ProdutoController;
 import dao.ProdutoJpaController;
+import java.awt.Color;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import model.Produto;
+import org.apache.commons.lang3.StringUtils;
+import validacoes.Validacao;
 
 /**
  *
@@ -54,7 +58,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     }
 
     /**
-     *Limpar os campos
+     * Limpar os campos
      */
     private void limparCampos() {
         txtNomeDescricao.setText("");
@@ -165,11 +169,47 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         lblPrecoVenda.setForeground(new java.awt.Color(255, 255, 255));
         lblPrecoVenda.setText("Preço de Venda:");
 
+        txtNomeDescricao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNomeDescricaoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNomeDescricaoFocusLost(evt);
+            }
+        });
+
+        txtQuantidade.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtQuantidadeFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtQuantidadeFocusLost(evt);
+            }
+        });
+
+        txtPrecoVenda.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtPrecoVendaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtPrecoVendaFocusLost(evt);
+            }
+        });
+
         lblValidade.setForeground(new java.awt.Color(255, 255, 255));
         lblValidade.setText("Validade:");
 
         lblPrecoAquisicao.setForeground(new java.awt.Color(255, 255, 255));
         lblPrecoAquisicao.setText("Preço de Aquisição:");
+
+        txtPrecoAquisicao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtPrecoAquisicaoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtPrecoAquisicaoFocusLost(evt);
+            }
+        });
 
         btnCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/add.png"))); // NOI18N
         btnCadastrar.setText("Cadastrar");
@@ -362,6 +402,55 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         // TODO add your handling code here:
 
     }//GEN-LAST:event_btnCadastrarMouseEntered
+
+    private void txtNomeDescricaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeDescricaoFocusLost
+        // TODO add your handling code here:
+        if (!Validacao.validarTexto(txtNomeDescricao.getText())) {
+            txtNomeDescricao.setBorder(new LineBorder(Color.red));
+        }
+    }//GEN-LAST:event_txtNomeDescricaoFocusLost
+
+    private void txtNomeDescricaoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeDescricaoFocusGained
+        // TODO add your handling code here:
+        txtNomeDescricao.setBorder(new LineBorder(Color.white));
+    }//GEN-LAST:event_txtNomeDescricaoFocusGained
+
+    private void txtPrecoVendaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPrecoVendaFocusLost
+        // TODO add your handling code here:
+        if (!StringUtils.isNumeric(txtPrecoVenda.getText())) {
+            txtPrecoVenda.setBorder(new LineBorder(Color.red));
+        }
+    }//GEN-LAST:event_txtPrecoVendaFocusLost
+
+    private void txtPrecoVendaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPrecoVendaFocusGained
+        // TODO add your handling code here:
+        txtPrecoVenda.setBorder(new LineBorder(Color.white));
+    }//GEN-LAST:event_txtPrecoVendaFocusGained
+
+    private void txtPrecoAquisicaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPrecoAquisicaoFocusLost
+        // TODO add your handling code here:
+        if (!StringUtils.isNumeric(txtPrecoAquisicao.getText())) {
+            txtPrecoAquisicao.setBorder(new LineBorder(Color.red));
+        }
+    }//GEN-LAST:event_txtPrecoAquisicaoFocusLost
+
+    private void txtPrecoAquisicaoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPrecoAquisicaoFocusGained
+        // TODO add your handling code here:
+        txtPrecoAquisicao.setBorder(new LineBorder(Color.white));
+    }//GEN-LAST:event_txtPrecoAquisicaoFocusGained
+
+    private void txtQuantidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtQuantidadeFocusLost
+        // TODO add your handling code here:
+        if (!StringUtils.isNumeric(txtQuantidade.getText())) {
+            txtQuantidade.setBorder(new LineBorder(Color.red));
+        }
+    }//GEN-LAST:event_txtQuantidadeFocusLost
+
+    private void txtQuantidadeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtQuantidadeFocusGained
+        // TODO add your handling code here:
+
+        txtQuantidade.setBorder(new LineBorder(Color.white));
+    }//GEN-LAST:event_txtQuantidadeFocusGained
 
     /**
      * @param args the command line arguments

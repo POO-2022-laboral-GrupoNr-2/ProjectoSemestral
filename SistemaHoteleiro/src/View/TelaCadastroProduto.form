@@ -240,10 +240,22 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNomeDescricao">
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNomeDescricaoFocusGained"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNomeDescricaoFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtQuantidade">
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtQuantidadeFocusGained"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtQuantidadeFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtPrecoVenda">
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtPrecoVendaFocusGained"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtPrecoVendaFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblValidade">
           <Properties>
@@ -264,6 +276,10 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtPrecoAquisicao">
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtPrecoAquisicaoFocusGained"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtPrecoAquisicaoFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnCadastrar">
           <Properties>

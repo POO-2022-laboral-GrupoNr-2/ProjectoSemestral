@@ -226,6 +226,9 @@
                   <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblQuartosMousePressed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -240,6 +243,8 @@
             </Property>
           </Properties>
           <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jcbSexoFocusGained"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jcbSexoFocusLost"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbSexoActionPerformed"/>
           </Events>
           <AuxValues>
@@ -279,6 +284,10 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtEndereco">
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtEnderecoFocusGained"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtEnderecoFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNome">
           <Events>
@@ -288,6 +297,10 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNacionalidade">
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNacionalidadeFocusGained"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNacionalidadeFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblEmail">
           <Properties>
@@ -306,6 +319,10 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtEmail">
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtEmailFocusGained"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtEmailFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblDataCheckIn">
           <Properties>
@@ -326,6 +343,10 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtCelular">
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtCelularFocusGained"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtCelularFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblNumeroQuarto">
           <Properties>
@@ -336,6 +357,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNumerodeQuarto">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnCheckin">
           <Properties>
@@ -375,6 +399,10 @@
         <Component class="com.toedter.calendar.JDateChooser" name="jdcDatadeNascimento">
         </Component>
         <Component class="javax.swing.JTextField" name="txtNrBi">
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNrBiFocusGained"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNrBiFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>

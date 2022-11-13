@@ -15,6 +15,8 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import model.Cliente;
 import model.Quarto;
+import org.apache.commons.lang3.StringUtils;
+import validacoes.Validacao;
 
 /**
  *
@@ -70,6 +72,22 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
             };
             tabela.addRow(obj);
         }
+    }
+
+    /**
+     * Este metodo retorna o numero do quarto caso uma linha seja selecionada na
+     * tabela, e preenche o campo correspondente ao numero do quarto na tela.
+     *
+     * @return id, numero do quarto na tabela.
+     */
+    private Long pegarId() {
+        if (tblQuartos.getSelectedRow() != -1) {
+            int linha = tblQuartos.getSelectedRow();
+            Long id = Long.parseLong(tblQuartos.getValueAt(linha, 0).toString());
+            txtNumerodeQuarto.setText(String.valueOf(id));
+            return id;
+        }
+        return -1l;
     }
 
     /**
@@ -144,10 +162,23 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
         });
         tblQuartos.setColumnSelectionAllowed(true);
         tblQuartos.getTableHeader().setReorderingAllowed(false);
+        tblQuartos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblQuartosMousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblQuartos);
         tblQuartos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         jcbSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione:", "Masculino", "Feminino" }));
+        jcbSexo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jcbSexoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbSexoFocusLost(evt);
+            }
+        });
         jcbSexo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbSexoActionPerformed(evt);
@@ -166,6 +197,15 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
         lblNacionalidade.setForeground(new java.awt.Color(255, 255, 255));
         lblNacionalidade.setText("Nacionalidade:");
 
+        txtEndereco.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtEnderecoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtEnderecoFocusLost(evt);
+            }
+        });
+
         txtNome.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtNomeFocusGained(evt);
@@ -180,11 +220,29 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
             }
         });
 
+        txtNacionalidade.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNacionalidadeFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNacionalidadeFocusLost(evt);
+            }
+        });
+
         lblEmail.setForeground(new java.awt.Color(255, 255, 255));
         lblEmail.setText("Email:");
 
         lblTelemovel.setForeground(new java.awt.Color(255, 255, 255));
         lblTelemovel.setText("Telemóvel:");
+
+        txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtEmailFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtEmailFocusLost(evt);
+            }
+        });
 
         lblDataCheckIn.setForeground(new java.awt.Color(255, 255, 255));
         lblDataCheckIn.setText("Data de Check-in:");
@@ -192,8 +250,19 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
         lblDatadeNascimento.setForeground(new java.awt.Color(255, 255, 255));
         lblDatadeNascimento.setText("Numero de BI:");
 
+        txtCelular.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCelularFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCelularFocusLost(evt);
+            }
+        });
+
         lblNumeroQuarto.setForeground(new java.awt.Color(255, 255, 255));
         lblNumeroQuarto.setText("Número do Quarto:");
+
+        txtNumerodeQuarto.setEditable(false);
 
         btnCheckin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Icons/door_in.png"))); // NOI18N
         btnCheckin.setText("Actualizar");
@@ -224,6 +293,15 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
         lblTituloNoTopo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         lblTituloNoTopo.setForeground(new java.awt.Color(255, 255, 255));
         lblTituloNoTopo.setText("ACTUALIZAÇÃO DE DADOS DE HÓSPEDES");
+
+        txtNrBi.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNrBiFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNrBiFocusLost(evt);
+            }
+        });
 
         jLabel1.setText("ID:");
 
@@ -394,7 +472,7 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
 
     private void txtNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusLost
         // TODO add your handling code here:
-        if (txtNome.getText().isEmpty()) {
+        if (!Validacao.validarTexto(txtNome.getText())) {
             txtNome.setBorder(new LineBorder(Color.red));
         }
     }//GEN-LAST:event_txtNomeFocusLost
@@ -407,6 +485,84 @@ public class TelaActualizacaodeDadosdeHospedes extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_txtNomeKeyPressed
+
+    private void txtCelularFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCelularFocusLost
+        // TODO add your handling code here:
+
+        if (!Validacao.validarContacto(txtCelular.getText())) {
+            txtCelular.setBorder(new LineBorder(Color.red));
+        }
+    }//GEN-LAST:event_txtCelularFocusLost
+
+    private void txtCelularFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCelularFocusGained
+        // TODO add your handling code here:
+        txtCelular.setBorder(new LineBorder(Color.white));
+    }//GEN-LAST:event_txtCelularFocusGained
+
+    private void txtEnderecoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEnderecoFocusLost
+        // TODO add your handling code here:
+        if (!Validacao.validarTexto(txtEndereco.getText())) {
+            txtEndereco.setBorder(new LineBorder(Color.red));
+        }
+    }//GEN-LAST:event_txtEnderecoFocusLost
+
+    private void txtEnderecoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEnderecoFocusGained
+        // TODO add your handling code here:
+        txtEndereco.setBorder(new LineBorder(Color.white));
+    }//GEN-LAST:event_txtEnderecoFocusGained
+
+    private void jcbSexoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbSexoFocusLost
+        // TODO add your handling code here:
+        if (jcbSexo.getSelectedItem().toString().equalsIgnoreCase("Seleccione:")) {
+            jcbSexo.setBorder(new LineBorder(Color.red));
+        }
+    }//GEN-LAST:event_jcbSexoFocusLost
+
+    private void jcbSexoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbSexoFocusGained
+        // TODO add your handling code here:
+        jcbSexo.setBorder(new LineBorder(Color.white));
+    }//GEN-LAST:event_jcbSexoFocusGained
+
+    private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
+        // TODO add your handling code here:
+        if (!Validacao.validarEmail(txtEmail.getText())) {
+            txtEmail.setBorder(new LineBorder(Color.red));
+        }
+    }//GEN-LAST:event_txtEmailFocusLost
+
+    private void txtEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusGained
+        // TODO add your handling code here:
+        txtEmail.setBorder(new LineBorder(Color.white));
+    }//GEN-LAST:event_txtEmailFocusGained
+
+    private void tblQuartosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblQuartosMousePressed
+        // TODO add your handling code here:
+        pegarId();
+    }//GEN-LAST:event_tblQuartosMousePressed
+
+    private void txtNacionalidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNacionalidadeFocusLost
+        // TODO add your handling code here:
+        if (!Validacao.validarTexto(txtNacionalidade.getText())) {
+            txtNacionalidade.setBorder(new LineBorder(Color.red));
+        }
+    }//GEN-LAST:event_txtNacionalidadeFocusLost
+
+    private void txtNacionalidadeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNacionalidadeFocusGained
+        // TODO add your handling code here:
+        txtNacionalidade.setBorder(new LineBorder(Color.white));
+    }//GEN-LAST:event_txtNacionalidadeFocusGained
+
+    private void txtNrBiFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNrBiFocusLost
+        // TODO add your handling code here:
+        if(!Validacao.validarBi(txtNrBi.getText())){
+            txtNrBi.setBorder(new LineBorder(Color.red));
+        }
+    }//GEN-LAST:event_txtNrBiFocusLost
+
+    private void txtNrBiFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNrBiFocusGained
+        // TODO add your handling code here:
+        txtNrBi.setBorder(new LineBorder(Color.white));
+    }//GEN-LAST:event_txtNrBiFocusGained
 
     /**
      * @param args the command line arguments
